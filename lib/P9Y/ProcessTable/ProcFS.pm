@@ -1,4 +1,4 @@
-package P9Y::ProcessTable;
+package P9Y::ProcessTable::ProcFS;
 
 # VERSION
 # ABSTRACT: Portably access the process table
@@ -61,15 +61,19 @@ sub process {
    foreach my $fn (qw{cmdline}) {
       my $file = $pdir->file($fn);
       $hash->{$fn} = read_file $file if (-f $file);
+      $hash->{$fn} =~ s/\0/ /g;
       $hash->{$fn} =~ s/^\s+|\s+$//g;
    }
    
    # process environment
    my $env_file = $pdir->file('environ');
    if (-f $env_file) {
-      my $data = read_file $env_file;
-      $data =~ s/^\0+|\0+$//g;
-      $hash->{environ} = { map { split /\=/, $_, 2 } split /\0/, $data };
+      my $data;
+      eval { $data = read_file $env_file; };  # skip permission failures
+      unless ($@) {
+         $data =~ s/^\0+|\0+$//g;
+         $hash->{environ} = { map { split /\=/, $_, 2 } split /\0/, $data };
+      }
    }
    
    # process main PID stats
@@ -97,6 +101,7 @@ sub process {
       
       foreach my $i (0 .. @data - 1) {
          next if $stat_loc->[$i] eq '.';
+         last if ($i >= @$stat_loc);
          $hash->{ $stat_loc->[$i] } = $data[$i];
       }
       
@@ -138,6 +143,7 @@ sub process {
       
       foreach my $i (0 .. @data - 1) {
          next if $stat_loc->[$i] eq '.';
+         last if ($i >= @$stat_loc);
          $hash->{ $stat_loc->[$i] } = $data[$i];
       }
       
@@ -174,13 +180,14 @@ sub process {
       # 24 char pr_psargs[PRARGSZ]; /* initial characters of arg list */
       # 25 int pr_wstat;            /* if zombie, the wait() status */
 
-      state $stat_loc = [ qw(
+      state $psinfo_loc = [ qw(
          . threads . pid ppid pgrp sess uid euid gid egid . size rss ttydev pctcpu pctmem start time ctime fname cmdline .
       ) ];
 
       foreach my $i (0 .. @data - 1) {
-         next if $stat_loc->[$i] eq '.';
-         $hash->{ $stat_loc->[$i] } = $data[$i];
+         next if $psinfo_loc->[$i] eq '.';
+         last if ($i >= @$psinfo_loc);
+         $hash->{ $psinfo_loc->[$i] } = $data[$i];
       }
       
       $hash->{size} *= 1024;
