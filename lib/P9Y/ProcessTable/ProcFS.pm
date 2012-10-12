@@ -1,0 +1,262 @@
+package  # hide from PAUSE
+   P9Y::ProcessTable;
+
+our $VERSION = '0.90'; # VERSION
+# ABSTRACT: /proc FS process table
+
+#############################################################################
+# Modules
+
+use sanity;
+use Moo;
+use P9Y::ProcessTable::Process;
+
+use Path::Class;
+use File::Slurp 'read_file';
+use Config;
+
+use namespace::clean;
+no warnings 'uninitialized';
+
+#############################################################################
+# Methods
+
+sub list {
+   my $self = shift;
+   
+   my @list;
+   my $dir = dir('', 'proc');
+   while (my $pdir = $dir->next) {
+      next unless ($pdir->is_dir);
+      next unless (-e $pdir->file('status'));
+      next unless ($pdir->basename =~ /^\d+$/);
+      
+      push @list, $pdir->basename;
+   }
+   
+   return sort { $a <=> $b } @list;
+}
+
+sub _process_hash {
+   my ($self, $pid) = @_;
+   
+   my $pdir = dir('', 'proc', $pid);
+   my $hash = {
+      pid   => $pid,
+      uid   => $pdir->stat->uid,
+      gid   => $pdir->stat->gid,
+      start => $pdir->stat->mtime,
+   };
+   
+   # process links
+   foreach my $ln (qw{cwd exe root}) {
+      my $link = $pdir->file($ln);
+      $hash->{$ln} = readlink $link if (-l $link);
+   }
+   
+   # process simple cats
+   foreach my $fn (qw{cmdline}) {
+      my $file = $pdir->file($fn);
+      $hash->{$fn} = read_file $file if (-f $file);
+      $hash->{$fn} =~ s/\0/ /g;
+      $hash->{$fn} =~ s/^\s+|\s+$//g;
+   }
+   
+   # process environment
+   my $env_file = $pdir->file('environ');
+   if (-f $env_file) {
+      my $data;
+      eval { $data = read_file $env_file; };  # skip permission failures
+      unless ($@) {
+         $data =~ s/^\0+|\0+$//g;
+         $hash->{environ} = { map { split /\=/, $_, 2 } split /\0/, $data };
+      }
+   }
+   
+   # process main PID stats
+   if ( -f $pdir->file('status') and -f $pdir->file('statm') and -f $pdir->file('stat') ) {
+      ### Linux ###
+      # stat has more needed information than the friendier status, so we'll use that file instead
+
+      # stat
+      my $data = read_file $pdir->file('stat');
+      my @data = split /\s+/, $data;
+      
+      state $states = {
+         R => 'run',
+         S => 'sleep',
+         D => 'disk sleep',
+         Z => 'defunct',
+         T => 'stop',
+         W => 'paging',
+      };
+      
+      state $stat_loc = [ qw(
+         pid fname state ppid pgrp sess ttynum . flags minflt cminflt majflt cmajflt utime stime cutime cstime priority . threads . .
+         size . rss . . . . . . . . . wchan . . . cpuid . . . . .
+      ) ];
+      
+      foreach my $i (0 .. @data - 1) {
+         next if $stat_loc->[$i] eq '.';
+         last if ($i >= @$stat_loc);
+         $hash->{ $stat_loc->[$i] } = $data[$i];
+      }
+      
+      $hash->{fname} =~ s/^\((.+)\)$/$1/;
+      $hash->{state} = $states->{ $hash->{state} };
+      $hash->{ time} = $hash->{ utime} + $hash->{ stime};
+      $hash->{ctime} = $hash->{cutime} + $hash->{cstime};
+      
+      $hash->{ ttlflt} = $hash->{ minflt} + $hash->{ majflt};
+      $hash->{cttlflt} = $hash->{cminflt} + $hash->{cmajflt};
+   }
+   elsif ($^O eq /solaris|sunos/i) {
+      ### Solaris ###
+      my $ptr = $Config{longsize} >= 8 ? '%Q' : '%I';
+      
+      my $data = read_file $pdir->file('status');
+      my @data = unpack '%I[10]'.$ptr.'[4]%I[12]%C%I[4]', $data;
+
+      #  1 int pr_flags;            /* flags (see below) */
+      #  2 int pr_nlwp;             /* number of active lwps in the process */
+      #  3 int pr_nzomb;            /* number of zombie lwps in the process */
+      #  4 pid_tpr_pid;             /* process id */
+      #  5 pid_tpr_ppid;            /* parent process id */
+      #  6 pid_tpr_pgid;            /* process group id */
+      #  7 pid_tpr_sid;             /* session id */
+      #  8 id_t pr_aslwpid;         /* obsolete */
+      #  9 id_t pr_agentid;         /* lwp-id of the agent lwp, if any */     
+      # 10 sigset_t pr_sigpend;     /* set of process pending signals */
+      # 11 uintptr_t pr_brkbase;    /* virtual address of the process heap */
+      # 12 size_t pr_brksize;       /* size of the process heap, in bytes */
+      # 13 uintptr_t pr_stkbase;    /* virtual address of the process stack */
+      # 14 size_tpr_stksize;        /* size of the process stack, in bytes */
+      # 
+      # 15 timestruc_t pr_utime;    /* process user cpu time */
+      # 17 timestruc_t pr_stime;    /* process system cpu time */
+      # 19 timestruc_t pr_cutime;   /* sum of children's user times */
+      # 21 timestruc_t pr_cstime;   /* sum of children's system times */
+      
+      state $stat_loc = [ qw(
+         flags threads . pid ppid pgrp sess . . . . . . . utime . stime . cutime . cstime .
+      ) ];
+      
+      foreach my $i (0 .. @data - 1) {
+         next if $stat_loc->[$i] eq '.';
+         last if ($i >= @$stat_loc);
+         $hash->{ $stat_loc->[$i] } = $data[$i];
+      }
+      
+      $hash->{time}  = $hash->{utime}  + $hash->{stime};
+      $hash->{ctime} = $hash->{cutime} + $hash->{stime};
+
+      $data = read_file $pdir->file('psinfo');
+      @data = unpack '%I[11]'.$ptr.'[3]%I%S[2]%I[6]%16A%80A%I', $data;
+      
+      #define  PRFNSZ      16  /* Maximum size of execed filename */
+      #define  PRARGSZ     80  /* number of chars of arguments */
+    
+      #  1 int pr_flag;             /* process flags (DEPRECATED: see below) */
+      #  2 int pr_nlwp;             /* number of active lwps in the process */
+      #  3 int pr_nzomb;            /* number of zombie lwps in the process */
+      #  4 pid_t pr_pid;            /* process id */
+      #  5 pid_t pr_ppid;           /* process id of parent */
+      #  6 pid_t pr_pgid;           /* process id of process group leader */
+      #  7 pid_t pr_sid;            /* session id */
+      #  8 uid_t pr_uid;            /* real user id */
+      #  9 uid_t pr_euid;           /* effective user id */
+      # 10 gid_t pr_gid;            /* real group id */
+      # 11 gid_t pr_egid;           /* effective group id */
+      # 12 uintptr_t pr_addr;       /* address of process */
+      # 13 size_t pr_size;          /* size of process image in Kbytes */
+      # 14 size_t pr_rssize;        /* resident set size in Kbytes */
+      # 15 dev_t pr_ttydev;         /* controlling tty device (or PRNODEV) */
+      # 16 ushort_t pr_pctcpu;      /* % of recent cpu time used by all lwps */
+      # 17 ushort_t pr_pctmem;      /* % of system memory used by process */
+      # 18 timestruc_t pr_start;    /* process start time, from the epoch */
+      # 20 timestruc_t pr_time;     /* cpu time for this process */
+      # 22 timestruc_t pr_ctime;    /* cpu time for reaped children */
+      # 23 char pr_fname[PRFNSZ];   /* name of exec'ed file */
+      # 24 char pr_psargs[PRARGSZ]; /* initial characters of arg list */
+      # 25 int pr_wstat;            /* if zombie, the wait() status */
+
+      state $psinfo_loc = [ qw(
+         . threads . pid ppid pgrp sess uid euid gid egid . size rss ttydev pctcpu pctmem start time ctime fname cmdline .
+      ) ];
+
+      foreach my $i (0 .. @data - 1) {
+         next if $psinfo_loc->[$i] eq '.';
+         last if ($i >= @$psinfo_loc);
+         $hash->{ $psinfo_loc->[$i] } = $data[$i];
+      }
+      
+      $hash->{size} *= 1024;
+      $hash->{rss}  *= 1024;
+   }
+   
+   return $hash;
+}
+
+42;
+
+
+
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+P9Y::ProcessTable - /proc FS process table
+
+=head1 SYNOPSIS
+
+    # code
+
+=head1 DESCRIPTION
+
+### Ruler ##################################################################################################################################12345
+
+Insert description here...
+
+=head1 CAVEATS
+
+### Ruler ##################################################################################################################################12345
+
+Bad stuff...
+
+=head1 SEE ALSO
+
+### Ruler ##################################################################################################################################12345
+
+Other modules...
+
+=head1 ACKNOWLEDGEMENTS
+
+Plenty of ideas stolen from L<Linux::ProcessTable> and L<Solaris::Procfs>.
+
+=head1 AVAILABILITY
+
+The project homepage is L<https://github.com/SineSwiper/P9Y-ProcessTable/wiki>.
+
+The latest version of this module is available from the Comprehensive Perl
+Archive Network (CPAN). Visit L<http://www.perl.com/CPAN/> to find a CPAN
+site near you, or see L<https://metacpan.org/module/P9Y::ProcessTable/>.
+
+=head1 AUTHOR
+
+Brendan Byrd <BBYRD@CPAN.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2012 by Brendan Byrd.
+
+This is free software, licensed under:
+
+  The Artistic License 2.0 (GPL Compatible)
+
+=cut
+
+
+__END__
+
