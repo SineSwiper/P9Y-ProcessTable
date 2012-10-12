@@ -30,8 +30,7 @@
       "test" : {
          "requires" : {
             "Test::CheckDeps" : "0.002",
-            "Test::More" : "0.88",
-            "Test::UseAllModules" : "0"
+            "Test::More" : "0.88"
          }
       }
    },
@@ -135,11 +134,6 @@
             "version" : "4.300024"
          },
          {
-            "class" : "Dist::Zilla::Plugin::Test::Compile",
-            "name" : "@Filter/Test::Compile",
-            "version" : "1.112820"
-         },
-         {
             "class" : "Dist::Zilla::Plugin::PodSyntaxTests",
             "name" : "@Filter/PodSyntaxTests",
             "version" : "4.300024"
@@ -193,11 +187,6 @@
             "class" : "Dist::Zilla::Plugin::Test::DistManifest",
             "name" : "@Filter/Test::DistManifest",
             "version" : "2.000002"
-         },
-         {
-            "class" : "Dist::Zilla::Plugin::Test::UseAllModules",
-            "name" : "@Filter/Test::UseAllModules",
-            "version" : "0.002"
          },
          {
             "class" : "Dist::Zilla::Plugin::Test::Version",

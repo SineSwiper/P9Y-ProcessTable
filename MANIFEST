@@ -16,8 +16,6 @@ lib/P9Y/ProcessTable/Process.pm
 lib/P9Y/ProcessTable/VMS.pm
 lib/P9Y/ProcessTable/Win32.pm
 t/00-check-deps.t
-t/00-compile.t
-t/00-load.t
 t/000-report-versions-tiny.t
 t/test.t
 weaver.ini

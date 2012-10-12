@@ -10,8 +10,7 @@ my %WriteMakefileArgs = (
   'AUTHOR' => 'Brendan Byrd <BBYRD@CPAN.org>',
   'BUILD_REQUIRES' => {
     'Test::CheckDeps' => '0.002',
-    'Test::More' => '0.88',
-    'Test::UseAllModules' => '0'
+    'Test::More' => '0.88'
   },
   'CONFIGURE_REQUIRES' => {
     'ExtUtils::MakeMaker' => '6.30'

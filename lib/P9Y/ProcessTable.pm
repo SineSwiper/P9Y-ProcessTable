@@ -41,6 +41,8 @@ BEGIN {
 #############################################################################
 # Common Methods (may potentially be redefined with OS-specific ones)
 
+no warnings 'redefine';
+
 sub table {
    my $self = shift;
    return map { $self->process($_) } ($self->list);

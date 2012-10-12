@@ -51,7 +51,6 @@ sub pmver {
 eval { $v .= pmver('ExtUtils::MakeMaker','6.30') };
 eval { $v .= pmver('Test::CheckDeps','0.002') };
 eval { $v .= pmver('Test::More','0.88') };
-eval { $v .= pmver('Test::UseAllModules','any version') };
 
 
 # All done.
