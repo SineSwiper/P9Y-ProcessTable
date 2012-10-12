@@ -1,4 +1,4 @@
-package P9Y::ProcessTable::VMS;
+package P9Y::ProcessTable;
 
 # VERSION
 # ABSTRACT: VMS process table
@@ -14,8 +14,6 @@ use VMS::Process;
 use namespace::clean;
 no warnings 'uninitialized';
 
-my $pi = Win32::Process::Info->new();
-
 #############################################################################
 # Methods
 
@@ -26,7 +24,7 @@ sub table {
 
 sub list {
    my $self = shift;
-   return sort { $a <=> $b } (BSD::Process::list);
+   return sort { $a <=> $b } (   );  ### FIXME ###
 }
 
 sub process {

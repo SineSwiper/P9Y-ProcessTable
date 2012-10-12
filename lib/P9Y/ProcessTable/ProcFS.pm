@@ -1,7 +1,7 @@
-package P9Y::ProcessTable::ProcFS;
+package P9Y::ProcessTable;
 
 # VERSION
-# ABSTRACT: Portably access the process table
+# ABSTRACT: /proc FS process table
 
 #############################################################################
 # Modules
@@ -31,7 +31,7 @@ sub list {
    my $dir = dir('', 'proc');
    while (my $pdir = $dir->next) {
       next unless ($pdir->is_dir);
-      next unless (-e $pdir->file('cmdline'));
+      next unless (-e $pdir->file('status'));
       next unless ($pdir->basename =~ /^\d+$/);
       
       push @list, $pdir->basename;
@@ -114,7 +114,7 @@ sub process {
       ### Solaris ###
       my $ptr = $Config{longsize} >= 8 ? '%Q' : '%I';
       
-      my $data = read_file $pdir->file('stat');
+      my $data = read_file $pdir->file('status');
       my @data = unpack '%I[10]'.$ptr.'[4]%I[12]%C%I[4]', $data;
 
       #  1 int pr_flags;            /* flags (see below) */

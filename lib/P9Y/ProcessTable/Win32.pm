@@ -1,4 +1,4 @@
-package P9Y::ProcessTable::Win32;
+package P9Y::ProcessTable;
 
 # VERSION
 # ABSTRACT: Win32 process table

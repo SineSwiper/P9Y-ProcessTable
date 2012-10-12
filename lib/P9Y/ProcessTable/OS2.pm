@@ -1,4 +1,4 @@
-package P9Y::ProcessTable::OS2;
+package P9Y::ProcessTable;
 
 # VERSION
 # ABSTRACT: OS/2 process table
@@ -19,12 +19,12 @@ no warnings 'uninitialized';
 
 sub table {
    my $self = shift;
-   return map { $self->_process_hash($_) } (&process_hentries);
+   return map { $self->_process_hash($_) } (process_hentries);
 }
 
 sub list {
    my $self = shift;
-   return sort { $a <=> $b } map { $_->{owner_pid} } (&process_hentries);
+   return sort { $a <=> $b } map { $_->{owner_pid} } (process_hentries);
 }
 
 sub process {

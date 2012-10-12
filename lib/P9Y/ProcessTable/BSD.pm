@@ -1,4 +1,4 @@
-package P9Y::ProcessTable::BSD;
+package P9Y::ProcessTable;
 
 # VERSION
 # ABSTRACT: BSD process table
@@ -13,8 +13,6 @@ use BSD::Process;
 
 use namespace::clean;
 no warnings 'uninitialized';
-
-my $pi = Win32::Process::Info->new();
 
 #############################################################################
 # Methods
