@@ -1,4 +1,5 @@
-package P9Y::ProcessTable;
+package  # hide from PAUSE
+   P9Y::ProcessTable;
 
 # VERSION
 # ABSTRACT: VMS process table
@@ -8,6 +9,7 @@ package P9Y::ProcessTable;
 
 use sanity;
 use Moo;
+use P9Y::ProcessTable::Process;
 
 use VMS::Process;
 
@@ -19,24 +21,33 @@ no warnings 'uninitialized';
 
 sub table {
    my $self = shift;
-   return map { $self->process($_) } ($self->list);
+   return map { 
+      my $hash = $self->_convert_hash($_);
+      $hash->{_pt_obj} = $self;
+      P9Y::ProcessTable::Process->new($hash);
+   } (process_list);
 }
 
 sub list {
    my $self = shift;
-   return sort { $a <=> $b } (   );  ### FIXME ###
+   return sort { $a <=> $b } map { $_->{PID} } (process_list);
 }
 
-sub process {
+sub _process_hash {
    my ($self, $pid) = @_;
    my $info = process_list({
       NAME  => 'MASTER_PID',
       VALUE => $pid,
    });
    return unless $info;
+   return $self->_convert_hash;
+}
 
+sub _convert_hash {
+   my ($self, $info) = @_;
+   return unless $info;
+   
    my $hash = {};
-
    state $stat_loc = { qw/
       pid         PID
       uid         OWNER

@@ -32,11 +32,28 @@ BEGIN {
             require P9Y::ProcessTable::ProcFS;
          }
          else {
-            die "No idea how to handle $^O processes.  Email me with more information!";         
+            die "No idea how to handle $^O processes.  Email me with more information!";
          }
       }
    }
+}
 
+#############################################################################
+# Common Methods (may potentially be redefined with OS-specific ones)
+
+sub table {
+   my $self = shift;
+   return map { $self->process($_) } ($self->list);
+}
+
+sub process {
+   my ($self, $pid) = @_;
+   $pid = $$ if (@_ == 1);
+   my $hash = $self->_process_hash($pid);
+   return unless $hash;
+   
+   $hash->{_pt_obj} = $self;
+   return P9Y::ProcessTable::Process->new($hash);
 }
 
 42;
@@ -46,9 +63,9 @@ __END__
 =begin wikidoc
 
 = SYNOPSIS
- 
+
    # code
- 
+
 = DESCRIPTION
 
 ### Ruler ##################################################################################################################################12345

@@ -1,4 +1,5 @@
-package P9Y::ProcessTable;
+package  # hide from PAUSE
+   P9Y::ProcessTable;
 
 # VERSION
 # ABSTRACT: OS/2 process table
@@ -8,6 +9,7 @@ package P9Y::ProcessTable;
 
 use sanity;
 use Moo;
+use P9Y::ProcessTable::Process;
 
 use OS2::Process;
 
@@ -17,9 +19,15 @@ no warnings 'uninitialized';
 #############################################################################
 # Methods
 
+no warnings 'redefine';
+
 sub table {
    my $self = shift;
-   return map { $self->_process_hash($_) } (process_hentries);
+   return map { 
+      my $hash = $self->_convert_hash($_);
+      $hash->{_pt_obj} = $self;
+      P9Y::ProcessTable::Process->new($hash);
+   } (process_hentries);
 }
 
 sub list {
@@ -27,14 +35,14 @@ sub list {
    return sort { $a <=> $b } map { $_->{owner_pid} } (process_hentries);
 }
 
-sub process {
+sub _process_hash {
    my ($self, $pid) = @_;
    my $info = process_hentry($pid);
    return unless $info;
-   return $self->_process_hash($info);
+   return $self->_convert_hash;
 }
 
-sub _process_hash {
+sub _convert_hash {
    my ($self, $info) = @_;
    return unless $info;
    

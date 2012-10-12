@@ -1,4 +1,5 @@
-package P9Y::ProcessTable;
+package  # hide from PAUSE
+   P9Y::ProcessTable;
 
 # VERSION
 # ABSTRACT: /proc FS process table
@@ -8,6 +9,7 @@ package P9Y::ProcessTable;
 
 use sanity;
 use Moo;
+use P9Y::ProcessTable::Process;
 
 use Path::Class;
 use File::Slurp 'read_file';
@@ -18,11 +20,6 @@ no warnings 'uninitialized';
 
 #############################################################################
 # Methods
-
-sub table {
-   my $self = shift;
-   return map { $self->process($_) } ($self->list);
-}
 
 sub list {
    my $self = shift;
@@ -40,7 +37,7 @@ sub list {
    return sort { $a <=> $b } @list;
 }
 
-sub process {
+sub _process_hash {
    my ($self, $pid) = @_;
    
    my $pdir = dir('', 'proc', $pid);
@@ -95,7 +92,7 @@ sub process {
       };
       
       state $stat_loc = [ qw(
-         pid fname state ppid pgrp sess ttynum . flags minflt cminflt cmajflt utime stime cutime cstime priority . threads . .
+         pid fname state ppid pgrp sess ttynum . flags minflt cminflt majflt cmajflt utime stime cutime cstime priority . threads . .
          size . rss . . . . . . . . . wchan . . . cpuid . . . . .
       ) ];
       
@@ -107,8 +104,11 @@ sub process {
       
       $hash->{fname} =~ s/^\((.+)\)$/$1/;
       $hash->{state} = $states->{ $hash->{state} };
-      $hash->{time}  = $hash->{utime}  + $hash->{stime};
-      $hash->{ctime} = $hash->{cutime} + $hash->{stime};
+      $hash->{ time} = $hash->{ utime} + $hash->{ stime};
+      $hash->{ctime} = $hash->{cutime} + $hash->{cstime};
+      
+      $hash->{ ttlflt} = $hash->{ minflt} + $hash->{ majflt};
+      $hash->{cttlflt} = $hash->{cminflt} + $hash->{cmajflt};
    }
    elsif ($^O eq /solaris|sunos/i) {
       ### Solaris ###
