@@ -19,10 +19,7 @@ my %WriteMakefileArgs = (
   'EXE_FILES' => [],
   'LICENSE' => 'artistic_2',
   'NAME' => 'P9Y::ProcessTable',
-  'PREREQ_PM' => {
-    'Win32::Process' => 0,
-    'Win32::Process::Info' => 0
-  },
+  'PREREQ_PM' => {},
   'VERSION' => '0.90',
   'test' => {
     'TESTS' => 't/*.t'
