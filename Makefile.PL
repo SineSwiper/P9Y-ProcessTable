@@ -19,7 +19,7 @@ my %WriteMakefileArgs = (
   'EXE_FILES' => [],
   'LICENSE' => 'artistic_2',
   'NAME' => 'P9Y::ProcessTable',
-  'PREREQ_PM' => {},
+  'PREREQ_PM' => &os_deps,
   'VERSION' => '0.90',
   'test' => {
     'TESTS' => 't/*.t'
@@ -45,3 +45,32 @@ delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
 
 WriteMakefile(%WriteMakefileArgs);
 
+sub os_deps {
+   for (lc $^O) {
+      if    (/mswin32|cygwin/) {
+         return {
+            'Win32::Process'       => 0,
+            'Win32::Process::Info' => 0,
+         };
+      }
+      elsif (/bsd$/) {
+         return {'BSD::Process' => 0};
+      }
+      elsif ('os2') {
+         return {'OS2::Process' => 0};
+      }
+      elsif ('vms') {
+         return {'VMS::Process' => 0};
+      }
+      elsif ('dos') {
+         die "Heh, DOS processes... you're funny!";
+      }
+      else {
+         # let's hope they have /proc
+         unless ( -d dir('', 'proc') ) {
+            die "No idea how to handle $^O processes.  Email me with more information!";
+         }
+      }
+   }
+   return {};
+}
