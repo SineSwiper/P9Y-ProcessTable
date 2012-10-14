@@ -1,8 +1,8 @@
 use Config;
 use Test::Most (
    $Config{d_fork} ?
-   (skip_all => "Real forks needed for test") :
-   (tests => 4)
+   (tests => 4) :
+   (skip_all => "Real forks needed for test")
 );
 use P9Y::ProcessTable;
 
