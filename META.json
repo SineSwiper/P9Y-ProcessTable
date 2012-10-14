@@ -189,11 +189,6 @@
             "version" : "2.000002"
          },
          {
-            "class" : "Dist::Zilla::Plugin::Test::Version",
-            "name" : "@Filter/Test::Version",
-            "version" : "0.002004"
-         },
-         {
             "class" : "Dist::Zilla::Plugin::ReportVersions::Tiny",
             "name" : "@Filter/ReportVersions::Tiny",
             "version" : "1.06"
