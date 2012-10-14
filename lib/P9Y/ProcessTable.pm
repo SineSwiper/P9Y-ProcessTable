@@ -14,8 +14,13 @@ BEGIN {
       when (/mswin32|cygwin/) {
          require P9Y::ProcessTable::Win32;
       }
-      when (/bsd$/) {
+      # BSD::Process currently only supports FreeBSD;
+      # fall by on /proc for the others
+      when ('freebsd') {
          require P9Y::ProcessTable::BSD;
+      }
+      when ('darwin') {
+         require P9Y::ProcessTable::Darwin;
       }
       when ('os2') {
          require P9Y::ProcessTable::OS2;

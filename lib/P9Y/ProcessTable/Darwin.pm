@@ -98,8 +98,7 @@ sub _convert_hash {
 
 42;
 
-
-
+__END__
 =pod
 
 =encoding utf-8
@@ -107,34 +106,6 @@ sub _convert_hash {
 =head1 NAME
 
 P9Y::ProcessTable - Darwin/OSX process table
-
-=head1 SYNOPSIS
-
-    # code
-
-=head1 DESCRIPTION
-
-### Ruler ##################################################################################################################################12345
-
-Insert description here...
-
-=head1 CAVEATS
-
-### Ruler ##################################################################################################################################12345
-
-Bad stuff...
-
-=head1 SEE ALSO
-
-### Ruler ##################################################################################################################################12345
-
-Other modules...
-
-=head1 ACKNOWLEDGEMENTS
-
-### Ruler ##################################################################################################################################12345
-
-Thanks and stuff...
 
 =head1 AVAILABILITY
 
@@ -157,7 +128,4 @@ This is free software, licensed under:
   The Artistic License 2.0 (GPL Compatible)
 
 =cut
-
-
-__END__
 

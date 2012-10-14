@@ -53,8 +53,11 @@ sub os_deps {
             'Win32::Process::Info' => 0,
          };
       }
-      elsif (/bsd$/) {
+      elsif ('freebsd') {
          return {'BSD::Process' => 0};
+      }
+      elsif ('darwin') {
+         return {'Proc::ProcessTable' => 0.45};
       }
       elsif ('os2') {
          return {'OS2::Process' => 0};
@@ -68,7 +71,9 @@ sub os_deps {
       else {
          # let's hope they have /proc
          unless ( -d dir('', 'proc') ) {
-            die "No idea how to handle $^O processes.  Email me with more information!";
+            die lc $^O =~ /bsd|dragonfly/ ? 
+               "BSD::Process only works for FreeBSD.  Encourage development for $^O, or write your own and I can include it here." :
+               "No idea how to handle $^O processes.  Email me with more information!";
          }
       }
    }
