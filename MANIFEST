@@ -8,6 +8,7 @@ Makefile.PL
 README.html
 README.pod
 dist.ini
+inc/P9YOSDeps.pm
 lib/P9Y/ProcessTable.pm
 lib/P9Y/ProcessTable/BSD.pm
 lib/P9Y/ProcessTable/Darwin.pm
