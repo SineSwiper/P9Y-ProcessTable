@@ -3,10 +3,15 @@ use Moose;
 
 extends 'Dist::Zilla::Plugin::MakeMaker::Awesome';
 
-override _build_WriteMakefile_args => sub { +{
-   %{ super() },
-   PREREQ_PM => {},
-} };   
+override _build_WriteMakefile_args => sub { 
+   my ($self) = @_;
+   $self->zilla->meta->{dynamic_config} = 1;
+   
+   +{
+      %{ super() },
+      PREREQ_PM => {},
+   }
+};   
  
 override _build_WriteMakefile_dump => sub {
    my ($self) = @_;
