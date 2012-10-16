@@ -28,7 +28,7 @@ provides:
     file: lib/P9Y/ProcessTable/Process.pm
     version: 0.91
 resources:
-  X_irc: irc://irc.perl.org/#distzilla
+  X_irc: irc://irc.perl.org/#win32
   bugtracker: https://github.com/SineSwiper/P9Y-ProcessTable/issues
   homepage: https://github.com/SineSwiper/P9Y-ProcessTable/wiki
   repository: git://github.com/SineSwiper/P9Y-ProcessTable.git

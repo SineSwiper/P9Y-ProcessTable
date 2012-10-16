@@ -55,7 +55,7 @@
          "url" : "git://github.com/SineSwiper/P9Y-ProcessTable.git",
          "web" : "https://github.com/SineSwiper/P9Y-ProcessTable"
       },
-      "x_irc" : "irc://irc.perl.org/#distzilla"
+      "x_irc" : "irc://irc.perl.org/#win32"
    },
    "version" : "0.91",
    "x_Dist_Zilla" : {
