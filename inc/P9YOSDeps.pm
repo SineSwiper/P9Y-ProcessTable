@@ -21,30 +21,32 @@ override _build_MakeFile_PL_template => sub {
     my $template = super();
  
     $template .= <<'TEMPLATE';
+use v5.10;    
+
 sub os_deps {
    for (lc $^O) {
-      if    (/mswin32|cygwin/) {
+      when (/mswin32|cygwin/) {
          return {
             'Win32::Process'       => 0,
             'Win32::Process::Info' => 0,
          };
       }
-      elsif ('freebsd') {
+      when ('freebsd') {
          return {'BSD::Process' => 0};
       }
-      elsif ('darwin') {
+      when ('darwin') {
          return {'Proc::ProcessTable' => 0.45};
       }
-      elsif ('os2') {
+      when ('os2') {
          return {'OS2::Process' => 0};
       }
-      elsif ('vms') {
+      when ('vms') {
          return {'VMS::Process' => 0};
       }
-      elsif ('dos') {
+      when ('dos') {
          die "Heh, DOS processes... you're funny!";
       }
-      else {
+      default {
          # let's hope they have /proc
          unless ( -d dir('', 'proc') ) {
             die lc $^O =~ /bsd|dragonfly/ ? 
