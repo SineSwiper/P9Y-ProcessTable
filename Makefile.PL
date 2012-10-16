@@ -20,7 +20,7 @@ my %WriteMakefileArgs = (
   'LICENSE' => 'artistic_2',
   'NAME' => 'P9Y::ProcessTable',
   'PREREQ_PM' => &os_deps,
-  'VERSION' => '0.90',
+  'VERSION' => '0.91',
   'test' => {
     'TESTS' => 't/*.t'
   }

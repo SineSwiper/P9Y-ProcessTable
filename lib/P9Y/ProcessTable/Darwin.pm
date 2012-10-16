@@ -1,7 +1,7 @@
 package  # hide from PAUSE
    P9Y::ProcessTable;
 
-our $VERSION = '0.90'; # VERSION
+our $VERSION = '0.91'; # VERSION
 # ABSTRACT: Darwin/OSX process table
 
 #############################################################################

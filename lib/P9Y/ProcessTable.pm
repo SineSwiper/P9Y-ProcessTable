@@ -1,6 +1,6 @@
 package P9Y::ProcessTable;
 
-our $VERSION = '0.90'; # VERSION
+our $VERSION = '0.91'; # VERSION
 # ABSTRACT: Portably access the process table
 
 use sanity;

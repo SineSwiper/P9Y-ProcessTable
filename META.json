@@ -37,11 +37,11 @@
    "provides" : {
       "P9Y::ProcessTable" : {
          "file" : "lib/P9Y/ProcessTable.pm",
-         "version" : "0.90"
+         "version" : "0.91"
       },
       "P9Y::ProcessTable::Process" : {
          "file" : "lib/P9Y/ProcessTable/Process.pm",
-         "version" : "0.90"
+         "version" : "0.91"
       }
    },
    "release_status" : "stable",
@@ -57,12 +57,17 @@
       },
       "x_irc" : "irc://irc.perl.org/#win32"
    },
-   "version" : "0.90",
+   "version" : "0.91",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.016000"
       },
       "plugins" : [
+         {
+            "class" : "Dist::Zilla::Plugin::MetaYAML",
+            "name" : "MetaYAML",
+            "version" : "4.300024"
+         },
          {
             "class" : "Dist::Zilla::Plugin::ReportPhase",
             "name" : "@Filter/ReportPhase",
