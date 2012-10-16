@@ -4,15 +4,9 @@ use Moose;
 extends 'Dist::Zilla::Plugin::MakeMaker::Awesome';
 
 override _build_WriteMakefile_args => sub { 
-   my ($self) = @_;
-   my $hash = super();
-   $self->zilla->distmeta->{dynamic_config} = 1;
-   
-   use Data::Dump;
-   dd $self->zilla->distmeta;
-   
+   shift->zilla->distmeta->{dynamic_config} = 1;
    +{
-      %$hash,
+      %{ super() },
       PREREQ_PM => {},
    }
 };   
