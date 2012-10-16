@@ -3,7 +3,7 @@
    "author" : [
       "Brendan Byrd <BBYRD@CPAN.org>"
    ],
-   "dynamic_config" : 0,
+   "dynamic_config" : "1",
    "generated_by" : "Dist::Zilla version 4.300024, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "artistic_2"

@@ -6,10 +6,10 @@ extends 'Dist::Zilla::Plugin::MakeMaker::Awesome';
 override _build_WriteMakefile_args => sub { 
    my ($self) = @_;
    my $hash = super();
-   $self->zilla->meta->{dynamic_config} = 1;
+   $self->zilla->distmeta->{dynamic_config} = 1;
    
    use Data::Dump;
-   dd $self->zilla->meta;
+   dd $self->zilla->distmeta;
    
    +{
       %$hash,
