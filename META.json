@@ -70,6 +70,11 @@
       },
       "plugins" : [
          {
+            "class" : "inc::P9YOSDeps",
+            "name" : "P9YOSDeps",
+            "version" : null
+         },
+         {
             "class" : "Dist::Zilla::Plugin::ReportPhase",
             "name" : "@Filter/ReportPhase",
             "version" : "0.00"
@@ -298,11 +303,6 @@
             "class" : "Dist::Zilla::Plugin::Clean",
             "name" : "@Filter/Clean",
             "version" : "0.07"
-         },
-         {
-            "class" : "inc::P9YOSDeps",
-            "name" : "P9YOSDeps",
-            "version" : null
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaResourcesFromGit",

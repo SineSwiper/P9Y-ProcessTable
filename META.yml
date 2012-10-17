@@ -38,6 +38,10 @@ x_Dist_Zilla:
     version: 5.016000
   plugins:
     -
+      class: inc::P9YOSDeps
+      name: P9YOSDeps
+      version: ~
+    -
       class: Dist::Zilla::Plugin::ReportPhase
       name: '@Filter/ReportPhase'
       version: 0.00
@@ -221,10 +225,6 @@ x_Dist_Zilla:
       class: Dist::Zilla::Plugin::Clean
       name: '@Filter/Clean'
       version: 0.07
-    -
-      class: inc::P9YOSDeps
-      name: P9YOSDeps
-      version: ~
     -
       class: Dist::Zilla::Plugin::MetaResourcesFromGit
       name: MetaResourcesFromGit
