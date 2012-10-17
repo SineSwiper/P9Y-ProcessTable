@@ -41,7 +41,7 @@ sub process {
    my ($self, $pid) = @_;
    $pid = Win32::Process::GetCurrentProcessID if (@_ == 1);  # process() changed here...
    my $hash = $self->_process_hash($pid);
-   return unless $hash;
+   return unless $hash && $hash->{pid} && $hash->{ppid};
    
    $hash->{_pt_obj} = $self;
    return P9Y::ProcessTable::Process->new($hash);
