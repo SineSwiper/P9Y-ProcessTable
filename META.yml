@@ -4,7 +4,6 @@ author:
   - 'Brendan Byrd <BBYRD@CPAN.org>'
 build_requires:
   Test::CheckDeps: 0.002
-  Test::More: 0.88
   Test::Most: 0.01
 dynamic_config: 1
 generated_by: 'Dist::Zilla version 4.300027, CPAN::Meta::Converter version 2.120921'
@@ -30,7 +29,7 @@ requires:
   Moo: 0.009001
   Path::Class: 0.17
   namespace::clean: 0.06
-  perl: 5.008009
+  perl: v5.10.1
   sanity: 0.91
 resources:
   X_irc: irc://irc.perl.org/#win32
