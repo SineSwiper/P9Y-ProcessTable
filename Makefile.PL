@@ -20,7 +20,7 @@ my %WriteMakefileArgs = (
   'LICENSE' => 'artistic_2',
   'NAME' => 'P9Y::ProcessTable',
   'PREREQ_PM' => &os_deps,
-  'VERSION' => '0.91',
+  'VERSION' => '0.92',
   'test' => {
     'TESTS' => 't/*.t'
   }
@@ -72,7 +72,7 @@ sub os_deps {
       }
       default {
          # let's hope they have /proc
-         unless ( -d dir('', 'proc') ) {
+         unless ( -d '/proc' ) {
             die lc $^O =~ /bsd|dragonfly/ ? 
                "BSD::Process only works for FreeBSD.  Encourage development for $^O, or write your own and I can include it here." :
                "No idea how to handle $^O processes.  Email me with more information!";

@@ -51,7 +51,7 @@ sub os_deps {
       }
       default {
          # let's hope they have /proc
-         unless ( -d dir('', 'proc') ) {
+         unless ( -d '/proc' ) {
             die lc $^O =~ /bsd|dragonfly/ ? 
                "BSD::Process only works for FreeBSD.  Encourage development for $^O, or write your own and I can include it here." :
                "No idea how to handle $^O processes.  Email me with more information!";

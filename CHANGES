@@ -1,8 +1,23 @@
 Revision History for P9Y-ProcessTable
 =====================================
 
+v0.92 2012-10-17
+----------------
+
+commit 98a22f7a3ae0354c246984bcd4020d0a31581c3f
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Wed Oct 17 15:38:27 2012 -0400
+
+    Fix missing main::dir error in P9YOSDeps.pm
+
 v0.91 2012-10-17
 ----------------
+
+commit dc15d06bf82c0afb4afdfff3a4d3b9b9c66a7d44
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Wed Oct 17 14:41:51 2012 -0400
+
+    Release v0.91
 
 commit fc4b511f6b5cf1f1793a3e30cba96f4d83b19864
 Author: Brendan Byrd <Perl@ResonatorSoft.org>
