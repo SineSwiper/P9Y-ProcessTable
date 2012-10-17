@@ -57,7 +57,7 @@ sub process {
    my ($self, $pid) = @_;
    $pid = $$ if (@_ == 1);
    my $hash = $self->_process_hash($pid);
-   return unless $hash;
+   return unless $hash && $hash->{pid} && $hash->{ppid};
    
    $hash->{_pt_obj} = $self;
    return P9Y::ProcessTable::Process->new($hash);
