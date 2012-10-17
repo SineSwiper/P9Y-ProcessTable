@@ -4,6 +4,16 @@ Revision History for P9Y-ProcessTable
 v0.92 2012-10-17
 ----------------
 
+commit 2d39a99dabc4b6b36bc4997c0080f2356cf806f6
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Wed Oct 17 17:40:39 2012 -0400
+
+    Small fixes
+    
+    Remove 'no strict' from SYNOPSIS
+    Fix dist.ini ordering issue with MakeMaker/P9YOSDeps
+    Make sure OS modules produce no PODs
+
 commit 98a22f7a3ae0354c246984bcd4020d0a31581c3f
 Author: Brendan Byrd <Perl@ResonatorSoft.org>
 Date:   Wed Oct 17 15:38:27 2012 -0400
