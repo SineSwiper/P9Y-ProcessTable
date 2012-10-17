@@ -19,7 +19,7 @@ if (my $child_pid = fork) {
    restore_fail;
    
    lives_ok(sub { $p->kill(9) }, 'child killed') || (diag $@ and explain $p);
-   sleep 10;
+   sleep 2;
    $p = P9Y::ProcessTable->process($child_pid);
    ok(!$p, "child doesn't exist") || explain $p;
 }
