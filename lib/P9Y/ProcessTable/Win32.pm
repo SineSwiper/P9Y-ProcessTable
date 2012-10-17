@@ -2,7 +2,6 @@ package  # hide from PAUSE
    P9Y::ProcessTable;
 
 our $VERSION = '0.91'; # VERSION
-# ABSTRACT: Win32 process table
 
 #############################################################################
 # Modules
@@ -29,9 +28,18 @@ sub list {
    return sort { $a <=> $b } ($pi->ListPids);
 }
 
+sub fields {
+   return ( qw/
+      pid uid ppid sess
+      exe root
+      ttlflt utime stime start state time
+      threads priority fname state size rss
+   / );
+}
+
 sub process {
    my ($self, $pid) = @_;
-   $pid = Win32::Process::GetCurrentProcessID if (@_ == 1);  # changed here...
+   $pid = Win32::Process::GetCurrentProcessID if (@_ == 1);  # process() changed here...
    my $hash = $self->_process_hash($pid);
    return unless $hash;
    
@@ -156,7 +164,7 @@ __END__
 
 =head1 NAME
 
-P9Y::ProcessTable - Win32 process table
+P9Y::ProcessTable
 
 =head1 AVAILABILITY
 

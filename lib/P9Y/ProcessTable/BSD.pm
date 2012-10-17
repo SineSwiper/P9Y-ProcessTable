@@ -2,7 +2,6 @@ package  # hide from PAUSE
    P9Y::ProcessTable;
 
 our $VERSION = '0.91'; # VERSION
-# ABSTRACT: BSD process table
 
 #############################################################################
 # Modules
@@ -24,49 +23,50 @@ sub list {
    return sort { $a <=> $b } (BSD::Process::list);
 }
 
+sub fields {
+   return ( qw/
+      pid uid gid euid suid sgid ppid pgrp sess
+      exe
+      minflt cminflt majflt cmajflt ttlflt cttlflt utime stime cutime cstime start time ctime
+      priority fname state flags size rss wchan cpuid pctcpu
+   / );
+}
+
 sub _process_hash {
    my ($self, $pid) = @_;
    my $info = BSD::Process::info($pid);
    return unless $info;
-   
+
    my $hash = {};
-   
+
+   # (only has the ones that are different)
    state $stat_loc = { qw/
-      pid         pid
       uid         ruid
       gid         rgid
       euid        uid
-      egid        svgid
-      ppid        ppid
+      suid        svuid
+      sgid        svgid
       pgrp        pgid
       sess        sid
       cpuid       oncpu
       priority    nice
       flags       flag
-      minflt      minflt
       cminflt     minflt_ch
-      majflt      majflt
       cmajflt     majflt_ch
-      utime       utime
-      stime       stime
       cutime      utime_ch
       cstime      stime_ch
-      time        time
       ctime       time_ch
-      size        size
       rss         rssize
       wchan       wmesg
       fname       comm
-      start       start
-      pctcpu      pctcpu
       exe         comm
    / };
-   
-   foreach my $key (keys %$stat_loc) {
-      my $item = $info->{ $stat_loc->{$key} };
+
+   foreach my $key ( $self->fields ) {
+      my $item = $info->{ $stat_loc->{$key} || $key };
       $hash->{$key} = $item if defined $item;
    }
-   
+
    $hash->{ ttlflt} = $hash->{ minflt} + $hash->{ majflt};
    $hash->{cttlflt} = $hash->{cminflt} + $hash->{cmajflt};
 
@@ -79,55 +79,26 @@ sub _process_hash {
       stat_6 => 'wait',
       stat_7 => 'disk sleep',
    };
-   
+
    my @state;
    foreach my $key (keys $states) {
       push @state, $states->{$key} if $info->{$key};
    }
    $hash->{state} = join ' ', @state;
-   
+
    return $hash;
 }
 
 42;
 
-
-
+__END__
 =pod
 
 =encoding utf-8
 
 =head1 NAME
 
-P9Y::ProcessTable - BSD process table
-
-=head1 SYNOPSIS
-
-    # code
-
-=head1 DESCRIPTION
-
-### Ruler ##################################################################################################################################12345
-
-Insert description here...
-
-=head1 CAVEATS
-
-### Ruler ##################################################################################################################################12345
-
-Bad stuff...
-
-=head1 SEE ALSO
-
-### Ruler ##################################################################################################################################12345
-
-Other modules...
-
-=head1 ACKNOWLEDGEMENTS
-
-### Ruler ##################################################################################################################################12345
-
-Thanks and stuff...
+P9Y::ProcessTable
 
 =head1 AVAILABILITY
 
@@ -150,7 +121,4 @@ This is free software, licensed under:
   The Artistic License 2.0 (GPL Compatible)
 
 =cut
-
-
-__END__
 

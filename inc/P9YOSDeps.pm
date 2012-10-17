@@ -9,7 +9,7 @@ override _build_WriteMakefile_args => sub {
       %{ super() },
       PREREQ_PM => {},
    }
-};   
+};
  
 override _build_WriteMakefile_dump => sub {
    my ($self) = @_;

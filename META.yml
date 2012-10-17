@@ -8,7 +8,7 @@ build_requires:
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 1
-generated_by: 'Dist::Zilla version 4.300024, CPAN::Meta::Converter version 2.120921'
+generated_by: 'Dist::Zilla version 4.300027, CPAN::Meta::Converter version 2.120921'
 license: artistic_2
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -38,21 +38,17 @@ x_Dist_Zilla:
     version: 5.016000
   plugins:
     -
-      class: Dist::Zilla::Plugin::MetaYAML
-      name: MetaYAML
-      version: 4.300024
-    -
       class: Dist::Zilla::Plugin::ReportPhase
       name: '@Filter/ReportPhase'
       version: 0.00
     -
       class: Dist::Zilla::Plugin::Git::NextVersion
       name: '@Filter/Git::NextVersion'
-      version: 1.122530
+      version: 2.001
     -
       class: Dist::Zilla::Plugin::Git::GatherDir
       name: '@Filter/Git::GatherDir'
-      version: 1.122530
+      version: 2.001
     -
       class: Dist::Zilla::Plugin::OurPkgVersion
       name: '@Filter/OurPkgVersion'
@@ -64,7 +60,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::PruneCruft
       name: '@Filter/PruneCruft'
-      version: 4.300024
+      version: 4.300027
     -
       class: Dist::Zilla::Plugin::GitFmtChanges
       name: '@Filter/GitFmtChanges'
@@ -72,15 +68,15 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::ManifestSkip
       name: '@Filter/ManifestSkip'
-      version: 4.300024
+      version: 4.300027
     -
       class: Dist::Zilla::Plugin::Manifest
       name: '@Filter/Manifest'
-      version: 4.300024
+      version: 4.300027
     -
       class: Dist::Zilla::Plugin::License
       name: '@Filter/License'
-      version: 4.300024
+      version: 4.300027
     -
       class: Dist::Zilla::Plugin::ReadmeAnyFromPod
       name: '@Filter/ReadmeHtmlInBuild'
@@ -96,11 +92,11 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::ExecDir
       name: '@Filter/ExecDir'
-      version: 4.300024
+      version: 4.300027
     -
       class: Dist::Zilla::Plugin::PodSyntaxTests
       name: '@Filter/PodSyntaxTests'
-      version: 4.300024
+      version: 4.300027
     -
       class: Dist::Zilla::Plugin::RunExtraTests
       name: '@Filter/RunExtraTests'
@@ -144,7 +140,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::ReportVersions::Tiny
       name: '@Filter/ReportVersions::Tiny'
-      version: 1.06
+      version: 1.08
     -
       class: Dist::Zilla::Plugin::CheckPrereqsIndexed
       name: '@Filter/CheckPrereqsIndexed'
@@ -152,15 +148,19 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::MetaConfig
       name: '@Filter/MetaConfig'
-      version: 4.300024
+      version: 4.300027
     -
       class: Dist::Zilla::Plugin::MetaJSON
       name: '@Filter/MetaJSON'
-      version: 4.300024
+      version: 4.300027
+    -
+      class: Dist::Zilla::Plugin::MetaYAML
+      name: '@Filter/MetaYAML'
+      version: 4.300027
     -
       class: Dist::Zilla::Plugin::MetaNoIndex
       name: '@Filter/MetaNoIndex'
-      version: 4.300024
+      version: 4.300027
     -
       class: Dist::Zilla::Plugin::MetaProvides::Package
       name: '@Filter/MetaProvides::Package'
@@ -180,27 +180,27 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Git::CheckFor::CorrectBranch
       name: '@Filter/Git::CheckFor::CorrectBranch'
-      version: 0.004
+      version: 0.005
     -
       class: Dist::Zilla::Plugin::Git::CommitBuild
       name: '@Filter/Git::CommitBuild'
-      version: 1.122530
+      version: 2.001
     -
       class: Dist::Zilla::Plugin::Git::Check
       name: '@Filter/@Git/Check'
-      version: 1.122530
+      version: 2.001
     -
       class: Dist::Zilla::Plugin::Git::Commit
       name: '@Filter/@Git/Commit'
-      version: 1.122530
+      version: 2.001
     -
       class: Dist::Zilla::Plugin::Git::Tag
       name: '@Filter/@Git/Tag'
-      version: 1.122530
+      version: 2.001
     -
       class: Dist::Zilla::Plugin::Git::Push
       name: '@Filter/@Git/Push'
-      version: 1.122530
+      version: 2.001
     -
       class: Dist::Zilla::Plugin::GitHub::Update
       name: '@Filter/GitHub::Update'
@@ -208,15 +208,15 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::TestRelease
       name: '@Filter/TestRelease'
-      version: 4.300024
+      version: 4.300027
     -
       class: Dist::Zilla::Plugin::ConfirmRelease
       name: '@Filter/ConfirmRelease'
-      version: 4.300024
+      version: 4.300027
     -
       class: Dist::Zilla::Plugin::UploadToCPAN
       name: '@Filter/UploadToCPAN'
-      version: 4.300024
+      version: 4.300027
     -
       class: Dist::Zilla::Plugin::InstallRelease
       name: '@Filter/InstallRelease'
@@ -232,29 +232,29 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':InstallModules'
-      version: 4.300024
+      version: 4.300027
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':IncModules'
-      version: 4.300024
+      version: 4.300027
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':TestFiles'
-      version: 4.300024
+      version: 4.300027
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':ExecFiles'
-      version: 4.300024
+      version: 4.300027
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':ShareFiles'
-      version: 4.300024
+      version: 4.300027
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':MainModule'
-      version: 4.300024
+      version: 4.300027
   zilla:
     class: Dist::Zilla::Dist::Builder
     config:
       is_trial: 0
-    version: 4.300024
+    version: 4.300027

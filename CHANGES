@@ -1,8 +1,20 @@
 Revision History for P9Y-ProcessTable
 =====================================
 
-v0.91 2012-10-16
+v0.91 2012-10-17
 ----------------
+
+commit 6e74234a025500fb435bef1a8df7ba9651b0b4ee
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Wed Oct 17 13:41:07 2012 -0400
+
+    Various fixes
+    
+    Fix P9YOSDeps.pm
+    Add PODs
+    Add fields method
+    Add suid/sgid
+    Normalize fields a bit better
 
 commit f6ea918d7409723371dcdf8a461051c8021d0483
 Author: Brendan Byrd <Perl@ResonatorSoft.org>
