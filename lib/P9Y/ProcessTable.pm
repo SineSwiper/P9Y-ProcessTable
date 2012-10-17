@@ -194,7 +194,7 @@ support, dive into the {ProcFS} code and submit a patch.
 
 * [Proc::ProcessTable]
 * [BSD::Process]
-* [Win32::Process]
+* [Win32::Process::Info] & [Win32::Process]
 * [OS2::Process]
 * [VMS::Process]
 

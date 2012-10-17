@@ -205,6 +205,9 @@ are required (ie: exists on all OSs).
    pctcpu    Percent CPU used
    pctmem    Percent memory used
 
+Make no assumptions about what is available and what is not, besides maybe {pid} & {ppid}.  Instead, use the {has_*} methods and plan for
+alternatives if that data isn't available.
+   
 = CAVEATS
 
 * Certain fields might not be normalized correctly.  Patches welcome!
