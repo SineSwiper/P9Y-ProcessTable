@@ -3,8 +3,10 @@ abstract: 'Portably access the process table'
 author:
   - 'Brendan Byrd <BBYRD@CPAN.org>'
 build_requires:
+  Config: 0
   Test::CheckDeps: 0.002
   Test::More: 0.88
+  Test::Most: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 1
@@ -27,6 +29,19 @@ provides:
   P9Y::ProcessTable::Process:
     file: lib/P9Y/ProcessTable/Process.pm
     version: 0.92
+requires:
+  Moo: 0
+  P9Y::ProcessTable::BSD: 0
+  P9Y::ProcessTable::Darwin: 0
+  P9Y::ProcessTable::OS2: 0
+  P9Y::ProcessTable::ProcFS: 0
+  P9Y::ProcessTable::VMS: 0
+  P9Y::ProcessTable::Win32: 0
+  Path::Class: 0
+  namespace::clean: 0
+  sanity: 0
+  strict: 0
+  warnings: 0
 resources:
   X_irc: irc://irc.perl.org/#win32
   bugtracker: https://github.com/SineSwiper/P9Y-ProcessTable/issues
@@ -228,6 +243,10 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::FileFinder::ByName
       name: NoOSMods
+      version: 4.300027
+    -
+      class: Dist::Zilla::Plugin::AutoPrereqs
+      name: AutoPrereqs
       version: 4.300027
     -
       class: Dist::Zilla::Plugin::PodWeaver

@@ -48,11 +48,25 @@ sub pmver {
     return sprintf('%-45s => %-10s%-15s%s', $module, $pmver, $wanted, "\n");
 }
 
+eval { $v .= pmver('Config','any version') };
 eval { $v .= pmver('ExtUtils::MakeMaker','6.30') };
+eval { $v .= pmver('Moo','any version') };
+eval { $v .= pmver('P9Y::ProcessTable::BSD','any version') };
+eval { $v .= pmver('P9Y::ProcessTable::Darwin','any version') };
+eval { $v .= pmver('P9Y::ProcessTable::OS2','any version') };
+eval { $v .= pmver('P9Y::ProcessTable::ProcFS','any version') };
+eval { $v .= pmver('P9Y::ProcessTable::VMS','any version') };
+eval { $v .= pmver('P9Y::ProcessTable::Win32','any version') };
+eval { $v .= pmver('Path::Class','any version') };
 eval { $v .= pmver('Test::CheckDeps','0.002') };
 eval { $v .= pmver('Test::More','0.88') };
+eval { $v .= pmver('Test::Most','any version') };
 eval { $v .= pmver('Test::Pod','1.41') };
+eval { $v .= pmver('namespace::clean','any version') };
+eval { $v .= pmver('sanity','any version') };
+eval { $v .= pmver('strict','any version') };
 eval { $v .= pmver('version','0.9901') };
+eval { $v .= pmver('warnings','any version') };
 
 
 # All done.

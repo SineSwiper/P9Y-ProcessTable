@@ -9,8 +9,10 @@ my %WriteMakefileArgs = (
   'ABSTRACT' => 'Portably access the process table',
   'AUTHOR' => 'Brendan Byrd <BBYRD@CPAN.org>',
   'BUILD_REQUIRES' => {
+    'Config' => '0',
     'Test::CheckDeps' => '0.002',
-    'Test::More' => '0.88'
+    'Test::More' => '0.88',
+    'Test::Most' => '0'
   },
   'CONFIGURE_REQUIRES' => {
     'ExtUtils::MakeMaker' => '6.30'

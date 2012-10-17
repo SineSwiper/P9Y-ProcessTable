@@ -33,10 +33,28 @@
             "version" : "0.9901"
          }
       },
+      "runtime" : {
+         "requires" : {
+            "Moo" : "0",
+            "P9Y::ProcessTable::BSD" : "0",
+            "P9Y::ProcessTable::Darwin" : "0",
+            "P9Y::ProcessTable::OS2" : "0",
+            "P9Y::ProcessTable::ProcFS" : "0",
+            "P9Y::ProcessTable::VMS" : "0",
+            "P9Y::ProcessTable::Win32" : "0",
+            "Path::Class" : "0",
+            "namespace::clean" : "0",
+            "sanity" : "0",
+            "strict" : "0",
+            "warnings" : "0"
+         }
+      },
       "test" : {
          "requires" : {
+            "Config" : "0",
             "Test::CheckDeps" : "0.002",
-            "Test::More" : "0.88"
+            "Test::More" : "0.88",
+            "Test::Most" : "0"
          }
       }
    },
@@ -307,6 +325,11 @@
          {
             "class" : "Dist::Zilla::Plugin::FileFinder::ByName",
             "name" : "NoOSMods",
+            "version" : "4.300027"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::AutoPrereqs",
+            "name" : "AutoPrereqs",
             "version" : "4.300027"
          },
          {
