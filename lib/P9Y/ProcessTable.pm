@@ -102,7 +102,6 @@ __END__
    }
    
    # Dump all the information in the current process table
-   no strict 'refs';
    foreach my $p ( P9Y::ProcessTable->table ) {
       print "--------------------------------\n";
       foreach my $f (P9Y::ProcessTable->fields) {
