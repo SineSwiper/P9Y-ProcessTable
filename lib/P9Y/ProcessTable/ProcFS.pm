@@ -11,7 +11,6 @@ use Moo;
 use P9Y::ProcessTable::Process;
 
 use Path::Class;
-use File::Slurp 'read_file';
 use Config;
 
 use namespace::clean;
@@ -56,6 +55,7 @@ sub _process_hash {
    my ($self, $pid) = @_;
    
    my $pdir = dir('', 'proc', $pid);
+   return unless (-d $pdir);
    my $hash = {
       pid   => $pid,
       uid   => $pdir->stat->uid,
@@ -72,7 +72,7 @@ sub _process_hash {
    # process simple cats
    foreach my $fn (qw{cmdline}) {
       my $file = $pdir->file($fn);
-      $hash->{$fn} = read_file $file if (-f $file);
+      $hash->{$fn} = $file->slurp if (-f $file);
       $hash->{$fn} =~ s/\0/ /g;
       $hash->{$fn} =~ s/^\s+|\s+$//g;
    }
@@ -81,7 +81,7 @@ sub _process_hash {
    my $env_file = $pdir->file('environ');
    if (-f $env_file) {
       my $data;
-      eval { $data = read_file $env_file; };  # skip permission failures
+      eval { $data = $env_file->slurp; };  # skip permission failures
       unless ($@) {
          $data =~ s/^\0+|\0+$//g;
          $hash->{environ} = { map { split /\=/, $_, 2 } split /\0/, $data };
@@ -94,7 +94,7 @@ sub _process_hash {
       # stat has more needed information than the friendier status, so we'll use that file instead
 
       # stat
-      my $data = read_file $pdir->file('stat');
+      my $data = $pdir->file('stat')->slurp;
       my @data = split /\s+/, $data;
       
       state $states = {
@@ -129,7 +129,7 @@ sub _process_hash {
       ### Solaris ###
       my $ptr = $Config{longsize} >= 8 ? '%Q' : '%I';
       
-      my $data = read_file $pdir->file('status');
+      my $data = $pdir->file('status')->slurp;
       my @data = unpack '%I[10]'.$ptr.'[4]%I[12]%C%I[4]', $data;
 
       #  1 int pr_flags;            /* flags (see below) */
@@ -165,7 +165,7 @@ sub _process_hash {
       $hash->{time}  = $hash->{utime}  + $hash->{stime};
       $hash->{ctime} = $hash->{cutime} + $hash->{stime};
 
-      $data = read_file $pdir->file('psinfo');
+      $data = $pdir->file('psinfo')->slurp;
       @data = unpack '%I[11]'.$ptr.'[3]%I%S[2]%I[6]%16A%80A%I', $data;
       
       #define  PRFNSZ      16  /* Maximum size of execed filename */
