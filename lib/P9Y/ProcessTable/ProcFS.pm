@@ -2,7 +2,6 @@ package  # hide from PAUSE
    P9Y::ProcessTable;
 
 # VERSION
-# ABSTRACT: /proc FS process table
 
 #############################################################################
 # Modules
@@ -35,6 +34,22 @@ sub list {
    }
    
    return sort { $a <=> $b } @list;
+}
+
+sub fields {
+   return $^O eq /solaris|sunos/i ?
+   ( qw/
+      pid uid gid euid egid ppid pgrp sess
+      cwd exe root cmdline
+      utime stime cutime cstime start time ctime
+      fname ttynum flags threads size rss pctcpu pctmem
+   / ) :
+   ( qw/
+      pid uid gid ppid pgrp sess
+      cwd exe root cmdline environ
+      minflt cminflt majflt cmajflt ttlflt cttlflt utime stime cutime cstime start time ctime
+      priority fname state ttynum flags threads size rss wchan cpuid
+   / );
 }
 
 sub _process_hash {
@@ -181,7 +196,7 @@ sub _process_hash {
       # 25 int pr_wstat;            /* if zombie, the wait() status */
 
       state $psinfo_loc = [ qw(
-         . threads . pid ppid pgrp sess uid euid gid egid . size rss ttydev pctcpu pctmem start time ctime fname cmdline .
+         . threads . pid ppid pgrp sess uid euid gid egid . size rss ttynum pctcpu pctmem start time ctime fname cmdline .
       ) ];
 
       foreach my $i (0 .. @data - 1) {

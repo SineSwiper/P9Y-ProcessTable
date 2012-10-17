@@ -2,7 +2,6 @@ package  # hide from PAUSE
    P9Y::ProcessTable;
 
 # VERSION
-# ABSTRACT: VMS process table
 
 #############################################################################
 # Modules
@@ -33,6 +32,15 @@ sub list {
    return sort { $a <=> $b } map { $_->{PID} } (process_list);
 }
 
+sub fields {
+   return ( qw/
+      pid uid gid ppid pgrp
+      exe
+      ttlflt start time
+      priority fname state ttydev flags size rss cpuid
+   / );
+}
+
 sub _process_hash {
    my ($self, $pid) = @_;
    my $info = process_list({
@@ -57,7 +65,7 @@ sub _convert_hash {
       cpuid       CPUID
       priority    PRI
       flags       PHDFLAGS
-      minflt      PAGEFLTS
+      ttlflt      PAGEFLTS
       time        CPUTIM
       size        VIRTPEAK
       rss         WSSIZE

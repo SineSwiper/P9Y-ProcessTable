@@ -2,7 +2,6 @@ package  # hide from PAUSE
    P9Y::ProcessTable;
 
 # VERSION
-# ABSTRACT: Darwin/OSX process table
 
 #############################################################################
 # Modules
@@ -41,6 +40,15 @@ sub list {
    return sort { $a <=> $b } map { $_->pid } @{ $pt->table };
 }
 
+sub fields {
+   return ( qw/
+      pid uid gid euid egid suid sgid ppid pgrp sess
+      cmdline 
+      utime stime start time
+      priority fname state ttynum ttydev flags size rss wchan cpuid pctcpu pctmem
+   / );
+}
+
 sub _process_hash {
    my ($self, $pid) = @_;
    my $info = first { $_->pid == $pid } @{ $pt->table };
@@ -53,45 +61,17 @@ sub _convert_hash {
    return unless $info;
    
    my $hash = {};
+   # (only has the ones that are different)
    state $stat_loc = { qw/
-      pid       pid     
-      ppid      ppid    
-      pgrp      pgrp    
-      uid       uid     
-      gid       gid     
-      euid      euid    
-      egid      egid    
-      suid      suid    
-      sgid      sgid    
-      priority  priority
-      size      size    
-      rss       rss     
-      flags     flags   
-      nice      nice    
-      sess      sess    
-      time      time    
-      stime     stime   
-      utime     utime   
-      start     start   
-      wchan     wchan   
-      ttydev    ttydev  
-      ttynum    ttynum  
-      pctcpu    pctcpu  
-      pctmem    pctmem  
-      state     state   
       cmdline   cmndline
-      fname     fname   
    / };
    
-   foreach my $key (keys %$stat_loc) {
-      no strict 'refs';
-      my $old = $stat_loc->{$key};
+   no strict 'refs';
+   foreach my $key ( $self->fields ) {
+      my $old = $stat_loc->{$key} || $key;
       my $item = $info->$old();
       $hash->{$key} = $item if defined $item;
    }
-   
-   $hash->{ ttlflt} = $hash->{ minflt} + $hash->{ majflt};
-   $hash->{cttlflt} = $hash->{cminflt} + $hash->{cmajflt};
    
    return $hash;
 }

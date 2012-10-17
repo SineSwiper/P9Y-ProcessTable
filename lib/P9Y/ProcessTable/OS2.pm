@@ -2,7 +2,6 @@ package  # hide from PAUSE
    P9Y::ProcessTable;
 
 # VERSION
-# ABSTRACT: OS/2 process table
 
 #############################################################################
 # Modules
@@ -33,6 +32,12 @@ sub table {
 sub list {
    my $self = shift;
    return sort { $a <=> $b } map { $_->{owner_pid} } (process_hentries);
+}
+
+sub fields {
+   return ( qw/
+      pid ppid sess cmdline
+   / );
 }
 
 sub _process_hash {
