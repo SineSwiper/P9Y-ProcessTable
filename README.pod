@@ -16,7 +16,7 @@ P9Y::ProcessTable - Portably access the process table
     my @pids = P9Y::ProcessTable->list;
  
     my $perl_process  = P9Y::ProcessTable->process;
-    my $other_process = P9Y::ProcessTable->process($pid);
+    my $other_process = P9Y::ProcessTable->process($pid[0]);
  
     if ($other_process->has_threads) {
        print "# of Threads: ".$other_process->threads."\n";
@@ -126,10 +126,10 @@ we should try to learn from our failures and adapt in kind.
 B<Too many OSs in one distribution.>  I dunno about you, but I don't happen to have 15 different OSs on VMs anywhere.  At best, I might have 
 access to 2-3 different platforms.  So, trying to test out code on a platform that you don't actually own is especially difficult.
 
-=back
-
 Thus, this module is merely a wrapper around various other modules that provide process table information.  Those guys actually have the means
 (and the drive) to test their stuff on those OSs.  (The sole exception is the ProcFS module, but that may get split eventually.)
+
+=back
 
 =over
 
@@ -139,12 +139,12 @@ B<Too much CE<sol>XS code.>  The C and XS code falls in a class of exclusivity t
 wild guess, I would say that only 20% of Perl programmers could actually read, understand, and program CE<sol>XS code.  People aren't calling the
 process table a 1000 times a second, so there's really no need for a speed boost, either.
 
-=back
-
 Alas, sometimes this is unavoidable, with the process information buried in C library calls.  However, the C<<< /proc >>> FS is available on a great
 many amount of UNIX platforms, so it should be used I<as much as possible>.  Also, I take this moment to shake my tiny little fist at the BSD
 folks for actually B<regressing> the OS by removing support for C<<< /proc >>>.  All of the reasons behind it are unsound or have solutions that don't
 involve removing this most basic right of UNIX users.
+
+=back
 
 =head1 CAVEATS E<sol> TODO
 

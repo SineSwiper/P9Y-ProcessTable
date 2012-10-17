@@ -79,7 +79,7 @@ __END__
    my @pids = P9Y::ProcessTable->list;
    
    my $perl_process  = P9Y::ProcessTable->process;
-   my $other_process = P9Y::ProcessTable->process($pid);
+   my $other_process = P9Y::ProcessTable->process($pids[0]);
    
    if ($other_process->has_threads) {
       print "# of Threads: ".$other_process->threads."\n";
