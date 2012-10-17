@@ -166,10 +166,6 @@ x_Dist_Zilla:
       name: '@Filter/MetaProvides::Package'
       version: 1.14000001
     -
-      class: Dist::Zilla::Plugin::MetaResourcesFromGit
-      name: '@Filter/MetaResourcesFromGit'
-      version: 1.103620
-    -
       class: Dist::Zilla::Plugin::CopyFilesFromBuild
       name: '@Filter/CopyFilesFromBuild'
       version: 0.103510
@@ -229,6 +225,10 @@ x_Dist_Zilla:
       class: inc::P9YOSDeps
       name: P9YOSDeps
       version: ~
+    -
+      class: Dist::Zilla::Plugin::MetaResourcesFromGit
+      name: MetaResourcesFromGit
+      version: 1.103620
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':InstallModules'
