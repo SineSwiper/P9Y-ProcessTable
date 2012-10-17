@@ -95,11 +95,6 @@
             "version" : "0.004000"
          },
          {
-            "class" : "Dist::Zilla::Plugin::PodWeaver",
-            "name" : "@Filter/PodWeaver",
-            "version" : "3.101641"
-         },
-         {
             "class" : "Dist::Zilla::Plugin::PruneCruft",
             "name" : "@Filter/PruneCruft",
             "version" : "4.300027"
@@ -308,6 +303,16 @@
             "class" : "Dist::Zilla::Plugin::MetaResourcesFromGit",
             "name" : "MetaResourcesFromGit",
             "version" : "1.103620"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::FileFinder::ByName",
+            "name" : "NoOSMods",
+            "version" : "4.300027"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::PodWeaver",
+            "name" : "PodWeaver",
+            "version" : "3.101641"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
