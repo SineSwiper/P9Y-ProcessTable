@@ -84,7 +84,7 @@ sub _process_hash {
       eval { $data = $env_file->slurp; };  # skip permission failures
       unless ($@) {
          $data =~ s/^\0+|\0+$//g;
-         $hash->{environ} = { map { split /\=/, $_, 2 } split /\0/, $data };
+         $hash->{environ} = { map { split /\=/, $_, 2 } grep { /\=/ } split /\0/, $data };
       }
    }
    
