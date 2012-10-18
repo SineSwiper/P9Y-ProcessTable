@@ -21,7 +21,7 @@ my %WriteMakefileArgs = (
     'Moo' => '0.009001',
     'Path::Class' => '0.17',
     'namespace::clean' => '0.06',
-    'sanity' => '0.91'
+    'sanity' => '0.91',
     &os_deps,
   },
   'VERSION' => '0.92',
