@@ -7,7 +7,6 @@ override _build_WriteMakefile_args => sub {
    shift->zilla->distmeta->{dynamic_config} = 1;
    +{
       %{ super() },
-      PREREQ_PM => {},
    }
 };
  
