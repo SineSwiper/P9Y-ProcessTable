@@ -79,11 +79,6 @@
             "version" : null
          },
          {
-            "class" : "Dist::Zilla::Plugin::MetaResourcesFromGit",
-            "name" : "MetaResourcesFromGit",
-            "version" : "1.103620"
-         },
-         {
             "class" : "Dist::Zilla::Plugin::ReportPhase",
             "name" : "@Filter/ReportPhase",
             "version" : "0.00"
@@ -237,6 +232,11 @@
             "class" : "Dist::Zilla::Plugin::MetaProvides::Package",
             "name" : "@Filter/MetaProvides::Package",
             "version" : "1.14000001"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::MetaResourcesFromGit",
+            "name" : "@Filter/MetaResourcesFromGit",
+            "version" : "1.103620"
          },
          {
             "class" : "Dist::Zilla::Plugin::CopyFilesFromBuild",
