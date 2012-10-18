@@ -47,11 +47,11 @@
    "provides" : {
       "P9Y::ProcessTable" : {
          "file" : "lib/P9Y/ProcessTable.pm",
-         "version" : "0.92"
+         "version" : "0.93"
       },
       "P9Y::ProcessTable::Process" : {
          "file" : "lib/P9Y/ProcessTable/Process.pm",
-         "version" : "0.92"
+         "version" : "0.93"
       }
    },
    "release_status" : "stable",
@@ -67,7 +67,7 @@
       },
       "x_irc" : "irc://irc.perl.org/#win32"
    },
-   "version" : "0.92",
+   "version" : "0.93",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.016000"
@@ -77,6 +77,11 @@
             "class" : "inc::P9YOSDeps",
             "name" : "P9YOSDeps",
             "version" : null
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::MetaResourcesFromGit",
+            "name" : "MetaResourcesFromGit",
+            "version" : "1.103620"
          },
          {
             "class" : "Dist::Zilla::Plugin::ReportPhase",
@@ -302,11 +307,6 @@
             "class" : "Dist::Zilla::Plugin::Clean",
             "name" : "@Filter/Clean",
             "version" : "0.07"
-         },
-         {
-            "class" : "Dist::Zilla::Plugin::MetaResourcesFromGit",
-            "name" : "MetaResourcesFromGit",
-            "version" : "1.103620"
          },
          {
             "class" : "Dist::Zilla::Plugin::FileFinder::ByName",

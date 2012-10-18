@@ -4,6 +4,12 @@ Revision History for P9Y-ProcessTable
 v0.92 2012-10-17
 ----------------
 
+commit 14ea842b35f9b9e306f87dce9b98479f0965d3a8
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Wed Oct 17 20:25:35 2012 -0400
+
+    Release v0.92
+
 commit 9105e1bf0329867d7cfc0c89ac3f5bd2cb4ada71
 Author: Brendan Byrd <Perl@ResonatorSoft.org>
 Date:   Wed Oct 17 20:20:28 2012 -0400

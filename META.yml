@@ -21,10 +21,10 @@ no_index:
 provides:
   P9Y::ProcessTable:
     file: lib/P9Y/ProcessTable.pm
-    version: 0.92
+    version: 0.93
   P9Y::ProcessTable::Process:
     file: lib/P9Y/ProcessTable/Process.pm
-    version: 0.92
+    version: 0.93
 requires:
   Moo: 0.009001
   Path::Class: 0.17
@@ -36,7 +36,7 @@ resources:
   bugtracker: https://github.com/SineSwiper/P9Y-ProcessTable/issues
   homepage: https://github.com/SineSwiper/P9Y-ProcessTable/wiki
   repository: git://github.com/SineSwiper/P9Y-ProcessTable.git
-version: 0.92
+version: 0.93
 x_Dist_Zilla:
   perl:
     version: 5.016000
@@ -45,6 +45,10 @@ x_Dist_Zilla:
       class: inc::P9YOSDeps
       name: P9YOSDeps
       version: ~
+    -
+      class: Dist::Zilla::Plugin::MetaResourcesFromGit
+      name: MetaResourcesFromGit
+      version: 1.103620
     -
       class: Dist::Zilla::Plugin::ReportPhase
       name: '@Filter/ReportPhase'
@@ -225,10 +229,6 @@ x_Dist_Zilla:
       class: Dist::Zilla::Plugin::Clean
       name: '@Filter/Clean'
       version: 0.07
-    -
-      class: Dist::Zilla::Plugin::MetaResourcesFromGit
-      name: MetaResourcesFromGit
-      version: 1.103620
     -
       class: Dist::Zilla::Plugin::FileFinder::ByName
       name: NoOSMods
