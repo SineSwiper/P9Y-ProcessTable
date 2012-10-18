@@ -18,11 +18,11 @@ my %WriteMakefileArgs = (
   'LICENSE' => 'artistic_2',
   'NAME' => 'P9Y::ProcessTable',
   'PREREQ_PM' => {
+    &os_deps,
     'Moo' => '0.009001',
     'Path::Class' => '0.17',
     'namespace::clean' => '0.06',
-    'sanity' => '0.91',
-    &os_deps,
+    'sanity' => '0.91'
   },
   'VERSION' => '0.92',
   'test' => {

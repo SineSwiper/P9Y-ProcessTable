@@ -14,7 +14,7 @@ override _build_WriteMakefile_dump => sub {
    my ($self) = @_;
    my $txt = super();
 
-   $txt =~ s/('PREREQ_PM' => \{[^\}]+?)\n  \}/$1,\n    &os_deps,\n  }/g;
+   $txt =~ s/('PREREQ_PM' => \{)/$1\n    &os_deps,/g;
    return $txt;
 };
 
