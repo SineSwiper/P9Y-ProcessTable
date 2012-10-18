@@ -7,7 +7,6 @@ override _build_WriteMakefile_args => sub {
    shift->zilla->distmeta->{dynamic_config} = 1;
    +{
       %{ super() },
-      PREREQ_PM => {},
    }
 };
  
@@ -15,7 +14,7 @@ override _build_WriteMakefile_dump => sub {
    my ($self) = @_;
    my $txt = super();
 
-   $txt =~ s/('PREREQ_PM' =>) \{\}/$1 &os_deps/g;
+   $txt =~ s/('PREREQ_PM' => \{)/$1\n    &os_deps,/g;
    return $txt;
 };
 
@@ -29,22 +28,22 @@ use v5.10;
 sub os_deps {
    for (lc $^O) {
       when (/mswin32|cygwin/) {
-         return {
+         return (
             'Win32::Process'       => 0,
             'Win32::Process::Info' => 0,
-         };
+         );
       }
       when ('freebsd') {
-         return {'BSD::Process' => 0};
+         return ('BSD::Process' => 0);
       }
       when ('darwin') {
-         return {'Proc::ProcessTable' => 0.45};
+         return ('Proc::ProcessTable' => 0.45);
       }
       when ('os2') {
-         return {'OS2::Process' => 0};
+         return ('OS2::Process' => 0);
       }
       when ('vms') {
-         return {'VMS::Process' => 0};
+         return ('VMS::Process' => 0);
       }
       when ('dos') {
          die "Heh, DOS processes... you're funny!";
@@ -58,7 +57,7 @@ sub os_deps {
          }
       }
    }
-   return {};
+   return ();
 }
 TEMPLATE
  
