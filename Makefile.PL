@@ -17,15 +17,11 @@ my %WriteMakefileArgs = (
   'EXE_FILES' => [],
   'LICENSE' => 'artistic_2',
   'NAME' => 'P9Y::ProcessTable',
-  'PREREQ_PM' => {
-    'Moo' => '0.009001',
-    'Path::Class' => '0.17',
-    'namespace::clean' => '0.06',
-    'sanity' => '0.91'
-  },
+  'PREREQ_PM' => {},
   'VERSION' => '0.92',
   'test' => {
     'TESTS' => 't/*.t'
+    &os_deps,
   }
 );
 
@@ -51,30 +47,24 @@ WriteMakefile(%WriteMakefileArgs);
 use v5.10;    
 
 sub os_deps {
-   my $prereq = {
-      Moo           => 0,
-      'Path::Class' => 0,
-      'namespace::clean' => 0,
-      perl   => 5.10.1,
-      sanity => 0,
-   };
-
    for (lc $^O) {
       when (/mswin32|cygwin/) {
-         $prereq->{'Win32::Process'}       = 0;
-         $prereq->{'Win32::Process::Info'} = 0;
+         return (
+            'Win32::Process'       => 0,
+            'Win32::Process::Info' => 0,
+         );
       }
       when ('freebsd') {
-         $prereq->{'BSD::Process'} = 0;
+         return ('BSD::Process' => 0);
       }
       when ('darwin') {
-         $prereq->{'Proc::ProcessTable'} = 0.45;
+         return ('Proc::ProcessTable' => 0.45);
       }
       when ('os2') {
-         $prereq->{'OS2::Process'} = 0;
+         return ('OS2::Process' => 0);
       }
       when ('vms') {
-         $prereq->{'VMS::Process'} = 0;
+         return ('VMS::Process' => 0);
       }
       when ('dos') {
          die "Heh, DOS processes... you're funny!";
@@ -88,5 +78,5 @@ sub os_deps {
          }
       }
    }
-   return $prereq;
+   return ();
 }

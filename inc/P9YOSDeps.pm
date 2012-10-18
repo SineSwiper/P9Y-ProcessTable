@@ -7,7 +7,7 @@ override _build_WriteMakefile_args => sub {
    shift->zilla->distmeta->{dynamic_config} = 1;
    +{
       %{ super() },
-      # PREREQ_PM => {},
+      PREREQ_PM => {},
    }
 };
  
@@ -15,7 +15,7 @@ override _build_WriteMakefile_dump => sub {
    my ($self) = @_;
    my $txt = super();
 
-   $txt =~ s/('PREREQ_PM' =>) \{\}/$1 &os_deps/g;
+   $txt =~ s/('PREREQ_PM' => \{[\s\S]+?)\}/$1  &os_deps,\n  }/g;
    return $txt;
 };
 
@@ -27,30 +27,24 @@ override _build_MakeFile_PL_template => sub {
 use v5.10;    
 
 sub os_deps {
-   my $prereq = {
-      Moo           => 0,
-      'Path::Class' => 0,
-      'namespace::clean' => 0,
-      perl   => 5.10.1,
-      sanity => 0,
-   };
-
    for (lc $^O) {
       when (/mswin32|cygwin/) {
-         $prereq->{'Win32::Process'}       = 0;
-         $prereq->{'Win32::Process::Info'} = 0;
+         return (
+            'Win32::Process'       => 0,
+            'Win32::Process::Info' => 0,
+         );
       }
       when ('freebsd') {
-         $prereq->{'BSD::Process'} = 0;
+         return ('BSD::Process' => 0);
       }
       when ('darwin') {
-         $prereq->{'Proc::ProcessTable'} = 0.45;
+         return ('Proc::ProcessTable' => 0.45);
       }
       when ('os2') {
-         $prereq->{'OS2::Process'} = 0;
+         return ('OS2::Process' => 0);
       }
       when ('vms') {
-         $prereq->{'VMS::Process'} = 0;
+         return ('VMS::Process' => 0);
       }
       when ('dos') {
          die "Heh, DOS processes... you're funny!";
@@ -64,7 +58,7 @@ sub os_deps {
          }
       }
    }
-   return $prereq;
+   return ();
 }
 TEMPLATE
  
