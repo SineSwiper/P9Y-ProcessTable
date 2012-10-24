@@ -31,7 +31,7 @@ has euid     => ( is => 'rwp', predicate => 1 );
 has egid     => ( is => 'rwp', predicate => 1 );
 has suid     => ( is => 'rwp', predicate => 1 );
 has sgid     => ( is => 'rwp', predicate => 1 );
-has ppid     => ( is => 'rwp', required  => 1 );
+has ppid     => ( is => 'rwp', predicate => 1 );
 has pgrp     => ( is => 'rwp', predicate => 1 );
 has sess     => ( is => 'rwp', predicate => 1 );
 
@@ -157,8 +157,7 @@ Unlike the other data methods (below), these two are settable by passing a value
 
 == Process data methods
 
-Depending on the OS, the following methods are available.  Also, all methods also have a {has_*} predicate, except for {pid} and {ppid} which 
-are required (ie: exists on all OSs).
+Depending on the OS, the following methods are available.  Also, all methods also have a {has_*} predicate, except for {pid}.
 
    pid       Process ID
    uid       UID of process
@@ -205,8 +204,8 @@ are required (ie: exists on all OSs).
    pctcpu    Percent CPU used
    pctmem    Percent memory used
 
-Make no assumptions about what is available and what is not, besides maybe {pid} & {ppid}.  Instead, use the {has_*} methods and plan for
-alternatives if that data isn't available.
+Make no assumptions about what is available and what is not, not even {ppid}.  Instead, use the {has_*} methods and plan for alternatives
+if that data isn't available.
    
 = CAVEATS
 
