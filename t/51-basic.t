@@ -1,8 +1,6 @@
 use Test::Most tests => 4;
 use P9Y::ProcessTable;
 
-Test::More
-
 my @tbl;
 die_on_fail;
 lives_ok { @tbl = P9Y::ProcessTable->table } 'get table';
