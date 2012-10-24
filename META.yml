@@ -248,11 +248,11 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::MinimumPrereqs
       name: '@Prereqs/MinimumPrereqs'
-      version: 0.91
+      version: 0.92
     -
       class: Dist::Zilla::Plugin::PrereqsClean
       name: '@Prereqs/PrereqsClean'
-      version: 0.91
+      version: 0.92
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':InstallModules'

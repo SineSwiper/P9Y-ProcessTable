@@ -125,12 +125,12 @@ sub _process_hash {
       $hash->{ ttlflt} = $hash->{ minflt} + $hash->{ majflt};
       $hash->{cttlflt} = $hash->{cminflt} + $hash->{cmajflt};
    }
-   elsif ($^O eq /solaris|sunos/i) {
+   elsif ($^O =~ /solaris|sunos/i) {
       ### Solaris ###
-      my $ptr = $Config{longsize} >= 8 ? '%Q' : '%I';
+      my $ptr = $Config{longsize} >= 8 ? 'Q' : 'I';
       
       my $data = $pdir->file('status')->slurp;
-      my @data = unpack '%I[10]'.$ptr.'[4]%I[12]%C%I[4]', $data;
+      my @data = unpack 'I[10]'.$ptr.'[4]I[12]CI[4]', $data;
 
       #  1 int pr_flags;            /* flags (see below) */
       #  2 int pr_nlwp;             /* number of active lwps in the process */
@@ -151,7 +151,13 @@ sub _process_hash {
       # 17 timestruc_t pr_stime;    /* process system cpu time */
       # 19 timestruc_t pr_cutime;   /* sum of children's user times */
       # 21 timestruc_t pr_cstime;   /* sum of children's system times */
-      
+
+      # some Solaris versions don't have pr_nzomb
+      if ($data[2] == $pid) {
+         @data = unpack 'I[9]'.$ptr.'[4]I[12]CI[4]', $data;
+         splice @data, 2, 0, (0);
+      }
+
       state $stat_loc = [ qw(
          flags threads . pid ppid pgrp sess . . . . . . . utime . stime . cutime . cstime .
       ) ];
@@ -166,7 +172,7 @@ sub _process_hash {
       $hash->{ctime} = $hash->{cutime} + $hash->{stime};
 
       $data = $pdir->file('psinfo')->slurp;
-      @data = unpack '%I[11]'.$ptr.'[3]%I%S[2]%I[6]%16A%80A%I', $data;
+      @data = unpack 'I[11]'.$ptr.'[3]IS[2]I[6]A[16]A[80]I', $data;
       
       #define  PRFNSZ      16  /* Maximum size of execed filename */
       #define  PRARGSZ     80  /* number of chars of arguments */
@@ -194,6 +200,12 @@ sub _process_hash {
       # 23 char pr_fname[PRFNSZ];   /* name of exec'ed file */
       # 24 char pr_psargs[PRARGSZ]; /* initial characters of arg list */
       # 25 int pr_wstat;            /* if zombie, the wait() status */
+
+      # some Solaris versions don't have pr_nzomb
+      if ($data[2] == $pid) {
+         @data = unpack 'I[10]'.$ptr.'[3]IS[2]I[6]A[16]A[80]I', $data;
+         splice @data, 2, 0, (0);
+      }
 
       state $psinfo_loc = [ qw(
          . threads . pid ppid pgrp sess uid euid gid egid . size rss ttynum pctcpu pctmem start time ctime fname cmdline .
