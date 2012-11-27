@@ -57,8 +57,8 @@ sub process {
    my ($self, $pid) = @_;
    $pid = $$ if (@_ == 1);
    my $hash = $self->_process_hash($pid);
-   return unless $hash && $hash->{pid} && $hash->{ppid};
-   
+   return unless $hash && $hash->{pid};
+
    $hash->{_pt_obj} = $self;
    return P9Y::ProcessTable::Process->new($hash);
 }
@@ -72,15 +72,15 @@ __END__
 = SYNOPSIS
 
    use P9Y::ProcessTable;
-   
+
    my @process_table = P9Y::ProcessTable->table;
    print $process_table[0]->pid."\n";
-   
+
    my @pids = P9Y::ProcessTable->list;
-   
+
    my $perl_process  = P9Y::ProcessTable->process;
    my $other_process = P9Y::ProcessTable->process($pids[0]);
-   
+
    if ($other_process->has_threads) {
       print "# of Threads: ".$other_process->threads."\n";
       sleep 2;
@@ -100,7 +100,7 @@ __END__
          $p->cmdline,
       );
    }
-   
+
    # Dump all the information in the current process table
    foreach my $p ( P9Y::ProcessTable->table ) {
       print "--------------------------------\n";
@@ -109,7 +109,7 @@ __END__
          print $f, ":  ", $p->$f(), "\n" if ( $p->$has_f() );
       }
    }
-   
+
 = DESCRIPTION
 
 This interface will portably access the process table, no matter what the OS, and normalize its outputs to work similar across all platforms.
@@ -166,7 +166,7 @@ we should try to learn from our failures and adapt in kind.
 
 =item *
 
-B<Too many OSs in one distribution.>  I dunno about you, but I don't happen to have 15 different OSs on VMs anywhere.  At best, I might have 
+B<Too many OSs in one distribution.>  I dunno about you, but I don't happen to have 15 different OSs on VMs anywhere.  At best, I might have
 access to 2-3 different platforms.  So, trying to test out code on a platform that you don't actually own is especially difficult.
 
 Thus, this module is merely a wrapper around various other modules that provide process table information.  Those guys actually have the means
@@ -199,7 +199,7 @@ bug that module maintainer and provide some patches.  Then bug me and I'll chang
 * This thing actually uses [Proc::ProcessTable] for Darwin/OSX systems.  Darwin doesn't have a {/proc} access point (BSD... sigh).  Fortunately,
 P:PT is passing all Darwin tests (so far), so until somebody splits the code from that to a new module (hint hint)...
 
-* Certain other {/proc} friendly OSs needs further support.  Frankly, I'm trying to get a feel for what people actually need than just spending 
+* Certain other {/proc} friendly OSs needs further support.  Frankly, I'm trying to get a feel for what people actually need than just spending
 the time coding something for, say, NeXT OS and 50 other flavors.  However, supporting one OS or another should be pretty easy.  If you need
 support, dive into the {ProcFS} code and submit a patch.
 
