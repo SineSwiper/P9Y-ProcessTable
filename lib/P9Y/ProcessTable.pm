@@ -1,6 +1,6 @@
 package P9Y::ProcessTable;
 
-our $VERSION = '0.93'; # VERSION
+our $VERSION = '0.94'; # VERSION
 # ABSTRACT: Portably access the process table
 
 use sanity;
@@ -57,8 +57,8 @@ sub process {
    my ($self, $pid) = @_;
    $pid = $$ if (@_ == 1);
    my $hash = $self->_process_hash($pid);
-   return unless $hash && $hash->{pid} && $hash->{ppid};
-   
+   return unless $hash && $hash->{pid};
+
    $hash->{_pt_obj} = $self;
    return P9Y::ProcessTable::Process->new($hash);
 }
@@ -154,7 +154,7 @@ Currently, this module supports:
 
 =item *
 
-All C<<< /proc >>> friendly OSs to some degree.  Linux and Solaris are fully supported so far.
+All C<<< /proc >>> friendly OSs to some degree.  Linux, Solaris, and Dragonfly are fully supported so far.
 
 =item *
 
@@ -191,7 +191,7 @@ we should try to learn from our failures and adapt in kind.
 
 =item *
 
-B<Too many OSs in one distribution.>  I dunno about you, but I don't happen to have 15 different OSs on VMs anywhere.  At best, I might have 
+B<Too many OSs in one distribution.>  I dunno about you, but I don't happen to have 15 different OSs on VMs anywhere.  At best, I might have
 access to 2-3 different platforms.  So, trying to test out code on a platform that you don't actually own is especially difficult.
 
 Thus, this module is merely a wrapper around various other modules that provide process table information.  Those guys actually have the means
@@ -238,7 +238,7 @@ P:PT is passing all Darwin tests (so far), so until somebody splits the code fro
 
 =item *
 
-Certain other C<<< /proc >>> friendly OSs needs further support.  Frankly, I'm trying to get a feel for what people actually need than just spending 
+Certain other C<<< /proc >>> friendly OSs needs further support.  Frankly, I'm trying to get a feel for what people actually need than just spending
 the time coding something for, say, NeXT OS and 50 other flavors.  However, supporting one OS or another should be pretty easy.  If you need
 support, dive into the C<<< ProcFS >>> code and submit a patch.
 

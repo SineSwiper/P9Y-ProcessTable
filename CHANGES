@@ -1,8 +1,35 @@
 Revision History for P9Y-ProcessTable
 =====================================
 
+v0.94 2012-11-28
+----------------
+
+commit eeb2bd7a5fce3dcfcb92d8c7e1f0b6df47c1a064
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Wed Nov 28 09:43:42 2012 -0500
+
+    Update docs (add Dragonfly to list)
+
+commit 58217c1d20c8c97d9a079960f59fe71dcb54c2ad
+Author: Chris 'BinGOs' Williams <chris@bingosnet.co.uk>
+Date:   Wed Nov 28 14:32:16 2012 +0000
+
+    Make the DragonflyBSD procfs stuff actually work.
+
+commit 8c6ce1f95c23f68d39b2d5bc7704d23bbe4aca3b
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Tue Nov 27 14:01:05 2012 -0500
+
+    Fix ProcFS for Dragonfly and Solaris
+
 v0.93 2012-10-24
 ----------------
+
+commit 29e6f98f3d0e884224087eac26a202a08c90b062
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Wed Oct 24 16:07:34 2012 -0400
+
+    Release v0.93
 
 commit 8c9c354c2f596a67926d7e80ef04304ae761674d
 Author: Brendan Byrd <Perl@ResonatorSoft.org>
