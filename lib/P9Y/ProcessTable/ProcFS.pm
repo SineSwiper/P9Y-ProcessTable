@@ -226,7 +226,7 @@ sub _process_hash {
          $hash->{rss}  *= 1024;
       }
    }
-   elsif ($^O =~ /dragonfly|netbsd|openbsd/i) {
+   elsif ($^O =~ /dragonfly|bsd/i) {
       ### Dragonfly ###
 
       # stat
