@@ -144,7 +144,7 @@ Portability.  You know, like I18N and L10N.
 
 Currently, this module supports:
 
-* All {/proc} friendly OSs to some degree.  Linux and Solaris are fully supported so far.
+* All {/proc} friendly OSs to some degree.  Linux, Solaris, and Dragonfly are fully supported so far.
 * Windows (most flavors)
 * Darwin (see CAVEATS)
 * FreeBSD (only; see CAVEATS)
