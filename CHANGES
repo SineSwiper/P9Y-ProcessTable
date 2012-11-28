@@ -1,8 +1,39 @@
 Revision History for P9Y-ProcessTable
 =====================================
 
+v0.95 2012-11-28
+----------------
+
+commit 52837be67bf325a103c18be102733a7cd6afbb41
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Wed Nov 28 10:07:11 2012 -0500
+
+    Change docs for BSD adjustment
+    Use Dragonfly /proc code for all BSD types
+
+commit f22628bb4cbc552a86cf3fc8ff5ffded3bce17c0
+Merge: c8c1a2f 3238f44
+Author: Brendan Byrd <GitHub@ResonatorSoft.org>
+Date:   Wed Nov 28 06:48:29 2012 -0800
+
+    Merge pull request #2 from bingos/master
+    
+    OpenBSD and NetBSD should be the same as DragonflyBSD
+
+commit 3238f44124561706803769b55011dc91c432d025
+Author: Chris 'BinGOs' Williams <chris@bingosnet.co.uk>
+Date:   Wed Nov 28 14:45:02 2012 +0000
+
+    NetBSD and OpenBSD should be the same as DragonflyBSD
+
 v0.94 2012-11-28
 ----------------
+
+commit c8c1a2f8cc457f5ec73b27b8d74917da23cb7112
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Wed Nov 28 09:46:28 2012 -0500
+
+    Release v0.94
 
 commit eeb2bd7a5fce3dcfcb92d8c7e1f0b6df47c1a064
 Author: Brendan Byrd <Perl@ResonatorSoft.org>

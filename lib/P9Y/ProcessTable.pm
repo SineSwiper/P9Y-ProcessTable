@@ -1,6 +1,6 @@
 package P9Y::ProcessTable;
 
-our $VERSION = '0.94'; # VERSION
+our $VERSION = '0.95'; # VERSION
 # ABSTRACT: Portably access the process table
 
 use sanity;
@@ -154,7 +154,7 @@ Currently, this module supports:
 
 =item *
 
-All C<<< /proc >>> friendly OSs to some degree.  Linux, Solaris, and Dragonfly are fully supported so far.
+All C<<< /proc >>> friendly OSs to some degree.  Linux, Solaris, and most C<<< /proc >>> friendly BSD-variants are fully supported so far.
 
 =item *
 

@@ -1,7 +1,7 @@
 package  # hide from PAUSE
    P9Y::ProcessTable;
 
-our $VERSION = '0.94'; # VERSION
+our $VERSION = '0.95'; # VERSION
 
 #############################################################################
 # Modules
@@ -226,7 +226,7 @@ sub _process_hash {
          $hash->{rss}  *= 1024;
       }
    }
-   elsif ($^O =~ /dragonfly/i) {
+   elsif ($^O =~ /dragonfly|bsd/i) {
       ### Dragonfly ###
 
       # stat
