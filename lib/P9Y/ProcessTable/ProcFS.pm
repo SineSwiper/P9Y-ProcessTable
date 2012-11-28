@@ -230,7 +230,7 @@ sub _process_hash {
       ### Dragonfly ###
 
       # stat
-      my $data = $pdir->file('stat')->slurp;
+      my $data = $pdir->file('status')->slurp;
       my @data = split /\s+/, $data;
 
       state $stat_loc = [ qw(
@@ -245,6 +245,7 @@ sub _process_hash {
 
       $hash->{fname} =~ s/^\((.+)\)$/$1/;
       ($hash->{euid}, $hash->{egid}) = split(/,/, $hash->{euid}, 3);
+      $hash->{$_} =~ s!\,!.! for qw[start utime stime];
 
       ### TODO: State normalization, like $states in the Linux block ###
       #$hash->{state} = $states->{ $hash->{state} };
