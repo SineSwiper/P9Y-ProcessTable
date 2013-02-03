@@ -74,6 +74,9 @@ has cpuid    => ( is => 'rwp', predicate => 1 );
 has pctcpu   => ( is => 'rwp', predicate => 1 );
 has pctmem   => ( is => 'rwp', predicate => 1 );
 
+has winpid   => ( is => 'rwp', predicate => 1 );
+has winexe   => ( is => 'rwp', predicate => 1 );
+
 #sub fields {
 #   return ( qw/
 #      pid uid gid euid egid suid sgid ppid pgrp sess
