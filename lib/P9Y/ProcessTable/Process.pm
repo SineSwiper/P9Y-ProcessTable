@@ -6,7 +6,13 @@ package P9Y::ProcessTable::Process;
 #############################################################################
 # Modules
 
-use sanity;
+# use sanity;
+use utf8;
+use strict qw(subs vars);
+no strict 'refs';
+use warnings FATAL => 'all';
+no warnings qw(uninitialized);
+
 use Moo;
 
 use namespace::clean;
@@ -18,7 +24,7 @@ no warnings 'uninitialized';
 has _pt_obj  => (
    is       => 'ro',
    required => 1,
-   handles  => [qw( 
+   handles  => [qw(
       fields
       _process_hash
    )],
@@ -103,7 +109,7 @@ sub kill {
 sub pgrp {
    my ($self, $pgrp) = @_;
    return $self->{pgrp} if @_ == 1;
-   
+
    setpgrp($self->pid, $pgrp);
    $self->_set_pgrp($pgrp);
 }
@@ -111,7 +117,7 @@ sub pgrp {
 sub priority {
    my ($self, $pri) = @_;
    return $self->{priority} if @_ == 1;
-   
+
    setpriority(0, $self->pid, $pri);
    $self->_set_priority($pri);
 }
@@ -123,7 +129,7 @@ __END__
 =begin wikidoc
 
 = SYNOPSIS
- 
+
    use P9Y::ProcessTable;
 
    my $p = P9Y::ProcessTable->process;
@@ -131,7 +137,7 @@ __END__
       my $has_f = 'has_'.$f;
       print $f, ":  ", $p->$f(), "\n" if ( $p->$has_f() );
    }
- 
+
 = DESCRIPTION
 
 This (Moo) class/object represents a single process.
@@ -206,7 +212,7 @@ Depending on the OS, the following methods are available.  Also, all methods als
 
 Make no assumptions about what is available and what is not, not even {ppid}.  Instead, use the {has_*} methods and plan for alternatives
 if that data isn't available.
-   
+
 = CAVEATS
 
 * Certain fields might not be normalized correctly.  Patches welcome!
