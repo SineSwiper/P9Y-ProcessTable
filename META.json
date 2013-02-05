@@ -33,13 +33,13 @@
             "Moo" : "0.009001",
             "Path::Class" : "0.17",
             "namespace::clean" : "0.06",
-            "perl" : "v5.10.1",
-            "sanity" : "0.91"
+            "perl" : "5.008009"
          }
       },
       "test" : {
          "requires" : {
             "Test::CheckDeps" : "0.002",
+            "Test::More" : "0.88",
             "Test::Most" : "0.01"
          }
       }
@@ -47,14 +47,14 @@
    "provides" : {
       "P9Y::ProcessTable" : {
          "file" : "lib/P9Y/ProcessTable.pm",
-         "version" : "0.95"
+         "version" : "0.95_001"
       },
       "P9Y::ProcessTable::Process" : {
          "file" : "lib/P9Y/ProcessTable/Process.pm",
-         "version" : "0.95"
+         "version" : "0.95_001"
       }
    },
-   "release_status" : "stable",
+   "release_status" : "testing",
    "resources" : {
       "bugtracker" : {
          "web" : "https://github.com/SineSwiper/P9Y-ProcessTable/issues"
@@ -67,7 +67,7 @@
       },
       "x_irc" : "irc://irc.perl.org/#win32"
    },
-   "version" : "0.95",
+   "version" : "0.95_001",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.016000"

@@ -1,12 +1,18 @@
 package P9Y::ProcessTable::Process;
 
-our $VERSION = '0.95'; # VERSION
+our $VERSION = '0.95_001'; # VERSION
 # ABSTRACT: Base class for a single process
 
 #############################################################################
 # Modules
 
-use sanity;
+# use sanity;
+use utf8;
+use strict qw(subs vars);
+no strict 'refs';
+use warnings FATAL => 'all';
+no warnings qw(uninitialized);
+
 use Moo;
 
 use namespace::clean;
@@ -18,7 +24,7 @@ no warnings 'uninitialized';
 has _pt_obj  => (
    is       => 'ro',
    required => 1,
-   handles  => [qw( 
+   handles  => [qw(
       fields
       _process_hash
    )],
@@ -103,7 +109,7 @@ sub kill {
 sub pgrp {
    my ($self, $pgrp) = @_;
    return $self->{pgrp} if @_ == 1;
-   
+
    setpgrp($self->pid, $pgrp);
    $self->_set_pgrp($pgrp);
 }
@@ -111,7 +117,7 @@ sub pgrp {
 sub priority {
    my ($self, $pri) = @_;
    return $self->{priority} if @_ == 1;
-   
+
    setpriority(0, $self->pid, $pri);
    $self->_set_priority($pri);
 }

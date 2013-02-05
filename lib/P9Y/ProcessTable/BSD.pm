@@ -1,12 +1,18 @@
 package  # hide from PAUSE
    P9Y::ProcessTable;
 
-our $VERSION = '0.95'; # VERSION
+our $VERSION = '0.95_001'; # VERSION
 
 #############################################################################
 # Modules
 
-use sanity;
+# use sanity;
+use utf8;
+use strict qw(subs vars);
+no strict 'refs';
+use warnings FATAL => 'all';
+no warnings qw(uninitialized);
+
 use Moo;
 use P9Y::ProcessTable::Process;
 
@@ -40,7 +46,7 @@ sub _process_hash {
    my $hash = {};
 
    # (only has the ones that are different)
-   state $stat_loc = { qw/
+   my $stat_loc = { qw/
       uid         ruid
       gid         rgid
       euid        uid
@@ -70,7 +76,7 @@ sub _process_hash {
    $hash->{ ttlflt} = $hash->{ minflt} + $hash->{ majflt};
    $hash->{cttlflt} = $hash->{cminflt} + $hash->{cmajflt};
 
-   state $states = {
+   my $states = {
       stat_1 => 'forking',
       stat_2 => 'run',
       stat_3 => 'sleep',

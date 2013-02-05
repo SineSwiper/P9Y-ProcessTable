@@ -1,46 +1,53 @@
 package P9Y::ProcessTable;
 
-our $VERSION = '0.95'; # VERSION
+our $VERSION = '0.95_001'; # VERSION
 # ABSTRACT: Portably access the process table
 
-use sanity;
+# use sanity;
+use utf8;
+use strict qw(subs vars);
+no strict 'refs';
+use warnings FATAL => 'all';
+no warnings qw(uninitialized);
 
 use Path::Class;
 use namespace::clean;
 
 BEGIN {
-   # Figure out which OS module we should use
-   for (lc $^O) {
-      when (/mswin32|cygwin/) {
-         require P9Y::ProcessTable::Win32;
-      }
-      # BSD::Process currently only supports FreeBSD;
-      # fall by on /proc for the others
-      when ('freebsd') {
-         require P9Y::ProcessTable::BSD;
-      }
-      when ('darwin') {
-         require P9Y::ProcessTable::Darwin;
-      }
-      when ('os2') {
-         require P9Y::ProcessTable::OS2;
-      }
-      when ('vms') {
-         require P9Y::ProcessTable::VMS;
-      }
-      when ('dos') {
-         die "Heh, DOS processes... you're funny!";
-      }
-      default {
-         # let's hope they have /proc
-         if ( -d dir('', 'proc') ) {
+
+    # Figure out which OS module we should use
+    my $_os = lc($^O);
+    if ( $_os =~ /mswin32|cygwin/ ) {
+        require P9Y::ProcessTable::Win32;
+    }
+    elsif ( $_os eq 'freebsd' ) {
+
+        # BSD::Process currently only supports FreeBSD;
+        # fall by on /proc for the others
+        require P9Y::ProcessTable::BSD;
+    }
+    elsif ( $_os eq 'darwin' ) {
+        require P9Y::ProcessTable::Darwin;
+    }
+    elsif ( $_os eq 'os2' ) {
+        require P9Y::ProcessTable::OS2;
+    }
+    elsif ( $_os eq 'vms' ) {
+        require P9Y::ProcessTable::VMS;
+    }
+    elsif ( $_os eq 'dos' ) {
+        die "Heh, DOS processes... you're funny!";
+    }
+    else {
+        # let's hope they have /proc
+        if ( -d dir( '', 'proc' ) ) {
             require P9Y::ProcessTable::ProcFS;
-         }
-         else {
-            die "No idea how to handle $^O processes.  Email me with more information!";
-         }
-      }
-   }
+        }
+        else {
+            die "No idea how to handle $_os processes."
+              . " Email me with more information!";
+        }
+    }
 }
 
 #############################################################################

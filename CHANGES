@@ -1,8 +1,34 @@
 Revision History for P9Y-ProcessTable
 =====================================
 
+v0.95_001 2013-02-05
+--------------------
+
+commit 61bf3fafc94c5ecf6fcea74d9e1bb5dc78f88363
+Author: Mithun Ayachit <m0t0rbr3th@gmail.com>
+Date:   Sat Feb 2 13:29:20 2013 -0600
+
+    Allow distribution to be used at least perl-5.8.8
+    
+    - Updated P9Y::ProcessTable to use `if/else` instead of `for/when` syntax
+    - Updated OS specific modules to use `my` instead of `state`
+    - Stop using sanity since it requires perl-5.10.1.
+        Rather use the default pragma that sanity loads
+    
+    update minting profile to generate 5.8.1 compatible makefile
+    
+    fix makefil template
+    
+    Removed perltidy closing comments. Updated to require at least perl-5.8.8
+
 v0.95 2012-11-28
 ----------------
+
+commit aa2f13811272f6cc616bc65a4dadc40abdc51786
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Wed Nov 28 10:08:53 2012 -0500
+
+    Release v0.95
 
 commit 52837be67bf325a103c18be102733a7cd6afbb41
 Author: Brendan Byrd <Perl@ResonatorSoft.org>

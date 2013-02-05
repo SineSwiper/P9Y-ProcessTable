@@ -1,12 +1,18 @@
 package  # hide from PAUSE
    P9Y::ProcessTable;
 
-our $VERSION = '0.95'; # VERSION
+our $VERSION = '0.95_001'; # VERSION
 
 #############################################################################
 # Modules
 
-use sanity;
+# use sanity;
+use utf8;
+use strict qw(subs vars);
+no strict 'refs';
+use warnings FATAL => 'all';
+no warnings qw(uninitialized);
+
 use Moo;
 use P9Y::ProcessTable::Process;
 
@@ -28,7 +34,7 @@ no warnings 'redefine';
 
 sub table {
    my $self = shift;
-   return map { 
+   return map {
       my $hash = $self->_convert_hash($_);
       $hash->{_pt_obj} = $self;
       P9Y::ProcessTable::Process->new($hash);
@@ -43,7 +49,7 @@ sub list {
 sub fields {
    return ( qw/
       pid uid gid euid egid suid sgid ppid pgrp sess
-      cmdline 
+      cmdline
       utime stime start time
       priority fname state ttynum ttydev flags size rss wchan cpuid pctcpu pctmem
    / );
@@ -59,20 +65,20 @@ sub _process_hash {
 sub _convert_hash {
    my ($self, $info) = @_;
    return unless $info;
-   
+
    my $hash = {};
    # (only has the ones that are different)
-   state $stat_loc = { qw/
+   my $stat_loc = { qw/
       cmdline   cmndline
    / };
-   
+
    no strict 'refs';
    foreach my $key ( $self->fields ) {
       my $old = $stat_loc->{$key} || $key;
       my $item = $info->$old();
       $hash->{$key} = $item if defined $item;
    }
-   
+
    return $hash;
 }
 

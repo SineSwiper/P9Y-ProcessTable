@@ -4,6 +4,7 @@ author:
   - 'Brendan Byrd <BBYRD@CPAN.org>'
 build_requires:
   Test::CheckDeps: 0.002
+  Test::More: 0.88
   Test::Most: 0.01
 dynamic_config: 1
 generated_by: 'Dist::Zilla version 4.300027, CPAN::Meta::Converter version 2.120921'
@@ -21,22 +22,21 @@ no_index:
 provides:
   P9Y::ProcessTable:
     file: lib/P9Y/ProcessTable.pm
-    version: 0.95
+    version: 0.95_001
   P9Y::ProcessTable::Process:
     file: lib/P9Y/ProcessTable/Process.pm
-    version: 0.95
+    version: 0.95_001
 requires:
   Moo: 0.009001
   Path::Class: 0.17
   namespace::clean: 0.06
-  perl: v5.10.1
-  sanity: 0.91
+  perl: 5.008009
 resources:
   X_irc: irc://irc.perl.org/#win32
   bugtracker: https://github.com/SineSwiper/P9Y-ProcessTable/issues
   homepage: https://github.com/SineSwiper/P9Y-ProcessTable/wiki
   repository: git://github.com/SineSwiper/P9Y-ProcessTable.git
-version: 0.95
+version: 0.95_001
 x_Dist_Zilla:
   perl:
     version: 5.016000

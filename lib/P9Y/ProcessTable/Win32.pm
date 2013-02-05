@@ -1,12 +1,18 @@
 package  # hide from PAUSE
    P9Y::ProcessTable;
 
-our $VERSION = '0.95'; # VERSION
+our $VERSION = '0.95_001'; # VERSION
 
 #############################################################################
 # Modules
 
-use sanity;
+# use sanity;
+use utf8;
+use strict qw(subs vars);
+no strict 'refs';
+use warnings FATAL => 'all';
+no warnings qw(uninitialized);
+
 use Moo;
 use P9Y::ProcessTable::Process;
 
@@ -42,7 +48,7 @@ sub process {
    $pid = Win32::Process::GetCurrentProcessID if (@_ == 1);  # process() changed here...
    my $hash = $self->_process_hash($pid);
    return unless $hash && $hash->{pid} && $hash->{ppid};
-   
+
    $hash->{_pt_obj} = $self;
    return P9Y::ProcessTable::Process->new($hash);
 }
@@ -54,7 +60,7 @@ sub _process_hash {
    $info = $info->[0];
 
    my $hash = {};
-   state $stat_loc = { qw/
+   my $stat_loc = { qw/
       pid        ProcessId
       uid        Owner
       ppid       ParentProcessId
@@ -120,7 +126,7 @@ sub kill {
 
    # POSIX = 0 HUP INT QUIT ILL TRAP ABRT . FPE KILL . SEGV . PIPE ALRM TERM . . . . . . ABRT
    # 0x0010 = WM_CLOSE
-   state $posix2wm = [
+   my $posix2wm = [
       0, 0x0010, 0x0010, qw/kill kill kill kill . kill kill . kill ./, 0x0010, 0x0010, 0x0010, qw/. . . . . . kill/
    ];
 
@@ -150,7 +156,7 @@ sub kill {
 sub priority {
    my ($self, $pri) = @_;
    return $self->{priority} if @_ == 1;
-   
+
    $self->_win32_proc->SetPriorityClass($pri);
    $self->_set_priority($pri);
 }

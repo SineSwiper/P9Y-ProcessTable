@@ -1,12 +1,18 @@
 package  # hide from PAUSE
    P9Y::ProcessTable;
 
-our $VERSION = '0.95'; # VERSION
+our $VERSION = '0.95_001'; # VERSION
 
 #############################################################################
 # Modules
 
-use sanity;
+# use sanity;
+use utf8;
+use strict qw(subs vars);
+no strict 'refs';
+use warnings FATAL => 'all';
+no warnings qw(uninitialized);
+
 use Moo;
 use P9Y::ProcessTable::Process;
 
@@ -20,7 +26,7 @@ no warnings 'uninitialized';
 
 sub table {
    my $self = shift;
-   return map { 
+   return map {
       my $hash = $self->_convert_hash($_);
       $hash->{_pt_obj} = $self;
       P9Y::ProcessTable::Process->new($hash);
@@ -54,9 +60,9 @@ sub _process_hash {
 sub _convert_hash {
    my ($self, $info) = @_;
    return unless $info;
-   
+
    my $hash = {};
-   state $stat_loc = { qw/
+   my $stat_loc = { qw/
       pid         PID
       uid         OWNER
       gid         GRP

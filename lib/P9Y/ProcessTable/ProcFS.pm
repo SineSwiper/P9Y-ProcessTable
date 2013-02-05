@@ -1,12 +1,18 @@
 package  # hide from PAUSE
    P9Y::ProcessTable;
 
-our $VERSION = '0.95'; # VERSION
+our $VERSION = '0.95_001'; # VERSION
 
 #############################################################################
 # Modules
 
-use sanity;
+# use sanity;
+use utf8;
+use strict qw(subs vars);
+no strict 'refs';
+use warnings FATAL => 'all';
+no warnings qw(uninitialized);
+
 use Moo;
 use P9Y::ProcessTable::Process;
 
@@ -97,7 +103,7 @@ sub _process_hash {
       my $data = $pdir->file('stat')->slurp;
       my @data = split /\s+/, $data;
 
-      state $states = {
+      my $states = {
          R => 'run',
          S => 'sleep',
          D => 'disk sleep',
@@ -106,7 +112,7 @@ sub _process_hash {
          W => 'paging',
       };
 
-      state $stat_loc = [ qw(
+      my $stat_loc = [ qw(
          pid fname state ppid pgrp sess ttynum . flags minflt cminflt majflt cmajflt utime stime cutime cstime priority . threads . .
          size . rss . . . . . . . . . wchan . . . cpuid . . . . .
       ) ];
@@ -160,7 +166,7 @@ sub _process_hash {
             splice @data, 2, 0, (0);
          }
 
-         state $stat_loc = [ qw(
+         my $stat_loc = [ qw(
             flags threads . pid ppid pgrp sess . . . . . . . utime . stime . cutime . cstime .
          ) ];
 
@@ -212,7 +218,7 @@ sub _process_hash {
             splice @data, 2, 0, (0);
          }
 
-         state $psinfo_loc = [ qw(
+         my $psinfo_loc = [ qw(
             . threads . pid ppid pgrp sess uid euid gid egid . size rss ttynum pctcpu pctmem start time ctime fname cmdline .
          ) ];
 
@@ -233,7 +239,7 @@ sub _process_hash {
       my $data = $pdir->file('status')->slurp;
       my @data = split /\s+/, $data;
 
-      state $stat_loc = [ qw(
+      my $stat_loc = [ qw(
          fname pid ppid pgrp sess ttynum flags start utime stime state euid
       ) ];
 
