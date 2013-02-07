@@ -4,7 +4,6 @@ package P9Y::ProcessTable;
 # ABSTRACT: Portably access the process table
 
 # use sanity;
-use utf8;
 use strict qw(subs vars);
 no strict 'refs';
 use warnings FATAL => 'all';
