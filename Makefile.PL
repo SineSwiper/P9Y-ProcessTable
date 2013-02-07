@@ -24,7 +24,7 @@ my %WriteMakefileArgs = (
     'Path::Class' => '0.17',
     'namespace::clean' => '0.06'
   },
-  'VERSION' => '0.95_001',
+  'VERSION' => '0.95_002',
   'test' => {
     'TESTS' => 't/*.t'
   }
