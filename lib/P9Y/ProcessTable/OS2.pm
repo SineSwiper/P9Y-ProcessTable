@@ -7,7 +7,6 @@ package  # hide from PAUSE
 # Modules
 
 # use sanity;
-use utf8;
 use strict qw(subs vars);
 no strict 'refs';
 use warnings FATAL => 'all';

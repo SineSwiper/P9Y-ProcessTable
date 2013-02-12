@@ -7,7 +7,6 @@ package P9Y::ProcessTable::Process;
 # Modules
 
 # use sanity;
-use utf8;
 use strict qw(subs vars);
 no strict 'refs';
 use warnings FATAL => 'all';
