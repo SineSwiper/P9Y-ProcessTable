@@ -7,6 +7,7 @@ our $VERSION = '0.95_002'; # VERSION
 use strict qw(subs vars);
 no strict 'refs';
 use warnings FATAL => 'all';
+use utf8;
 no warnings qw(uninitialized);
 
 use Path::Class;

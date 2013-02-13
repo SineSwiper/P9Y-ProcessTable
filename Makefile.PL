@@ -21,9 +21,8 @@ my %WriteMakefileArgs = (
   'PREREQ_PM' => {
     &os_deps,
     'Moo' => '0.009001',
-    'Path::Class' => '0.17',
-    'namespace::clean' => '0.06',
-    'warnings' => '1.05_01'
+    'Path::Class' => '0.16',
+    'namespace::clean' => '0.01'
   },
   'VERSION' => '0.95_002',
   'test' => {

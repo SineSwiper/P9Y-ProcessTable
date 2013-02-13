@@ -49,14 +49,13 @@ sub pmver {
 }
 
 eval { $v .= pmver('Moo','0.009001') };
-eval { $v .= pmver('Path::Class','0.17') };
+eval { $v .= pmver('Path::Class','0.16') };
 eval { $v .= pmver('Test::CheckDeps','0.002') };
 eval { $v .= pmver('Test::More','0.88') };
 eval { $v .= pmver('Test::Most','0.01') };
 eval { $v .= pmver('Test::Pod','1.41') };
-eval { $v .= pmver('namespace::clean','0.06') };
+eval { $v .= pmver('namespace::clean','0.01') };
 eval { $v .= pmver('version','0.9901') };
-eval { $v .= pmver('warnings','1.05_01') };
 
 
 # All done.
