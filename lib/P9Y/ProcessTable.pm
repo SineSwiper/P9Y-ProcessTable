@@ -4,7 +4,6 @@ our $VERSION = '0.95_002'; # VERSION
 # ABSTRACT: Portably access the process table
 
 # use sanity;
-use utf8;
 use strict qw(subs vars);
 no strict 'refs';
 use warnings FATAL => 'all';

@@ -1,8 +1,14 @@
 Revision History for P9Y-ProcessTable
 =====================================
 
-v0.95_002 2013-02-07
+v0.95_002 2013-02-13
 --------------------
+
+commit 5e42e079342bba332d17d2aadf81d3730744142a
+Author: Mithun Ayachit <mayachit@amfam.com>
+Date:   Thu Feb 7 16:01:41 2013 -0600
+
+    remove utf8 pre-req
 
 commit 61bf3fafc94c5ecf6fcea74d9e1bb5dc78f88363
 Author: Mithun Ayachit <m0t0rbr3th@gmail.com>
