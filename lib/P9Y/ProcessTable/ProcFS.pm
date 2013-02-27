@@ -77,7 +77,8 @@ sub _process_hash {
    # process simple cats
    foreach my $fn (qw{cmdline}) {
       my $file = $pdir->file($fn);
-      $hash->{$fn} = $file->slurp if (-f $file);
+      next unless (-f $file);
+      $hash->{$fn} = $file->slurp;
       $hash->{$fn} =~ s/\0/ /g;
       $hash->{$fn} =~ s/^\s+|\s+$//g;
    }

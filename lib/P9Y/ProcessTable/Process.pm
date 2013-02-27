@@ -83,6 +83,7 @@ has winexe   => ( is => 'rwp', predicate => 1 );
 #      cwd exe root cmdline environ
 #      minflt cminflt majflt cmajflt ttlflt cttlflt utime stime cutime cstime start time ctime
 #      priority fname state ttynum ttydev flags threads size rss wchan cpuid pctcpu pctmem
+#      winpid winexe
 #   / );
 #}
 
@@ -184,6 +185,9 @@ Depending on the OS, the following methods are available.  Also, all methods als
    cmdline   Full command line
    environ   Environment variables for the process (as a HASHREF)
    fname     Filename (typically without a path)
+
+   winpid    (Cygwin only) Windows PID
+   winexe    (Cygwin only) Windows Executable path
 
    minflt    Minor page faults
    cminflt   Minor page faults of children
