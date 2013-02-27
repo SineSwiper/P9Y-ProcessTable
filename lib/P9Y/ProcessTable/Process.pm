@@ -1,6 +1,6 @@
 package P9Y::ProcessTable::Process;
 
-our $VERSION = '0.95_002'; # VERSION
+our $VERSION = '0.95_003'; # VERSION
 # ABSTRACT: Base class for a single process
 
 #############################################################################
@@ -74,12 +74,16 @@ has cpuid    => ( is => 'rwp', predicate => 1 );
 has pctcpu   => ( is => 'rwp', predicate => 1 );
 has pctmem   => ( is => 'rwp', predicate => 1 );
 
+has winpid   => ( is => 'rwp', predicate => 1 );
+has winexe   => ( is => 'rwp', predicate => 1 );
+
 #sub fields {
 #   return ( qw/
 #      pid uid gid euid egid suid sgid ppid pgrp sess
 #      cwd exe root cmdline environ
 #      minflt cminflt majflt cmajflt ttlflt cttlflt utime stime cutime cstime start time ctime
 #      priority fname state ttynum ttydev flags threads size rss wchan cpuid pctcpu pctmem
+#      winpid winexe
 #   / );
 #}
 
@@ -187,6 +191,9 @@ Depending on the OS, the following methods are available.  Also, all methods als
     cmdline   Full command line
     environ   Environment variables for the process (as a HASHREF)
     fname     Filename (typically without a path)
+ 
+    winpid    (Cygwin only) Windows PID
+    winexe    (Cygwin only) Windows Executable path
  
     minflt    Minor page faults
     cminflt   Minor page faults of children

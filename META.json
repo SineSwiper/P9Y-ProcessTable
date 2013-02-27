@@ -47,11 +47,11 @@
    "provides" : {
       "P9Y::ProcessTable" : {
          "file" : "lib/P9Y/ProcessTable.pm",
-         "version" : "0.95_002"
+         "version" : "0.95_003"
       },
       "P9Y::ProcessTable::Process" : {
          "file" : "lib/P9Y/ProcessTable/Process.pm",
-         "version" : "0.95_002"
+         "version" : "0.95_003"
       }
    },
    "release_status" : "testing",
@@ -67,7 +67,7 @@
       },
       "x_irc" : "irc://irc.perl.org/#win32"
    },
-   "version" : "0.95_002",
+   "version" : "0.95_003",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.016000"

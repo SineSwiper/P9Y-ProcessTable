@@ -1,8 +1,37 @@
 Revision History for P9Y-ProcessTable
 =====================================
 
-v0.95_002 2013-02-13
+v0.95_003 2013-02-27
 --------------------
+
+commit 8f23744a3c78027f11e0d1a085d16a25df296c96
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Wed Feb 27 18:17:09 2013 -0500
+
+    Clean up some of the Win32 work
+    Fix ProcFS to not create hashes for non-existent files
+
+commit 9b51815fafa0eca8dafbf3f1447fc028af3363d7
+Author: Mithun Ayachit <m0t0rbr3th@gmail.com>
+Date:   Sat Feb 2 18:15:54 2013 -0600
+
+    Use the /proc filesystem on cygwin
+    
+    Cygwin provides a working /proc filesystem that is pretty similar to
+    Linux distributions. P9Y::ProcessTable::Win32 is updated to recognize
+    when running on Cygwin and provide the following behavior:
+    
+    - Use the /proc filesystem to provide Cygwin process info
+    - Use Win32::Process::Info to provide Windows process info
+    
+    This provides the user with both Cygwin and Windows processes
+    when on cygwin and only Windows processes when on Win32.
+
+commit 86d543ba14c18f477efef4767adab3183f47aca5
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Wed Feb 13 18:53:00 2013 -0500
+
+    Release v0.95_002
 
 commit 3fe4a4e2de99d808992761c20602696d39f87220
 Author: Brendan Byrd <Perl@ResonatorSoft.org>
