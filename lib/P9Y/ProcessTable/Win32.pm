@@ -287,12 +287,12 @@ sub kill {
    }
 }
 
-sub priority {
-   my ($self, $pri) = @_;
-   return $self->{priority} if @_ == 1;
+Class::Method::Modifiers::around priority => sub {
+   my ($orig, $self, $pri) = @_;
+   return $orig->($self) if @_ == 2;
 
    $self->_win32_proc->SetPriorityClass($pri);
    $self->_set_priority($pri);
-}
+};
 
 42;
