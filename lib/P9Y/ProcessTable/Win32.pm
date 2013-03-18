@@ -287,7 +287,7 @@ sub kill {
    }
 }
 
-around priority => sub {
+Class::Method::Modifiers::around priority => sub {
    my ($orig, $self, $pri) = @_;
    return $orig->($self) if @_ == 2;
 
