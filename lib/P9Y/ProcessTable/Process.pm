@@ -109,21 +109,21 @@ sub kill {
    return CORE::kill($sig, $self->pid);
 }
 
-sub pgrp {
-   my ($self, $pgrp) = @_;
-   return $self->{pgrp} if @_ == 1;
+around pgrp => sub {
+   my ($orig, $self, $pgrp) = @_;
+   return $orig->($self) if @_ == 2;
 
    setpgrp($self->pid, $pgrp);
    $self->_set_pgrp($pgrp);
-}
+};
 
-sub priority {
-   my ($self, $pri) = @_;
-   return $self->{priority} if @_ == 1;
+around priority => sub {
+   my ($orig, $self, $pri) = @_;
+   return $orig->($self) if @_ == 2;
 
    setpriority(0, $self->pid, $pri);
    $self->_set_priority($pri);
-}
+};
 
 42;
 
