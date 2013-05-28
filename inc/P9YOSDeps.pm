@@ -32,6 +32,7 @@ sub os_deps {
       return (
             'Win32::Process'       => 0,
             'Win32::Process::Info' => 0,
+            'Path::Class'          => 0.32,  # fixes Cygwin path issue
         );
     }
     elsif ( $_os eq 'freebsd' ) {
