@@ -1,6 +1,6 @@
 package P9Y::ProcessTable;
 
-our $VERSION = '0.96'; # VERSION
+our $VERSION = '0.97'; # VERSION
 # ABSTRACT: Portably access the process table
 
 # use sanity;
@@ -75,99 +75,114 @@ __END__
 
 =pod
 
+=encoding utf-8
+
 =head1 NAME
 
 P9Y::ProcessTable - Portably access the process table
 
-=head1 VERSION
+=head1 SYNOPSIS
 
-version 0.96
+    use P9Y::ProcessTable;
+ 
+    my @process_table = P9Y::ProcessTable->table;
+    print $process_table[0]->pid."\n";
+ 
+    my @pids = P9Y::ProcessTable->list;
+ 
+    my $perl_process  = P9Y::ProcessTable->process;
+    my $other_process = P9Y::ProcessTable->process($pids[0]);
+ 
+    if ($other_process->has_threads) {
+       print "# of Threads: ".$other_process->threads."\n";
+       sleep 2;
+       $other_process->refresh;
+       print "# of Threads: ".$other_process->threads."\n";
+    }
+ 
+    # A cheap and sleazy version of ps
+    my $FORMAT = "%-6s %-10s %-8s %-24s %s\n";
+    printf($FORMAT, "PID", "TTY", "STAT", "START", "COMMAND");
+    foreach my $p ( P9Y::ProcessTable->table ) {
+       printf($FORMAT,
+          $p->pid,
+          $p->ttydev,
+          $p->state,
+          scalar(localtime($p->start)),
+          $p->cmdline,
+       );
+    }
+ 
+    # Dump all the information in the current process table
+    foreach my $p ( P9Y::ProcessTable->table ) {
+       print "--------------------------------\n";
+       foreach my $f (P9Y::ProcessTable->fields) {
+          my $has_f = 'has_'.$f;
+          print $f, ":  ", $p->$f(), "\n" if ( $p->$has_f() );
+       }
+    }
 
-=begin wikidoc
-
-= SYNOPSIS
-
-   use P9Y::ProcessTable;
-
-   my @process_table = P9Y::ProcessTable->table;
-   print $process_table[0]->pid."\n";
-
-   my @pids = P9Y::ProcessTable->list;
-
-   my $perl_process  = P9Y::ProcessTable->process;
-   my $other_process = P9Y::ProcessTable->process($pids[0]);
-
-   if ($other_process->has_threads) {
-      print "# of Threads: ".$other_process->threads."\n";
-      sleep 2;
-      $other_process->refresh;
-      print "# of Threads: ".$other_process->threads."\n";
-   }
-
-   # A cheap and sleazy version of ps
-   my $FORMAT = "%-6s %-10s %-8s %-24s %s\n";
-   printf($FORMAT, "PID", "TTY", "STAT", "START", "COMMAND");
-   foreach my $p ( P9Y::ProcessTable->table ) {
-      printf($FORMAT,
-         $p->pid,
-         $p->ttydev,
-         $p->state,
-         scalar(localtime($p->start)),
-         $p->cmdline,
-      );
-   }
-
-   # Dump all the information in the current process table
-   foreach my $p ( P9Y::ProcessTable->table ) {
-      print "--------------------------------\n";
-      foreach my $f (P9Y::ProcessTable->fields) {
-         my $has_f = 'has_'.$f;
-         print $f, ":  ", $p->$f(), "\n" if ( $p->$has_f() );
-      }
-   }
-
-= DESCRIPTION
+=head1 DESCRIPTION
 
 This interface will portably access the process table, no matter what the OS, and normalize its outputs to work similar across all platforms.
 
-= METHODS
+=head1 METHODS
 
-All methods to this module are actually class-based (objectless) calls.  However, the [P9Y::ProcessTable::Process] returns are actual objects.
+All methods to this module are actually class-based (objectless) calls.  However, the L<P9Y::ProcessTable::Process> returns are actual objects.
 
-== fields
+=head2 fields
 
 Returns a list of the field names supported by the module on the current architecture.
 
-== list
+=head2 list
 
-Returns a list of PIDs that are available in the process table.  On most systems, this is a less heavy call than {table}, as it doesn't have to
+Returns a list of PIDs that are available in the process table.  On most systems, this is a less heavy call than C<<< table >>>, as it doesn't have to
 look up the information for every single process.
 
-== table
+=head2 table
 
-Returns a list of [P9Y::ProcessTable::Process] objects for all of the processes in the process table.  (More information in that module POD.)
+Returns a list of L<P9Y::ProcessTable::Process> objects for all of the processes in the process table.  (More information in that module POD.)
 
-== process
+=head2 process
 
-Returns a [P9Y::ProcessTable::Process] object for the process specified.  If a process isn't specified, it will look up {$$} (or its platform
+Returns a L<P9Y::ProcessTable::Process> object for the process specified.  If a process isn't specified, it will look up C<<< $$ >>> (or its platform
 equivalent).
 
-= P9Y?
+=head1 P9Y?
 
 Portability.  You know, like I18N and L10N.
 
-= SUPPORTED PLATFORMS
+=head1 SUPPORTED PLATFORMS
 
 Currently, this module supports:
 
-* All {/proc} friendly OSs to some degree.  Linux, Solaris, and most {/proc} friendly BSD-variants are fully supported so far.
-* Windows (most flavors)
-* Darwin (see CAVEATS)
-* FreeBSD (only; see CAVEATS)
-* OS/2 (hey, the module was there...)
-* VMS (same here; probably needs some testing)
+=over
 
-=end wikidoc
+=item *
+
+All C<<< /proc >>> friendly OSs to some degree.  Linux, Solaris, and most C<<< /proc >>> friendly BSD-variants are fully supported so far.
+
+=item *
+
+Windows (most flavors)
+
+=item *
+
+Darwin (see CAVEATS)
+
+=item *
+
+FreeBSD (only; see CAVEATS)
+
+=item *
+
+OSE<sol>2 (hey, the module was there...)
+
+=item *
+
+VMS (same here; probably needs some testing)
+
+=back
 
 =head1 HISTORY
 
@@ -205,35 +220,132 @@ involve removing this most basic right of UNIX users.
 
 =back
 
-=begin wikidoc
+=head1 CAVEATS E<sol> TODO
 
-= CAVEATS / TODO
+=over
 
-* No support for any non-proc BSD system other than FreeBSD.  This is because [BSD::Process] only supports FreeBSD.  If the support is needed,
+=item *
+
+No support for any non-proc BSD system other than FreeBSD.  This is because L<BSD::Process> only supports FreeBSD.  If the support is needed,
 bug that module maintainer and provide some patches.  Then bug me and I'll change the OS detection logic.
 
-* This thing actually uses [Proc::ProcessTable] for Darwin/OSX systems.  Darwin doesn't have a {/proc} access point (BSD... sigh).  Fortunately,
+=back
+
+=over
+
+=item *
+
+This thing actually uses L<Proc::ProcessTable> for DarwinE<sol>OSX systems.  Darwin doesn't have a C<<< /proc >>> access point (BSD... sigh).  Fortunately,
 P:PT is passing all Darwin tests (so far), so until somebody splits the code from that to a new module (hint hint)...
 
-* Certain other {/proc} friendly OSs needs further support.  Frankly, I'm trying to get a feel for what people actually need than just spending
+=back
+
+=over
+
+=item *
+
+Certain other C<<< /proc >>> friendly OSs needs further support.  Frankly, I'm trying to get a feel for what people actually need than just spending
 the time coding something for, say, NeXT OS and 50 other flavors.  However, supporting one OS or another should be pretty easy.  If you need
-support, dive into the {ProcFS} code and submit a patch.
+support, dive into the C<<< ProcFS >>> code and submit a patch.
 
-* See [P9Y::ProcessTable::Process] for other caveats.
+=back
 
-= SEE ALSO
+=over
 
-* [Proc::ProcessTable]
-* [BSD::Process]
-* [Win32::Process::Info] & [Win32::Process]
-* [OS2::Process]
-* [VMS::Process]
+=item *
 
-=end wikidoc
+See L<P9Y::ProcessTable::Process> for other caveats.
+
+=back
+
+=head1 SEE ALSO
+
+=over
+
+=item *
+
+L<Proc::ProcessTable>
+
+=item *
+
+L<BSD::Process>
+
+=item *
+
+L<Win32::Process::Info> & L<Win32::Process>
+
+=item *
+
+L<OS2::Process>
+
+=item *
+
+L<VMS::Process>
+
+=back
+
+=head1 AVAILABILITY
+
+The project homepage is L<https://github.com/SineSwiper/P9Y-ProcessTable/wiki>.
+
+The latest version of this module is available from the Comprehensive Perl
+Archive Network (CPAN). Visit L<http://www.perl.com/CPAN/> to find a CPAN
+site near you, or see L<https://metacpan.org/module/P9Y::ProcessTable/>.
+
+=for :stopwords cpan testmatrix url annocpan anno bugtracker rt cpants kwalitee diff irc mailto metadata placeholders metacpan
+
+=head1 SUPPORT
+
+=head2 Internet Relay Chat
+
+You can get live help by using IRC ( Internet Relay Chat ). If you don't know what IRC is,
+please read this excellent guide: L<http://en.wikipedia.org/wiki/Internet_Relay_Chat>. Please
+be courteous and patient when talking to us, as we might be busy or sleeping! You can join
+those networks/channels and get help:
+
+=over 4
+
+=item *
+
+irc.perl.org
+
+You can connect to the server at 'irc.perl.org' and talk to this person for help: SineSwiper.
+
+=back
+
+=head2 Bugs / Feature Requests
+
+Please report any bugs or feature requests via L<https://github.com/SineSwiper/P9Y-ProcessTable/issues>.
 
 =head1 AUTHOR
 
 Brendan Byrd <bbyrd@cpan.org>
+
+=head1 CONTRIBUTORS
+
+=over 4
+
+=item *
+
+Brendan Byrd <GitHub@ResonatorSoft.org>
+
+=item *
+
+Brendan Byrd <Perl@ResonatorSoft.org>
+
+=item *
+
+Chris 'BinGOs' Williams <chris@bingosnet.co.uk>
+
+=item *
+
+Mithun Ayachit <m0t0rbr3th@gmail.com>
+
+=item *
+
+Mithun Ayachit <mayachit@amfam.com>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

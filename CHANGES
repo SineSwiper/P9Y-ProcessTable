@@ -1,8 +1,24 @@
 Revision History for P9Y-ProcessTable
 =====================================
 
+v0.97 2013-05-31
+----------------
+
+commit afb3303c31bc7ecc78d7b87d86ee16fed4fdc88a
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Fri May 31 00:12:37 2013 -0400
+
+    Fix missing @PodWeaver->config_plugin option in dist.ini
+       (which totally frelled the POD last release)
+
 v0.96 2013-05-30
 ----------------
+
+commit b5bdcba78b9ce82b59f0f6beb5ed0983e8dc0ca5
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Thu May 30 23:57:31 2013 -0400
+
+    Release v0.96
 
 commit 2588c7bc38e7c13bc0036fc647ab5b634ee57d2e
 Author: Brendan Byrd <Perl@ResonatorSoft.org>
