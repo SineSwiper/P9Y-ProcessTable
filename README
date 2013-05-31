@@ -1,0 +1,55 @@
+NAME
+    P9Y::ProcessTable - Portably access the process table
+
+VERSION
+    version 0.96
+
+HISTORY
+    This module spawned because Proc::ProcessTable has fallen into bugland
+    <http://matrix.cpantesters.org/?dist=Proc-ProcessTable-0.45> for the
+    last 4 years, and many people just want to be able to get a simple
+    "PID+cmdline" from the process table. While this module offers more than
+    that as a bonus, the goal of this module is to have something that JFW,
+    and continues to JFW.
+
+    With that in mind, here my list of what went wrong with
+    Proc::ProcessTable. I have nothing against the authors of that module,
+    but I feel like we should try to learn from our failures and adapt in
+    kind.
+
+    *   Too many OSs in one distribution. I dunno about you, but I don't
+        happen to have 15 different OSs on VMs anywhere. At best, I might
+        have access to 2-3 different platforms. So, trying to test out code
+        on a platform that you don't actually own is especially difficult.
+
+        Thus, this module is merely a wrapper around various other modules
+        that provide process table information. Those guys actually have the
+        means (and the drive) to test their stuff on those OSs. (The sole
+        exception is the ProcFS module, but that may get split eventually.)
+
+    *   Too much C/XS code. The C and XS code falls in a class of
+        exclusivity that makes it even harder to maintain. If I were to
+        conjure up some wild guess, I would say that only 20% of Perl
+        programmers could actually read, understand, and program C/XS code.
+        People aren't calling the process table a 1000 times a second, so
+        there's really no need for a speed boost, either.
+
+        Alas, sometimes this is unavoidable, with the process information
+        buried in C library calls. However, the "/proc" FS is available on a
+        great many amount of UNIX platforms, so it should be used *as much
+        as possible*. Also, I take this moment to shake my tiny little fist
+        at the BSD folks for actually regressing the OS by removing support
+        for "/proc". All of the reasons behind it are unsound or have
+        solutions that don't involve removing this most basic right of UNIX
+        users.
+
+AUTHOR
+    Brendan Byrd <bbyrd@cpan.org>
+
+COPYRIGHT AND LICENSE
+    This software is Copyright (c) 2013 by Brendan Byrd.
+
+    This is free software, licensed under:
+
+      The Artistic License 2.0 (GPL Compatible)
+

@@ -5,8 +5,8 @@ MANIFEST
 META.json
 META.yml
 Makefile.PL
+README
 README.html
-README.pod
 dist.ini
 inc/P9YOSDeps.pm
 lib/P9Y/ProcessTable.pm
@@ -21,7 +21,6 @@ t/00-check-deps.t
 t/000-report-versions-tiny.t
 t/51-basic.t
 t/52-fork.t
-weaver.ini
 xt/author/test-eol.t
 xt/release/check-manifest.t
 xt/release/dist-manifest.t

@@ -1,7 +1,7 @@
 package  # hide from PAUSE
    P9Y::ProcessTable;
 
-our $VERSION = '0.95_004'; # VERSION
+our $VERSION = '0.96'; # VERSION
 
 #############################################################################
 # Modules

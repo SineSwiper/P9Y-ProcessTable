@@ -1,8 +1,21 @@
 Revision History for P9Y-ProcessTable
 =====================================
 
-v0.95_004 2013-03-18
---------------------
+v0.96 2013-05-30
+----------------
+
+commit 2588c7bc38e7c13bc0036fc647ab5b634ee57d2e
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Tue May 28 09:07:50 2013 -0400
+
+    Add in Path::Class 0.32 dep for Cygwin issue
+    Fix *.ini for new Author PB
+
+commit 13c4aee47e1515d343980e72c4a6945b5136af2f
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Mon Mar 18 18:49:41 2013 -0400
+
+    Release v0.95_004
 
 commit 5873bc169abf4a379d9cf5acd0da5bcbe4c617f9
 Author: Brendan Byrd <Perl@ResonatorSoft.org>
