@@ -1,6 +1,15 @@
 Revision History for P9Y-ProcessTable
 =====================================
 
+v0.98 2013-06-04
+----------------
+
+commit cd1cac791fdf9f471c9314ce8ff5fdae73d4be8c
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Tue Jun 4 22:22:35 2013 -0400
+
+    Fix PREREQ_PM insertion to work with quotes
+
 v0.97 2013-05-31
 ----------------
 

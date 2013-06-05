@@ -21,16 +21,19 @@ my %WriteMakefileArgs = (
   "MIN_PERL_VERSION" => "5.008008",
   "NAME" => "P9Y::ProcessTable",
   "PREREQ_PM" => {
+    &os_deps,
     "Moo" => "0.009001",
     "Path::Class" => "0.16",
     "namespace::clean" => "0.01"
   },
   "TEST_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.31",
+    "List::Util" => "1.19",
     "Test::CheckDeps" => "0.002",
     "Test::More" => "0.94",
     "Test::Most" => "0.01"
   },
-  "VERSION" => "0.97",
+  "VERSION" => "0.98",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -70,45 +73,43 @@ WriteMakefile(%WriteMakefileArgs);
 
 
 
-use v5.8.8;
-
 sub os_deps {
-    my $_os = lc($^O);
+   my $_os = lc($^O);
 
-    if ( $_os =~ /mswin32|cygwin/ ) {
+   if ( $_os =~ /mswin32|cygwin/ ) {
       return (
-            'Win32::Process'       => 0,
-            'Win32::Process::Info' => 0,
-            'Path::Class'          => 0.32,  # fixes Cygwin path issue
-        );
-    }
-    elsif ( $_os eq 'freebsd' ) {
+         'Win32::Process'       => 0,
+         'Win32::Process::Info' => 1.020,  # WMI on Cygwin
+         'Path::Class'          => 0.32,   # fixes Cygwin path issue
+      );
+   }
+   elsif ( $_os eq 'freebsd' ) {
       return ( 'BSD::Process' => 0 );
-    }
-    elsif ( $_os eq 'darwin' ) {
+   }
+   elsif ( $_os eq 'darwin' ) {
       return ( 'Proc::ProcessTable' => 0.45 );
-    }
-    elsif ( $_os eq 'os2' ) {
+   }
+   elsif ( $_os eq 'os2' ) {
       return ( 'OS2::Process' => 0 );
-    }
-    elsif ( $_os eq 'vms' ) {
+   }
+   elsif ( $_os eq 'vms' ) {
       return ( 'VMS::Process' => 0 );
-    }
-    elsif ( $_os eq 'dos' ) {
-        die "Heh, DOS processes... you're funny!";
-    }
-    else {
-        # let's hope they have /proc
-        if ( not -d '/proc' ) {
-            if ( $_os =~ /bsd|dragonfly/ ) {
-                die "BSD::Process only works for FreeBSD."
-                  . " Encourage development for $_os, or write your own and I can include it here.";
-            }
-            else {
-                die "No idea how to handle $_os processes."
-                  . " Email me with more information!";
-            }
-        }
-    }
-  return ();
+   }
+   elsif ( $_os eq 'dos' ) {
+      die "Heh, DOS processes... you're funny!";
+   }
+   else {
+      # let's hope they have /proc
+      if ( not -d '/proc' ) {
+         if ( $_os =~ /bsd|dragonfly/ ) {
+            die "BSD::Process only works for FreeBSD."
+              . " Encourage development for $_os, or write your own and I can include it here.";
+         }
+         else {
+            die "No idea how to handle $_os processes."
+              . " Email me with more information!";
+         }
+      }
+   }
+   return ();
 }

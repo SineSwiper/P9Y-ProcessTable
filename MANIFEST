@@ -18,7 +18,7 @@ lib/P9Y/ProcessTable/Process.pm
 lib/P9Y/ProcessTable/VMS.pm
 lib/P9Y/ProcessTable/Win32.pm
 t/00-check-deps.t
-t/000-report-versions-tiny.t
+t/00-report-prereqs.t
 t/51-basic.t
 t/52-fork.t
 xt/author/test-eol.t
