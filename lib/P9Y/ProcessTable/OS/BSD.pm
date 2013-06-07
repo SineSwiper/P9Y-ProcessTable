@@ -12,8 +12,7 @@ no strict 'refs';
 use warnings FATAL => 'all';
 no warnings qw(uninitialized);
 
-use Moo;
-use P9Y::ProcessTable::Process;
+use base 'P9Y::ProcessTable::Base';
 
 use BSD::Process;
 

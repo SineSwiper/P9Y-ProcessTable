@@ -12,24 +12,15 @@ no strict 'refs';
 use warnings FATAL => 'all';
 no warnings qw(uninitialized);
 
-use Moo;
-use P9Y::ProcessTable::Process;
+use base 'P9Y::ProcessTable::Base';
 
-use Proc::ProcessTable;
-use List::AllUtils 'first';
+use VMS::Process;
 
 use namespace::clean;
 no warnings 'uninitialized';
 
-my $pt = Proc::ProcessTable->new();
-
 #############################################################################
 # Methods
-
-# Unfortunately, P:PT has no concept of anything except "grab everything at once". So, we need to run
-# through these wasteful cycles just to get one process, one list of PIDs, etc.
-
-no warnings 'redefine';
 
 sub table {
    my $self = shift;
@@ -37,26 +28,29 @@ sub table {
       my $hash = $self->_convert_hash($_);
       $hash->{_pt_obj} = $self;
       P9Y::ProcessTable::Process->new($hash);
-   } ($pt->table);
+   } (process_list);
 }
 
 sub list {
    my $self = shift;
-   return sort { $a <=> $b } map { $_->pid } @{ $pt->table };
+   return sort { $a <=> $b } map { $_->{PID} } (process_list);
 }
 
 sub fields {
    return ( qw/
-      pid uid gid euid egid suid sgid ppid pgrp sess
-      cmdline
-      utime stime start time
-      priority fname state ttynum ttydev flags size rss wchan cpuid pctcpu pctmem
+      pid uid gid ppid pgrp
+      exe
+      ttlflt start time
+      priority fname state ttydev flags size rss cpuid
    / );
 }
 
 sub _process_hash {
    my ($self, $pid) = @_;
-   my $info = first { $_->pid == $pid } @{ $pt->table };
+   my $info = process_list({
+      NAME  => 'MASTER_PID',
+      VALUE => $pid,
+   });
    return unless $info;
    return $self->_convert_hash;
 }
@@ -66,15 +60,29 @@ sub _convert_hash {
    return unless $info;
 
    my $hash = {};
-   # (only has the ones that are different)
    my $stat_loc = { qw/
-      cmdline   cmndline
+      pid         PID
+      uid         OWNER
+      gid         GRP
+      ppid        MASTER_PID
+      pgrp        MASTER_PID
+      cpuid       CPUID
+      priority    PRI
+      flags       PHDFLAGS
+      ttlflt      PAGEFLTS
+      time        CPUTIM
+      size        VIRTPEAK
+      rss         WSSIZE
+      ttydev      TT_PHYDEVNAM
+      fname       PRCNAM
+      start       LOGINTIM
+      state       STATE
+
+      exe         IMAGNAME
    / };
 
-   no strict 'refs';
-   foreach my $key ( $self->fields ) {
-      my $old = $stat_loc->{$key} || $key;
-      my $item = $info->$old();
+   foreach my $key (keys %$stat_loc) {
+      my $item = $info->{ $stat_loc->{$key} };
       $hash->{$key} = $item if defined $item;
    }
 
