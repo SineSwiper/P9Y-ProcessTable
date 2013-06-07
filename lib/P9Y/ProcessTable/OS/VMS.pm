@@ -1,7 +1,7 @@
 package  # hide from PAUSE
    P9Y::ProcessTable;
 
-our $VERSION = '0.98'; # VERSION
+our $VERSION = '0.98_01'; # VERSION
 
 #############################################################################
 # Modules
@@ -12,10 +12,9 @@ no strict 'refs';
 use warnings FATAL => 'all';
 no warnings qw(uninitialized);
 
-use Moo;
-use P9Y::ProcessTable::Process;
+use base 'P9Y::ProcessTable::Base';
 
-use OS2::Process;
+use VMS::Process;
 
 use namespace::clean;
 no warnings 'uninitialized';
@@ -23,31 +22,35 @@ no warnings 'uninitialized';
 #############################################################################
 # Methods
 
-no warnings 'redefine';
-
 sub table {
    my $self = shift;
    return map {
       my $hash = $self->_convert_hash($_);
       $hash->{_pt_obj} = $self;
       P9Y::ProcessTable::Process->new($hash);
-   } (process_hentries);
+   } (process_list);
 }
 
 sub list {
    my $self = shift;
-   return sort { $a <=> $b } map { $_->{owner_pid} } (process_hentries);
+   return sort { $a <=> $b } map { $_->{PID} } (process_list);
 }
 
 sub fields {
    return ( qw/
-      pid ppid sess cmdline
+      pid uid gid ppid pgrp
+      exe
+      ttlflt start time
+      priority fname state ttydev flags size rss cpuid
    / );
 }
 
 sub _process_hash {
    my ($self, $pid) = @_;
-   my $info = process_hentry($pid);
+   my $info = process_list({
+      NAME  => 'MASTER_PID',
+      VALUE => $pid,
+   });
    return unless $info;
    return $self->_convert_hash;
 }
@@ -58,17 +61,30 @@ sub _convert_hash {
 
    my $hash = {};
    my $stat_loc = { qw/
-      pid        owner_pid
-      sess       owner_sid
-      cmdline    title
+      pid         PID
+      uid         OWNER
+      gid         GRP
+      ppid        MASTER_PID
+      pgrp        MASTER_PID
+      cpuid       CPUID
+      priority    PRI
+      flags       PHDFLAGS
+      ttlflt      PAGEFLTS
+      time        CPUTIM
+      size        VIRTPEAK
+      rss         WSSIZE
+      ttydev      TT_PHYDEVNAM
+      fname       PRCNAM
+      start       LOGINTIM
+      state       STATE
+
+      exe         IMAGNAME
    / };
 
    foreach my $key (keys %$stat_loc) {
       my $item = $info->{ $stat_loc->{$key} };
       $hash->{$key} = $item if defined $item;
    }
-
-   $hash->{ppid} = ppidOf($hash->{pid});
 
    return $hash;
 }

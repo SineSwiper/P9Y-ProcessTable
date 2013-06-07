@@ -1,6 +1,18 @@
 Revision History for P9Y-ProcessTable
 =====================================
 
+v0.98_01 2013-06-07
+-------------------
+
+commit 1ad0fb2fa15280d01755521494d02d19cb38e042
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Fri Jun 7 09:19:19 2013 -0400
+
+    Fix the magic with ProcessTable.pm's methods by moving them to a
+       ::Base class
+    Move all per-OS modules to a OS/ directory
+    Remove Moo from per-OS modules (since they are never objects)
+
 v0.98 2013-06-04
 ----------------
 

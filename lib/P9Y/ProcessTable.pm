@@ -1,6 +1,6 @@
 package P9Y::ProcessTable;
 
-our $VERSION = '0.98'; # VERSION
+our $VERSION = '0.98_01'; # VERSION
 # ABSTRACT: Portably access the process table
 
 # use sanity;
@@ -17,22 +17,22 @@ BEGIN {
     # Figure out which OS module we should use
     my $_os = lc($^O);
     if ( $_os =~ /mswin32|cygwin/ ) {
-        require P9Y::ProcessTable::Win32;
+        require P9Y::ProcessTable::OS::Win32;
     }
     elsif ( $_os eq 'freebsd' ) {
 
         # BSD::Process currently only supports FreeBSD;
         # fall by on /proc for the others
-        require P9Y::ProcessTable::BSD;
+        require P9Y::ProcessTable::OS::BSD;
     }
     elsif ( $_os eq 'darwin' ) {
-        require P9Y::ProcessTable::Darwin;
+        require P9Y::ProcessTable::OS::Darwin;
     }
     elsif ( $_os eq 'os2' ) {
-        require P9Y::ProcessTable::OS2;
+        require P9Y::ProcessTable::OS::OS2;
     }
     elsif ( $_os eq 'vms' ) {
-        require P9Y::ProcessTable::VMS;
+        require P9Y::ProcessTable::OS::VMS;
     }
     elsif ( $_os eq 'dos' ) {
         die "Heh, DOS processes... you're funny!";
@@ -40,33 +40,13 @@ BEGIN {
     else {
         # let's hope they have /proc
         if ( -d dir( '', 'proc' ) ) {
-            require P9Y::ProcessTable::ProcFS;
+            require P9Y::ProcessTable::OS::ProcFS;
         }
         else {
             die "No idea how to handle $_os processes."
               . " Email me with more information!";
         }
     }
-}
-
-#############################################################################
-# Common Methods (may potentially be redefined with OS-specific ones)
-
-no warnings 'redefine';
-
-sub table {
-   my $self = shift;
-   return map { $self->process($_) } ($self->list);
-}
-
-sub process {
-   my ($self, $pid) = @_;
-   $pid = $$ if (@_ == 1);
-   my $hash = $self->_process_hash($pid);
-   return unless $hash && $hash->{pid};
-
-   $hash->{_pt_obj} = $self;
-   return P9Y::ProcessTable::Process->new($hash);
 }
 
 42;
@@ -247,6 +227,15 @@ P:PT is passing all Darwin tests (so far), so until somebody splits the code fro
 Certain other C<<< /proc >>> friendly OSs needs further support.  Frankly, I'm trying to get a feel for what people actually need than just spending
 the time coding something for, say, NeXT OS and 50 other flavors.  However, supporting one OS or another should be pretty easy.  If you need
 support, dive into the C<<< ProcFS >>> code and submit a patch.
+
+=back
+
+=over
+
+=item *
+
+One would say that the class-based calling of ProcessTable (vs. the more traditional OO model of P9Y:PT:Process) is confusing.  I tend to agree,
+but it was modeled after Proc:PT's calling scheme.
 
 =back
 

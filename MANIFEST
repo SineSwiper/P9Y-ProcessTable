@@ -1,3 +1,4 @@
+.travis.yml
 CHANGES
 INSTALL
 LICENSE
@@ -10,13 +11,14 @@ README.html
 dist.ini
 inc/P9YOSDeps.pm
 lib/P9Y/ProcessTable.pm
-lib/P9Y/ProcessTable/BSD.pm
-lib/P9Y/ProcessTable/Darwin.pm
-lib/P9Y/ProcessTable/OS2.pm
-lib/P9Y/ProcessTable/ProcFS.pm
+lib/P9Y/ProcessTable/Base.pm
+lib/P9Y/ProcessTable/OS/BSD.pm
+lib/P9Y/ProcessTable/OS/Darwin.pm
+lib/P9Y/ProcessTable/OS/OS2.pm
+lib/P9Y/ProcessTable/OS/ProcFS.pm
+lib/P9Y/ProcessTable/OS/VMS.pm
+lib/P9Y/ProcessTable/OS/Win32.pm
 lib/P9Y/ProcessTable/Process.pm
-lib/P9Y/ProcessTable/VMS.pm
-lib/P9Y/ProcessTable/Win32.pm
 t/00-check-deps.t
 t/00-report-prereqs.t
 t/51-basic.t
