@@ -48,14 +48,14 @@
    "provides" : {
       "P9Y::ProcessTable" : {
          "file" : "lib/P9Y/ProcessTable.pm",
-         "version" : "0.98_01"
+         "version" : "1.00"
       },
       "P9Y::ProcessTable::Process" : {
          "file" : "lib/P9Y/ProcessTable/Process.pm",
-         "version" : "0.98_01"
+         "version" : "1.00"
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
          "web" : "https://github.com/SineSwiper/P9Y-ProcessTable/issues"
@@ -68,7 +68,7 @@
       },
       "x_irc" : "irc://irc.perl.org/#win32"
    },
-   "version" : "0.98_01",
+   "version" : "1.00",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.014002"

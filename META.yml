@@ -24,10 +24,10 @@ no_index:
 provides:
   P9Y::ProcessTable:
     file: lib/P9Y/ProcessTable.pm
-    version: 0.98_01
+    version: 1.00
   P9Y::ProcessTable::Process:
     file: lib/P9Y/ProcessTable/Process.pm
-    version: 0.98_01
+    version: 1.00
 requires:
   Moo: 0.009001
   Path::Class: 0.16
@@ -38,7 +38,7 @@ resources:
   bugtracker: https://github.com/SineSwiper/P9Y-ProcessTable/issues
   homepage: https://github.com/SineSwiper/P9Y-ProcessTable/wiki
   repository: git://github.com/SineSwiper/P9Y-ProcessTable.git
-version: 0.98_01
+version: 1.00
 x_Dist_Zilla:
   perl:
     version: 5.014002
