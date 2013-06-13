@@ -18,7 +18,7 @@ use namespace::clean;
 no warnings 'uninitialized';
 
 #############################################################################
-# Common Methods (may potentially be redefined with OS-specific ones)
+# Common Methods (may potentially be overloaded with OS-specific ones)
 
 sub table {
    my $self = shift;

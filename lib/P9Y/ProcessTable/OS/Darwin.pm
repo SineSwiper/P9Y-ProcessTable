@@ -28,15 +28,13 @@ my $pt = Proc::ProcessTable->new();
 # Unfortunately, P:PT has no concept of anything except "grab everything at once". So, we need to run
 # through these wasteful cycles just to get one process, one list of PIDs, etc.
 
-no warnings 'redefine';
-
 sub table {
    my $self = shift;
    return map {
-      my $hash = $self->_convert_hash($_);
+      my $hash = $self->_convert_process($_);
       $hash->{_pt_obj} = $self;
       P9Y::ProcessTable::Process->new($hash);
-   } ($pt->table);
+   } @{ $pt->table };
 }
 
 sub list {
@@ -55,14 +53,14 @@ sub fields {
 
 sub _process_hash {
    my ($self, $pid) = @_;
-   my $info = first { $_->pid == $pid } @{ $pt->table };
-   return unless $info;
-   return $self->_convert_hash;
+   my $process = first { $_->pid == $pid } @{ $pt->table };
+   return unless $process;
+   return $self->_convert_process;
 }
 
-sub _convert_hash {
-   my ($self, $info) = @_;
-   return unless $info;
+sub _convert_process {
+   my ($self, $process) = @_;
+   return unless $process;
 
    my $hash = {};
    # (only has the ones that are different)
@@ -73,7 +71,7 @@ sub _convert_hash {
    no strict 'refs';
    foreach my $key ( $self->fields ) {
       my $old = $stat_loc->{$key} || $key;
-      my $item = $info->$old();
+      my $item = $process->$old();
       $hash->{$key} = $item if defined $item;
    }
 

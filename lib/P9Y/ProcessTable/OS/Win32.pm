@@ -27,8 +27,6 @@ my $IS_CYGWIN = ($^O =~ /cygwin/i) ? 1 : 0;
 #############################################################################
 # Methods
 
-no warnings 'redefine';
-
 sub list {
    my ($self) = @_;
    my %winpids = map { $_ => 1 } $self->_win32_list;

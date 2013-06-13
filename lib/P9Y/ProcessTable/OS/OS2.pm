@@ -22,8 +22,6 @@ no warnings 'uninitialized';
 #############################################################################
 # Methods
 
-no warnings 'redefine';
-
 sub table {
    my $self = shift;
    return map {
