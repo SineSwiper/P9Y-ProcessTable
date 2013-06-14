@@ -1,5 +1,4 @@
-package  # hide from PAUSE
-   P9Y::ProcessTable;
+package P9Y::ProcessTable::Role::Table::PPT;
 
 # VERSION
 
@@ -12,9 +11,11 @@ no strict 'refs';
 use warnings FATAL => 'all';
 no warnings qw(uninitialized);
 
-use base 'P9Y::ProcessTable::Base';
+use Moo::Role;
 
-use Proc::ProcessTable;
+requires 'process';
+
+use Proc::ProcessTable 0.48;  # ie: the one that ain't broke
 use List::AllUtils 'first';
 
 use namespace::clean;
@@ -43,12 +44,7 @@ sub list {
 }
 
 sub fields {
-   return ( qw/
-      pid uid gid euid egid suid sgid ppid pgrp sess
-      cmdline
-      utime stime start time
-      priority fname state ttynum ttydev flags size rss wchan cpuid pctcpu pctmem
-   / );
+   return $pt->fields;
 }
 
 sub _process_hash {
@@ -68,10 +64,13 @@ sub _convert_process {
       cmdline   cmndline
    / };
 
-   no strict 'refs';
    foreach my $key ( $self->fields ) {
       my $old = $stat_loc->{$key} || $key;
-      my $item = $process->$old();
+
+      # Sigh, why give me a field I can't access?
+      my $item;
+      $item = $process->$old() if $process->can($old);
+
       $hash->{$key} = $item if defined $item;
    }
 

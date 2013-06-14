@@ -1,5 +1,4 @@
-package  # hide from PAUSE
-   P9Y::ProcessTable;
+package P9Y::ProcessTable::Role::Table::OS::freebsd;
 
 # VERSION
 
@@ -12,7 +11,10 @@ no strict 'refs';
 use warnings FATAL => 'all';
 no warnings qw(uninitialized);
 
-use base 'P9Y::ProcessTable::Base';
+use Moo::Role;
+
+requires 'table';
+requires 'process';
 
 use BSD::Process;
 
