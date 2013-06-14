@@ -160,8 +160,9 @@ bug that module maintainer and provide some patches.  Then bug me and I'll chang
 
 =item *
 
-This thing actually uses L<Proc::ProcessTable> for DarwinE<sol>OSX systems.  Darwin doesn't have a C<<< /proc >>> access point (BSD... sigh).  Fortunately,
-P:PT is passing all Darwin tests (so far), so until somebody splits the code from that to a new module (hint hint)...
+This thing actually uses L<Proc::ProcessTable> for any system that isn't in the list and doesn't have C<<< /proc >>>, including DarwinE<sol>OSX systems.
+Fortunately, P:PT is passing all Darwin tests (so far), so until somebody splits the code from that to a new module (hint hint)...  And fortunately,
+P:PT gained a non-broken release.
 
 =back
 

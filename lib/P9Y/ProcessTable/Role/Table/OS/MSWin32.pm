@@ -17,6 +17,7 @@ requires 'table';
 
 use Win32::Process;
 use Win32::Process::Info;
+use Path::Class;
 
 use namespace::clean;
 no warnings 'uninitialized';

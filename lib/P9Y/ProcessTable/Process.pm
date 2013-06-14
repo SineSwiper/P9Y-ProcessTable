@@ -14,17 +14,19 @@ use Path::Class ();
 
 use Moo;
 
+# Figure out which OS role we should consume (if any)
+my %OS_TRANSLATE = (
+   cygwin => 'MSWin32',
+);
+
+my $role = 'P9Y::ProcessTable::Role::Process::OS::'.($OS_TRANSLATE{$^O} || $^O);
+
+$@ = '';
+eval { Module::Runtime::require_module($role) } || do { $role = ''; };
+die $@ if $@ and $@ !~ /^Can't locate /;
+
 # This here first, so that it gets overloaded
 extends 'P9Y::ProcessTable::Process::Base';
-
-# Figure out which OS role we should consume (if any)
-my $role;
-BEGIN {
-   $role = 'P9Y::ProcessTable::Role::Process::OS::'.$^O;
-   ( my $os_path = "$role.pm" ) =~ s{::}{/}g;
-
-   eval { Module::Runtime::require_module($os_path) } || do { $role = ''; }
-}
 
 with $role if $role;
 

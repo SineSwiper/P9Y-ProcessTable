@@ -12,7 +12,7 @@ no strict 'refs';
 use warnings FATAL => 'all';
 no warnings qw(uninitialized);
 
-use P9Y::ProcessTable::Process;
+use Moo;
 
 use namespace::clean;
 no warnings 'uninitialized';

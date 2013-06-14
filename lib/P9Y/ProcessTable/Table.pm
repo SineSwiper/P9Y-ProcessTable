@@ -8,33 +8,32 @@ package P9Y::ProcessTable::Table;
 use strict;
 use warnings;
 
-use Devel::SimpleTrace;
-
+use Module::Runtime ();
 use Path::Class ();
 
 use Moo;
 
+# Figure out which OS role we should consume
+my %OS_TRANSLATE = (
+   cygwin => 'MSWin32',
+);
+
+my $role_base = 'P9Y::ProcessTable::Role::Table::';
+my $role      = 'OS::'.($OS_TRANSLATE{$^O} || $^O);
+
+$@ = '';
+my $has_os_role = eval { Module::Runtime::require_module($role_base.$role) };
+die $@ if $@ and $@ !~ /^Can't locate /;
+
+unless ($has_os_role) {
+   # let's hope they have /proc
+   if ( -d '/proc' ) { $role = 'ProcFS'; }
+   # ...or that Proc::ProcessTable can handle it
+   else              { $role = 'PPT';    }
+}
+
 # This here first, so that it gets overloaded
 extends 'P9Y::ProcessTable::Table::Base';
-
-# Figure out which OS role we should consume
-my ($role_base, $role);
-BEGIN {
-   $role_base = 'P9Y::ProcessTable::Role::Table::';
-   $role      = 'OS::'.$^O;
-
-   ( my $os_path = $role_base.$role.'.pm' ) =~ s{::}{/}g;
-
-   my $has_os_role = eval { require $os_path };
-
-   unless ($has_os_role) {
-      # let's hope they have /proc
-      if ( -d Path::Class::dir( '', 'proc' ) ) { $role = 'ProcFS'; }
-
-      # ...or that Proc::ProcessTable can handle it
-      else                                     { $role = 'PPT';    }
-   }
-}
 
 with $role_base.$role;
 
