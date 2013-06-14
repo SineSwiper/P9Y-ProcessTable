@@ -1,6 +1,28 @@
 Revision History for P9Y-ProcessTable
 =====================================
 
+v1.00_02 2013-06-14
+-------------------
+
+commit 5f09ac8fceca06a50e1eee7a45acba99aa13009f
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Fri Jun 14 09:07:21 2013 -0400
+
+    Finalize new Role structure
+
+commit 120818684ac820f26d03a64a972202bf31a08f51
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Thu Jun 13 21:21:58 2013 -0400
+
+    More yakshaving...
+
+commit eb3454d74de8f9f9e2cb72bec4ef971767561dec
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Thu Jun 13 09:18:00 2013 -0400
+
+    Try to get Darwin working
+    Clean up some 'redefine' lines
+
 v1.00 2013-06-07
 ----------------
 

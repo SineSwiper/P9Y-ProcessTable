@@ -1,7 +1,6 @@
-package  # hide from PAUSE
-   P9Y::ProcessTable;
+package P9Y::ProcessTable::Role::Table::PPT;
 
-our $VERSION = '1.00'; # VERSION
+our $VERSION = '1.00_02'; # VERSION
 
 #############################################################################
 # Modules
@@ -12,9 +11,11 @@ no strict 'refs';
 use warnings FATAL => 'all';
 no warnings qw(uninitialized);
 
-use base 'P9Y::ProcessTable::Base';
+use Moo::Role;
 
-use Proc::ProcessTable;
+requires 'process';
+
+use Proc::ProcessTable 0.48;  # ie: the one that ain't broke
 use List::AllUtils 'first';
 
 use namespace::clean;
@@ -28,15 +29,13 @@ my $pt = Proc::ProcessTable->new();
 # Unfortunately, P:PT has no concept of anything except "grab everything at once". So, we need to run
 # through these wasteful cycles just to get one process, one list of PIDs, etc.
 
-no warnings 'redefine';
-
 sub table {
    my $self = shift;
    return map {
-      my $hash = $self->_convert_hash($_);
+      my $hash = $self->_convert_process($_);
       $hash->{_pt_obj} = $self;
       P9Y::ProcessTable::Process->new($hash);
-   } ($pt->table);
+   } @{ $pt->table };
 }
 
 sub list {
@@ -45,24 +44,19 @@ sub list {
 }
 
 sub fields {
-   return ( qw/
-      pid uid gid euid egid suid sgid ppid pgrp sess
-      cmdline
-      utime stime start time
-      priority fname state ttynum ttydev flags size rss wchan cpuid pctcpu pctmem
-   / );
+   return $pt->fields;
 }
 
 sub _process_hash {
    my ($self, $pid) = @_;
-   my $info = first { $_->pid == $pid } @{ $pt->table };
-   return unless $info;
-   return $self->_convert_hash;
+   my $process = first { $_->pid == $pid } @{ $pt->table };
+   return unless $process;
+   return $self->_convert_process;
 }
 
-sub _convert_hash {
-   my ($self, $info) = @_;
-   return unless $info;
+sub _convert_process {
+   my ($self, $process) = @_;
+   return unless $process;
 
    my $hash = {};
    # (only has the ones that are different)
@@ -70,10 +64,13 @@ sub _convert_hash {
       cmdline   cmndline
    / };
 
-   no strict 'refs';
    foreach my $key ( $self->fields ) {
       my $old = $stat_loc->{$key} || $key;
-      my $item = $info->$old();
+
+      # Sigh, why give me a field I can't access?
+      my $item;
+      $item = $process->$old() if $process->can($old);
+
       $hash->{$key} = $item if defined $item;
    }
 

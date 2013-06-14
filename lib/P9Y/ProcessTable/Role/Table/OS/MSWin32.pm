@@ -1,7 +1,6 @@
-package  # hide from PAUSE
-   P9Y::ProcessTable;
+package P9Y::ProcessTable::Role::Table::OS::MSWin32;
 
-our $VERSION = '1.00'; # VERSION
+our $VERSION = '1.00_02'; # VERSION
 
 #############################################################################
 # Modules
@@ -12,10 +11,13 @@ no strict 'refs';
 use warnings FATAL => 'all';
 no warnings qw(uninitialized);
 
-use base 'P9Y::ProcessTable::Base';
+use Moo::Role;
+
+requires 'table';
 
 use Win32::Process;
 use Win32::Process::Info;
+use Path::Class;
 
 use namespace::clean;
 no warnings 'uninitialized';
@@ -26,8 +28,6 @@ my $IS_CYGWIN = ($^O =~ /cygwin/i) ? 1 : 0;
 
 #############################################################################
 # Methods
-
-no warnings 'redefine';
 
 sub list {
    my ($self) = @_;
@@ -223,75 +223,5 @@ sub _cyg_process_hash {
 
    return $hash;
 }
-
-#############################################################################
-# Process side
-
-### FIXME: Can't get Win32::API to not crash on me... ###
-
-package  # hide from PAUSE
-   P9Y::ProcessTable::Process;
-
-use Win32::Process;
-#use Win32::API;
-#use Win32::API::Callback;
-
-BEGIN {
-   #Win32::API->Import( 'user32', 'EnumWindows',              'KN', 'N' );
-   #Win32::API->Import( 'user32', 'GetWindowThreadProcessId', 'NP', 'N' );
-   #Win32::API->Import( 'user32', 'PostMessage',              'NINN', 'N' );
-}
-
-no warnings 'redefine';
-
-sub _win32_proc {
-   my $self = shift;
-   my $obj;
-   Win32::Process::Open($obj, $self->pid, 0);
-   return $obj;
-}
-
-sub kill {
-   my ($self, $sig) = @_;
-
-   # Windows's signal.h actually has plenty of gaps, but it still follows Linux's model where
-   # there isn't gaps.  Thus, we'll just fill in the blanks.
-
-   # POSIX = 0 HUP INT QUIT ILL TRAP ABRT . FPE KILL . SEGV . PIPE ALRM TERM . . . . . . ABRT
-   # 0x0010 = WM_CLOSE
-   my $posix2wm = [
-      0, 0x0010, 0x0010, qw/kill kill kill kill . kill kill . kill ./, 0x0010, 0x0010, 0x0010, qw/. . . . . . kill/
-   ];
-
-   $sig = $posix2wm->[$sig];
-   return if (!$sig || $sig eq '.');
-   if    ($sig eq '0') {
-      return CORE::kill($sig, $self->pid);
-   }
-   elsif ($sig eq 'kill') {
-      return $self->_win32_proc->Kill(255);
-   }
-   else {
-      #my $cb = Win32::API::Callback->new( sub {
-      #   my $hwnd = shift;
-      #   my $pid = 0;
-      #
-      #   #GetWindowThreadProcessId($hwnd, \$pid);
-      #   print "foo\n";
-      #   #PostMessage($hwnd, $sig) if ($$pid && $$pid == $self->pid);
-      #}, "NN", "N" );
-      #
-      #my $ret = EnumWindows($cb, 0);
-      return $self->_win32_proc->Kill(255);
-   }
-}
-
-Class::Method::Modifiers::around priority => sub {
-   my ($orig, $self, $pri) = @_;
-   return $orig->($self) if @_ == 2;
-
-   $self->_win32_proc->SetPriorityClass($pri);
-   $self->_set_priority($pri);
-};
 
 42;

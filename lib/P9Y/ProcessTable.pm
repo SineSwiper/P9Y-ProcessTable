@@ -1,53 +1,22 @@
 package P9Y::ProcessTable;
 
-our $VERSION = '1.00'; # VERSION
+our $VERSION = '1.00_02'; # VERSION
 # ABSTRACT: Portably access the process table
 
-# use sanity;
-use strict qw(subs vars);
-no strict 'refs';
-use warnings FATAL => 'all';
-no warnings qw(uninitialized);
+use strict;
+use warnings;
 
-use Path::Class;
-use namespace::clean;
+use P9Y::ProcessTable::Table;
 
-BEGIN {
+my $pptt = P9Y::ProcessTable::Table->new;
 
-    # Figure out which OS module we should use
-    my $_os = lc($^O);
-    if ( $_os =~ /mswin32|cygwin/ ) {
-        require P9Y::ProcessTable::OS::Win32;
-    }
-    elsif ( $_os eq 'freebsd' ) {
+#############################################################################
+# Methods
 
-        # BSD::Process currently only supports FreeBSD;
-        # fall by on /proc for the others
-        require P9Y::ProcessTable::OS::BSD;
-    }
-    elsif ( $_os eq 'darwin' ) {
-        require P9Y::ProcessTable::OS::Darwin;
-    }
-    elsif ( $_os eq 'os2' ) {
-        require P9Y::ProcessTable::OS::OS2;
-    }
-    elsif ( $_os eq 'vms' ) {
-        require P9Y::ProcessTable::OS::VMS;
-    }
-    elsif ( $_os eq 'dos' ) {
-        die "Heh, DOS processes... you're funny!";
-    }
-    else {
-        # let's hope they have /proc
-        if ( -d dir( '', 'proc' ) ) {
-            require P9Y::ProcessTable::OS::ProcFS;
-        }
-        else {
-            die "No idea how to handle $_os processes."
-              . " Email me with more information!";
-        }
-    }
-}
+sub fields  { shift; $pptt->fields;      }
+sub list    { shift; $pptt->list;        }
+sub table   { shift; $pptt->table;       }
+sub process { shift; $pptt->process(@_); }
 
 42;
 
@@ -215,8 +184,9 @@ bug that module maintainer and provide some patches.  Then bug me and I'll chang
 
 =item *
 
-This thing actually uses L<Proc::ProcessTable> for DarwinE<sol>OSX systems.  Darwin doesn't have a C<<< /proc >>> access point (BSD... sigh).  Fortunately,
-P:PT is passing all Darwin tests (so far), so until somebody splits the code from that to a new module (hint hint)...
+This thing actually uses L<Proc::ProcessTable> for any system that isn't in the list and doesn't have C<<< /proc >>>, including DarwinE<sol>OSX systems.
+Fortunately, P:PT is passing all Darwin tests (so far), so until somebody splits the code from that to a new module (hint hint)...  And fortunately,
+P:PT gained a non-broken release.
 
 =back
 

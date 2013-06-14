@@ -29,9 +29,10 @@
       },
       "runtime" : {
          "requires" : {
+            "List::AllUtils" : "0",
+            "Module::Runtime" : "0.002",
             "Moo" : "0.009001",
-            "Path::Class" : "0.16",
-            "namespace::clean" : "0.01",
+            "Path::Class" : "0.32",
             "perl" : "v5.8.8"
          }
       },
@@ -48,14 +49,50 @@
    "provides" : {
       "P9Y::ProcessTable" : {
          "file" : "lib/P9Y/ProcessTable.pm",
-         "version" : "1.00"
+         "version" : "1.00_02"
       },
       "P9Y::ProcessTable::Process" : {
          "file" : "lib/P9Y/ProcessTable/Process.pm",
-         "version" : "1.00"
+         "version" : "1.00_02"
+      },
+      "P9Y::ProcessTable::Process::Base" : {
+         "file" : "lib/P9Y/ProcessTable/Process/Base.pm",
+         "version" : "1.00_02"
+      },
+      "P9Y::ProcessTable::Role::Process::OS::MSWin32" : {
+         "file" : "lib/P9Y/ProcessTable/Role/Process/OS/MSWin32.pm",
+         "version" : "1.00_02"
+      },
+      "P9Y::ProcessTable::Role::Table::OS::MSWin32" : {
+         "file" : "lib/P9Y/ProcessTable/Role/Table/OS/MSWin32.pm",
+         "version" : "1.00_02"
+      },
+      "P9Y::ProcessTable::Role::Table::OS::VMS" : {
+         "file" : "lib/P9Y/ProcessTable/Role/Table/OS/VMS.pm",
+         "version" : "1.00_02"
+      },
+      "P9Y::ProcessTable::Role::Table::OS::freebsd" : {
+         "file" : "lib/P9Y/ProcessTable/Role/Table/OS/freebsd.pm",
+         "version" : "1.00_02"
+      },
+      "P9Y::ProcessTable::Role::Table::OS::os2" : {
+         "file" : "lib/P9Y/ProcessTable/Role/Table/OS/os2.pm",
+         "version" : "1.00_02"
+      },
+      "P9Y::ProcessTable::Role::Table::PPT" : {
+         "file" : "lib/P9Y/ProcessTable/Role/Table/PPT.pm",
+         "version" : "1.00_02"
+      },
+      "P9Y::ProcessTable::Role::Table::ProcFS" : {
+         "file" : "lib/P9Y/ProcessTable/Role/Table/ProcFS.pm",
+         "version" : "1.00_02"
+      },
+      "P9Y::ProcessTable::Table" : {
+         "file" : "lib/P9Y/ProcessTable/Table.pm",
+         "version" : "1.00_02"
       }
    },
-   "release_status" : "stable",
+   "release_status" : "testing",
    "resources" : {
       "bugtracker" : {
          "web" : "https://github.com/SineSwiper/P9Y-ProcessTable/issues"
@@ -68,7 +105,7 @@
       },
       "x_irc" : "irc://irc.perl.org/#win32"
    },
-   "version" : "1.00",
+   "version" : "1.00_02",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.014002"
@@ -262,7 +299,7 @@
          {
             "class" : "Dist::Zilla::Plugin::TravisYML",
             "name" : "@Filter/TravisYML",
-            "version" : "0.98_02"
+            "version" : "1.02"
          },
          {
             "class" : "Dist::Zilla::Plugin::Git::CheckFor::CorrectBranch",
@@ -353,6 +390,17 @@
             "class" : "Dist::Zilla::Plugin::PrereqsClean",
             "name" : "@Prereqs/PrereqsClean",
             "version" : "0.92"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Prereqs",
+            "config" : {
+               "Dist::Zilla::Plugin::Prereqs" : {
+                  "phase" : "runtime",
+                  "type" : "requires"
+               }
+            },
+            "name" : "Prereqs",
+            "version" : "4.300034"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",

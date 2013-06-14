@@ -131,10 +131,11 @@ CAVEATS / TODO
         needed, bug that module maintainer and provide some patches. Then
         bug me and I'll change the OS detection logic.
 
-    *   This thing actually uses Proc::ProcessTable for Darwin/OSX systems.
-        Darwin doesn't have a "/proc" access point (BSD... sigh).
-        Fortunately, P:PT is passing all Darwin tests (so far), so until
-        somebody splits the code from that to a new module (hint hint)...
+    *   This thing actually uses Proc::ProcessTable for any system that
+        isn't in the list and doesn't have "/proc", including Darwin/OSX
+        systems. Fortunately, P:PT is passing all Darwin tests (so far), so
+        until somebody splits the code from that to a new module (hint
+        hint)... And fortunately, P:PT gained a non-broken release.
 
     *   Certain other "/proc" friendly OSs needs further support. Frankly,
         I'm trying to get a feel for what people actually need than just

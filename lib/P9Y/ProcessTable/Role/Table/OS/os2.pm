@@ -1,7 +1,6 @@
-package  # hide from PAUSE
-   P9Y::ProcessTable;
+package P9Y::ProcessTable::Role::Table::OS::os2;
 
-our $VERSION = '1.00'; # VERSION
+our $VERSION = '1.00_02'; # VERSION
 
 #############################################################################
 # Modules
@@ -12,9 +11,11 @@ no strict 'refs';
 use warnings FATAL => 'all';
 no warnings qw(uninitialized);
 
-use base 'P9Y::ProcessTable::Base';
+use Moo::Role;
 
-use VMS::Process;
+requires 'process';
+
+use OS2::Process;
 
 use namespace::clean;
 no warnings 'uninitialized';
@@ -28,29 +29,23 @@ sub table {
       my $hash = $self->_convert_hash($_);
       $hash->{_pt_obj} = $self;
       P9Y::ProcessTable::Process->new($hash);
-   } (process_list);
+   } (process_hentries);
 }
 
 sub list {
    my $self = shift;
-   return sort { $a <=> $b } map { $_->{PID} } (process_list);
+   return sort { $a <=> $b } map { $_->{owner_pid} } (process_hentries);
 }
 
 sub fields {
    return ( qw/
-      pid uid gid ppid pgrp
-      exe
-      ttlflt start time
-      priority fname state ttydev flags size rss cpuid
+      pid ppid sess cmdline
    / );
 }
 
 sub _process_hash {
    my ($self, $pid) = @_;
-   my $info = process_list({
-      NAME  => 'MASTER_PID',
-      VALUE => $pid,
-   });
+   my $info = process_hentry($pid);
    return unless $info;
    return $self->_convert_hash;
 }
@@ -61,30 +56,17 @@ sub _convert_hash {
 
    my $hash = {};
    my $stat_loc = { qw/
-      pid         PID
-      uid         OWNER
-      gid         GRP
-      ppid        MASTER_PID
-      pgrp        MASTER_PID
-      cpuid       CPUID
-      priority    PRI
-      flags       PHDFLAGS
-      ttlflt      PAGEFLTS
-      time        CPUTIM
-      size        VIRTPEAK
-      rss         WSSIZE
-      ttydev      TT_PHYDEVNAM
-      fname       PRCNAM
-      start       LOGINTIM
-      state       STATE
-
-      exe         IMAGNAME
+      pid        owner_pid
+      sess       owner_sid
+      cmdline    title
    / };
 
    foreach my $key (keys %$stat_loc) {
       my $item = $info->{ $stat_loc->{$key} };
       $hash->{$key} = $item if defined $item;
    }
+
+   $hash->{ppid} = ppidOf($hash->{pid});
 
    return $hash;
 }

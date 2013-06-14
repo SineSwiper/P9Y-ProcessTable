@@ -1,7 +1,7 @@
 package  # hide from PAUSE
-   P9Y::ProcessTable::Base;
+   P9Y::ProcessTable::Table::Base;
 
-our $VERSION = '1.00'; # VERSION
+our $VERSION = '1.00_02'; # VERSION
 
 #############################################################################
 # Modules
@@ -12,13 +12,13 @@ no strict 'refs';
 use warnings FATAL => 'all';
 no warnings qw(uninitialized);
 
-use P9Y::ProcessTable::Process;
+use Moo;
 
 use namespace::clean;
 no warnings 'uninitialized';
 
 #############################################################################
-# Common Methods (may potentially be redefined with OS-specific ones)
+# Common Methods (may potentially be overloaded with OS-specific ones)
 
 sub table {
    my $self = shift;
