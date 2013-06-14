@@ -1,6 +1,6 @@
 package P9Y::ProcessTable::Role::Table::OS::os2;
 
-our $VERSION = '1.00_02'; # VERSION
+our $VERSION = '1.00_03'; # VERSION
 
 #############################################################################
 # Modules

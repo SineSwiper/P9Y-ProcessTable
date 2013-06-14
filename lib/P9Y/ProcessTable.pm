@@ -1,6 +1,6 @@
 package P9Y::ProcessTable;
 
-our $VERSION = '1.00_02'; # VERSION
+our $VERSION = '1.00_03'; # VERSION
 # ABSTRACT: Portably access the process table
 
 use strict;

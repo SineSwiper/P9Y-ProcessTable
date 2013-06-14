@@ -25,7 +25,8 @@ my %WriteMakefileArgs = (
     "List::AllUtils" => 0,
     "Module::Runtime" => "0.002",
     "Moo" => "0.009001",
-    "Path::Class" => "0.32"
+    "Path::Class" => "0.32",
+    "namespace::clean" => 0
   },
   "TEST_REQUIRES" => {
     "ExtUtils::MakeMaker" => "6.31",
@@ -34,7 +35,7 @@ my %WriteMakefileArgs = (
     "Test::More" => "0.94",
     "Test::Most" => "0.01"
   },
-  "VERSION" => "1.00_02",
+  "VERSION" => "1.00_03",
   "test" => {
     "TESTS" => "t/*.t"
   }
