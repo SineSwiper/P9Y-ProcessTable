@@ -1,6 +1,6 @@
 package P9Y::ProcessTable::Role::Table::PPT;
 
-our $VERSION = '1.00_03'; # VERSION
+our $VERSION = '1.05'; # VERSION
 
 #############################################################################
 # Modules

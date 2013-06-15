@@ -1,6 +1,6 @@
 package P9Y::ProcessTable::Process;
 
-our $VERSION = '1.00_03'; # VERSION
+our $VERSION = '1.05'; # VERSION
 # ABSTRACT: Base class for a single process
 
 #############################################################################
@@ -166,23 +166,11 @@ Brendan Byrd <bbyrd@cpan.org>
 
 =item *
 
-Brendan Byrd <GitHub@ResonatorSoft.org>
-
-=item *
-
-Brendan Byrd <Perl@ResonatorSoft.org>
-
-=item *
-
 Chris 'BinGOs' Williams <chris@bingosnet.co.uk>
 
 =item *
 
 Mithun Ayachit <m0t0rbr3th@gmail.com>
-
-=item *
-
-Mithun Ayachit <mayachit@amfam.com>
 
 =back
 
