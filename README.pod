@@ -262,23 +262,11 @@ Brendan Byrd <bbyrd@cpan.org>
 
 =item *
 
-Brendan Byrd <GitHub@ResonatorSoft.org>
-
-=item *
-
-Brendan Byrd <Perl@ResonatorSoft.org>
-
-=item *
-
 Chris 'BinGOs' Williams <chris@bingosnet.co.uk>
 
 =item *
 
 Mithun Ayachit <m0t0rbr3th@gmail.com>
-
-=item *
-
-Mithun Ayachit <mayachit@amfam.com>
 
 =back
 
