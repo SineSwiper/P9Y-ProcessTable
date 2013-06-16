@@ -27,9 +27,9 @@ die $@ if $@ and $@ !~ /^Can't locate /;
 
 unless ($has_os_role) {
    # let's hope they have /proc
-   if ( -d '/proc' ) { $role = 'ProcFS'; }
+   if ( -d '/proc' and @{[ glob('/proc/*') ]} ) { $role = 'ProcFS'; }
    # ...or that Proc::ProcessTable can handle it
-   else              { $role = 'PPT';    }
+   else                                         { $role = 'PPT'; }
 }
 
 # This here first, so that it gets overloaded

@@ -42,10 +42,16 @@ sub os_deps {
       return ( 'VMS::Process' => 0 );
    }
    else {
-      if ( not -d '/proc' ) {
+      # let's hope they have /proc
+      if ( -d '/proc' and @{[ glob('/proc/*') ]} ) {
+         return ();
+      }
+      # ...or that Proc::ProcessTable can handle it
+      else {
          return ( 'Proc::ProcessTable' => 0.48 );  # ie: the one that ain't broke
       }
    }
+   return ();
 }
 TEMPLATE
 
