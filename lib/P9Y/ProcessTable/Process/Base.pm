@@ -1,6 +1,6 @@
 package P9Y::ProcessTable::Process::Base;
 
-our $VERSION = '1.05'; # VERSION
+our $VERSION = '1.05_01'; # VERSION
 
 #############################################################################
 # Modules

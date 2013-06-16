@@ -29,13 +29,14 @@ my %WriteMakefileArgs = (
     "namespace::clean" => 0
   },
   "TEST_REQUIRES" => {
+    "Devel::SimpleTrace" => "0.07",
     "ExtUtils::MakeMaker" => "6.31",
     "List::Util" => "1.19",
     "Test::CheckDeps" => "0.002",
     "Test::More" => "0.94",
     "Test::Most" => "0.01"
   },
-  "VERSION" => "1.05",
+  "VERSION" => "1.05_01",
   "test" => {
     "TESTS" => "t/*.t"
   }

@@ -1,8 +1,24 @@
 Revision History for P9Y-ProcessTable
 =====================================
 
+v1.05_01 2013-06-16
+-------------------
+
+commit 80366e2c8433ff07a7e474215540d577757dd32e
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Sun Jun 16 12:32:57 2013 -0400
+
+    Clean up minor items
+    Try to figure out BSD->PPT failures through Devel::SimpleTrace
+
 v1.05 2013-06-14
 ----------------
+
+commit ea2718d3a113da68df117173d898de07d395a61e
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Fri Jun 14 20:50:10 2013 -0400
+
+    Release v1.05
 
 commit cbeb31feb3bfc3b3031393bb877585b17b644933
 Author: Brendan Byrd <Perl@ResonatorSoft.org>

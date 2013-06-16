@@ -1,6 +1,6 @@
 package P9Y::ProcessTable::Process;
 
-our $VERSION = '1.05'; # VERSION
+our $VERSION = '1.05_01'; # VERSION
 # ABSTRACT: Base class for a single process
 
 #############################################################################
@@ -10,7 +10,6 @@ use strict;
 use warnings;
 
 use Module::Runtime ();
-use Path::Class ();
 
 use Moo;
 
