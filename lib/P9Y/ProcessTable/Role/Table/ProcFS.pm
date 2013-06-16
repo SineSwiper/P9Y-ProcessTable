@@ -1,6 +1,6 @@
 package P9Y::ProcessTable::Role::Table::ProcFS;
 
-our $VERSION = '1.05_01'; # VERSION
+our $VERSION = '1.05_02'; # VERSION
 
 #############################################################################
 # Modules

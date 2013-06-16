@@ -1,8 +1,15 @@
 Revision History for P9Y-ProcessTable
 =====================================
 
-v1.05_01 2013-06-16
+v1.05_02 2013-06-16
 -------------------
+
+commit cf885d5fd5150a6ac660856ae43cf8a255607b1b
+Author: Brendan Byrd <Perl@ResonatorSoft.org>
+Date:   Sun Jun 16 15:26:03 2013 -0400
+
+    Detect unmounted /proc and don't use it
+    Fix os_deps return bug for /proc
 
 commit 80366e2c8433ff07a7e474215540d577757dd32e
 Author: Brendan Byrd <Perl@ResonatorSoft.org>

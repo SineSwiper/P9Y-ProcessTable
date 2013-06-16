@@ -36,7 +36,7 @@ my %WriteMakefileArgs = (
     "Test::More" => "0.94",
     "Test::Most" => "0.01"
   },
-  "VERSION" => "1.05_01",
+  "VERSION" => "1.05_02",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -94,8 +94,14 @@ sub os_deps {
       return ( 'VMS::Process' => 0 );
    }
    else {
-      if ( not -d '/proc' ) {
+      # let's hope they have /proc
+      if ( -d '/proc' and @{[ glob('/proc/*') ]} ) {
+         return ();
+      }
+      # ...or that Proc::ProcessTable can handle it
+      else {
          return ( 'Proc::ProcessTable' => 0.48 );  # ie: the one that ain't broke
       }
    }
+   return ();
 }

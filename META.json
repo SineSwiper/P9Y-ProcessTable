@@ -51,51 +51,51 @@
    "provides" : {
       "P9Y::ProcessTable" : {
          "file" : "lib/P9Y/ProcessTable.pm",
-         "version" : "1.05_01"
+         "version" : "1.05_02"
       },
       "P9Y::ProcessTable::Process" : {
          "file" : "lib/P9Y/ProcessTable/Process.pm",
-         "version" : "1.05_01"
+         "version" : "1.05_02"
       },
       "P9Y::ProcessTable::Process::Base" : {
          "file" : "lib/P9Y/ProcessTable/Process/Base.pm",
-         "version" : "1.05_01"
+         "version" : "1.05_02"
       },
       "P9Y::ProcessTable::Role::Process::OS::MSWin32" : {
          "file" : "lib/P9Y/ProcessTable/Role/Process/OS/MSWin32.pm",
-         "version" : "1.05_01"
+         "version" : "1.05_02"
       },
       "P9Y::ProcessTable::Role::Table::OS::MSWin32" : {
          "file" : "lib/P9Y/ProcessTable/Role/Table/OS/MSWin32.pm",
-         "version" : "1.05_01"
+         "version" : "1.05_02"
       },
       "P9Y::ProcessTable::Role::Table::OS::VMS" : {
          "file" : "lib/P9Y/ProcessTable/Role/Table/OS/VMS.pm",
-         "version" : "1.05_01"
+         "version" : "1.05_02"
       },
       "P9Y::ProcessTable::Role::Table::OS::freebsd" : {
          "file" : "lib/P9Y/ProcessTable/Role/Table/OS/freebsd.pm",
-         "version" : "1.05_01"
+         "version" : "1.05_02"
       },
       "P9Y::ProcessTable::Role::Table::OS::os2" : {
          "file" : "lib/P9Y/ProcessTable/Role/Table/OS/os2.pm",
-         "version" : "1.05_01"
+         "version" : "1.05_02"
       },
       "P9Y::ProcessTable::Role::Table::PPT" : {
          "file" : "lib/P9Y/ProcessTable/Role/Table/PPT.pm",
-         "version" : "1.05_01"
+         "version" : "1.05_02"
       },
       "P9Y::ProcessTable::Role::Table::ProcFS" : {
          "file" : "lib/P9Y/ProcessTable/Role/Table/ProcFS.pm",
-         "version" : "1.05_01"
+         "version" : "1.05_02"
       },
       "P9Y::ProcessTable::Table" : {
          "file" : "lib/P9Y/ProcessTable/Table.pm",
-         "version" : "1.05_01"
+         "version" : "1.05_02"
       },
       "P9Y::ProcessTable::Table::Base" : {
          "file" : "lib/P9Y/ProcessTable/Table/Base.pm",
-         "version" : "1.05_01"
+         "version" : "1.05_02"
       }
    },
    "release_status" : "testing",
@@ -111,7 +111,7 @@
       },
       "x_irc" : "irc://irc.perl.org/#win32"
    },
-   "version" : "1.05_01",
+   "version" : "1.05_02",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.014002"
