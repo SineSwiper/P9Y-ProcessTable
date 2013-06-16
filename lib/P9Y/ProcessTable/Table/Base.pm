@@ -1,5 +1,4 @@
-package  # hide from PAUSE
-   P9Y::ProcessTable::Table::Base;
+package P9Y::ProcessTable::Table::Base;
 
 # VERSION
 

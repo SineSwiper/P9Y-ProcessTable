@@ -10,7 +10,6 @@ use strict;
 use warnings;
 
 use Module::Runtime ();
-use Path::Class ();
 
 use Moo;
 

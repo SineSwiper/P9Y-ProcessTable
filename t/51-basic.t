@@ -1,3 +1,4 @@
+use Devel::SimpleTrace;
 use Test::Most tests => 4;
 use P9Y::ProcessTable;
 
