@@ -1,6 +1,6 @@
 package P9Y::ProcessTable::Role::Table::PPT;
 
-our $VERSION = '1.05_02'; # VERSION
+our $VERSION = '1.05_03'; # VERSION
 
 #############################################################################
 # Modules
@@ -44,7 +44,8 @@ sub list {
 }
 
 sub fields {
-   return $pt->fields;
+   # sometimes an undef pops through
+   return grep { $_ } $pt->fields;
 }
 
 sub _process_hash {
@@ -66,10 +67,7 @@ sub _convert_process {
 
    foreach my $key ( $self->fields ) {
       my $old = $stat_loc->{$key} || $key;
-
-      # Sigh, why give me a field I can't access?
-      my $item;
-      $item = $process->$old() if $process->can($old);
+      my $item = eval { $process->$old() };
 
       $hash->{$key} = $item if defined $item;
    }

@@ -1,6 +1,6 @@
 package P9Y::ProcessTable;
 
-our $VERSION = '1.05_02'; # VERSION
+our $VERSION = '1.05_03'; # VERSION
 # ABSTRACT: Portably access the process table
 
 use strict;
@@ -197,15 +197,6 @@ P:PT gained a non-broken release.
 Certain other C<<< /proc >>> friendly OSs needs further support.  Frankly, I'm trying to get a feel for what people actually need than just spending
 the time coding something for, say, NeXT OS and 50 other flavors.  However, supporting one OS or another should be pretty easy.  If you need
 support, dive into the C<<< ProcFS >>> code and submit a patch.
-
-=back
-
-=over
-
-=item *
-
-One would say that the class-based calling of ProcessTable (vs. the more traditional OO model of P9Y:PT:Process) is confusing.  I tend to agree,
-but it was modeled after Proc:PT's calling scheme.
 
 =back
 

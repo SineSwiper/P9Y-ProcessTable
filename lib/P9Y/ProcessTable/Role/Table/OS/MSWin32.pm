@@ -1,6 +1,6 @@
 package P9Y::ProcessTable::Role::Table::OS::MSWin32;
 
-our $VERSION = '1.05_02'; # VERSION
+our $VERSION = '1.05_03'; # VERSION
 
 #############################################################################
 # Modules
