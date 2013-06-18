@@ -159,9 +159,6 @@ P:PT gained a non-broken release.
 the time coding something for, say, NeXT OS and 50 other flavors.  However, supporting one OS or another should be pretty easy.  If you need
 support, dive into the {ProcFS} code and submit a patch.
 
-* One would say that the class-based calling of ProcessTable (vs. the more traditional OO model of P9Y:PT:Process) is confusing.  I tend to agree,
-but it was modeled after Proc:PT's calling scheme.
-
 * See [P9Y::ProcessTable::Process] for other caveats.
 
 = SEE ALSO
