@@ -1,6 +1,6 @@
 package P9Y::ProcessTable::Role::Table::PPT;
 
-our $VERSION = '1.05_03'; # VERSION
+our $VERSION = '1.05_04'; # VERSION
 
 #############################################################################
 # Modules
@@ -52,7 +52,7 @@ sub _process_hash {
    my ($self, $pid) = @_;
    my $process = first { $_->pid == $pid } @{ $pt->table };
    return unless $process;
-   return $self->_convert_process;
+   return $self->_convert_process($process);
 }
 
 sub _convert_process {
