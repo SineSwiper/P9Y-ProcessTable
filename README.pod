@@ -180,15 +180,6 @@ support, dive into the C<<< ProcFS >>> code and submit a patch.
 
 =item *
 
-One would say that the class-based calling of ProcessTable (vs. the more traditional OO model of P9Y:PT:Process) is confusing.  I tend to agree,
-but it was modeled after Proc:PT's calling scheme.
-
-=back
-
-=over
-
-=item *
-
 See L<P9Y::ProcessTable::Process> for other caveats.
 
 =back
