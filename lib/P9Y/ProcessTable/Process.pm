@@ -1,6 +1,7 @@
 package P9Y::ProcessTable::Process;
 
-our $VERSION = '1.06'; # VERSION
+our $AUTHORITY = 'cpan:BBYRD'; # AUTHORITY
+our $VERSION = '1.06_01'; # VERSION
 # ABSTRACT: Base class for a single process
 
 #############################################################################
@@ -35,7 +36,7 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 
@@ -149,7 +150,7 @@ Until L<Win32::API> is L<fixed|https://github.com/bulk88/perl5-win32-api>, C<<< 
 
 =head1 AVAILABILITY
 
-The project homepage is L<https://github.com/SineSwiper/P9Y-ProcessTable/wiki>.
+The project homepage is L<https://github.com/SineSwiper/P9Y-ProcessTable>.
 
 The latest version of this module is available from the Comprehensive Perl
 Archive Network (CPAN). Visit L<http://www.perl.com/CPAN/> to find a CPAN
@@ -157,21 +158,7 @@ site near you, or see L<https://metacpan.org/module/P9Y::ProcessTable/>.
 
 =head1 AUTHOR
 
-Brendan Byrd <bbyrd@cpan.org>
-
-=head1 CONTRIBUTORS
-
-=over 4
-
-=item *
-
-Chris 'BinGOs' Williams <chris@bingosnet.co.uk>
-
-=item *
-
-Mithun Ayachit <m0t0rbr3th@gmail.com>
-
-=back
+Brendan Byrd <BBYRD@CPAN.org>
 
 =head1 COPYRIGHT AND LICENSE
 

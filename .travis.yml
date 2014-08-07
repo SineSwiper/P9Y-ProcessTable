@@ -1,14 +1,41 @@
 language: perl
 perl:
-   - 5.16
-   - 5.14
-   - 5.12
-   - 5.10
+   - 'blead'
+   - '5.20'
+   - '5.18'
+   - '5.16'
+   - '5.14'
+   - '5.12'
+   - '5.10'
+   - '5.8'
+env:
+   - BUILD=0
+   - BUILD=1
+matrix:
+   allow_failures:
+      - perl: 'blead'
+      - perl: '5.8'
+   fast_finish: true
 branches:
    only: /^build\/.*/
 before_install:
-   - cpanm --quiet --notest --skip-satisfied autovivification indirect multidimensional
-   - export AUTOMATED_TESTING=1 HARNESS_OPTIONS=j10:c HARNESS_TIMER=1
+   - export AUTOMATED_TESTING=1 NONINTERACTIVE_TESTING=1 HARNESS_OPTIONS=j10:c HARNESS_TIMER=1
+   - git clone git://github.com/haarg/perl-travis-helper
+   - source perl-travis-helper/init
+   - build-perl
+   - perl -V
    - rm .travis.yml
+   - export AUTHOR_TESTING=0
+   - cpanm --quiet --notest --skip-satisfied autovivification indirect multidimensional
 install:
-   - cpanm --installdeps --verbose  --skip-satisfied .
+   - cpanm --installdeps --verbose  .
+notifications:
+   email: false
+   irc:
+      channels:
+         - irc.perl.org#sanity
+      on_failure: always
+      on_success: change
+      template:
+         - '%{branch}#%{build_number} by %{author}: %{message} (%{build_url})'
+      use_notice: true

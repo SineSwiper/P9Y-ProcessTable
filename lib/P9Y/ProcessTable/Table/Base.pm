@@ -1,6 +1,7 @@
 package P9Y::ProcessTable::Table::Base;
 
-our $VERSION = '1.06'; # VERSION
+our $AUTHORITY = 'cpan:BBYRD'; # AUTHORITY
+our $VERSION = '1.06_01'; # VERSION
 
 #############################################################################
 # Modules

@@ -6,15 +6,17 @@ use warnings;
 
 use v5.8.8;
 
-use ExtUtils::MakeMaker 6.30;
+use ExtUtils::MakeMaker ;
 
 
 
 my %WriteMakefileArgs = (
   "ABSTRACT" => "Portably access the process table",
-  "AUTHOR" => "Brendan Byrd <bbyrd\@cpan.org>",
+  "AUTHOR" => "Brendan Byrd <BBYRD\@CPAN.org>",
   "BUILD_REQUIRES" => {},
-  "CONFIGURE_REQUIRES" => {},
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.31"
+  },
   "DISTNAME" => "P9Y-ProcessTable",
   "EXE_FILES" => [],
   "LICENSE" => "artistic_2",
@@ -31,12 +33,12 @@ my %WriteMakefileArgs = (
   "TEST_REQUIRES" => {
     "Devel::SimpleTrace" => "0.07",
     "ExtUtils::MakeMaker" => "6.31",
-    "List::Util" => "1.19",
-    "Test::CheckDeps" => "0.002",
+    "File::Spec" => "3.16",
+    "Test::CheckDeps" => "0.010",
     "Test::More" => "0.94",
     "Test::Most" => "0.01"
   },
-  "VERSION" => "1.06",
+  "VERSION" => "1.06_01",
   "test" => {
     "TESTS" => "t/*.t"
   }

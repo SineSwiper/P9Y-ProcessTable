@@ -1,361 +1,39 @@
 Revision History for P9Y-ProcessTable
 =====================================
 
-v1.06 2013-06-19
-----------------
+v1.06_01 2014-08-07
+-------------------
 
-commit ad0a46505234db58a3f189b70700e7c88dc88400
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Tue Jun 18 09:08:33 2013 -0400
+[97335c0]
+* Author: Brendan Byrd <Perl@ResonatorSoft.org>
+* Date:   2014-08-06 23:55:41 -0400 (17 minutes ago)
 
-    More PPT fixes...
+Fix RSS for Linux procFS
 
-commit 77fda0d55e4693b118a3a8f83e72dc81ab431c95
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Mon Jun 17 20:09:16 2013 -0400
+[83eaf6a]
+* Author: Brendan Byrd <Perl@ResonatorSoft.org>
+* Date:   2014-08-06 23:54:46 -0400 (18 minutes ago)
 
-    Release v1.05_03
+Use a better source for start time with Linux procFS
 
-commit 9f3748a2e7cd0fc0d6e8d13572732539df6b2149
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Mon Jun 17 20:03:54 2013 -0400
+[cd4e10c]
+* Author: Brendan Byrd <Perl@ResonatorSoft.org>
+* Date:   2014-08-06 22:43:53 -0400 (89 minutes ago)
 
-    More attempts at PPT fixes
+Add AUTHORITY comment
 
-commit cf885d5fd5150a6ac660856ae43cf8a255607b1b
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Sun Jun 16 15:26:03 2013 -0400
+[af0897e]
+* Author: Brendan Byrd <Perl@ResonatorSoft.org>
+* Date:   2013-09-15 19:28:28 -0400 (11 months ago)
 
-    Detect unmounted /proc and don't use it
-    Fix os_deps return bug for /proc
+Use Meta::Dynamic::Config for dynamic_config=1
 
-commit 80366e2c8433ff07a7e474215540d577757dd32e
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Sun Jun 16 12:32:57 2013 -0400
+[c9c58a5]
+* Author: Brendan Byrd <Perl@ResonatorSoft.org>
+* Date:   2013-08-26 20:43:09 -0400 (12 months ago)
 
-    Clean up minor items
-    Try to figure out BSD->PPT failures through Devel::SimpleTrace
+Add test/requires deps
 
-v1.05 2013-06-14
-----------------
-
-commit ea2718d3a113da68df117173d898de07d395a61e
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Fri Jun 14 20:50:10 2013 -0400
-
-    Release v1.05
-
-commit cbeb31feb3bfc3b3031393bb877585b17b644933
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Fri Jun 14 13:23:45 2013 -0400
-
-    Add .mailmap
-
-commit 066640e7eb318febeb45a9b525c517061a831ebf
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Fri Jun 14 13:11:44 2013 -0400
-
-    Release v1.00_03
-
-commit 5f09ac8fceca06a50e1eee7a45acba99aa13009f
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Fri Jun 14 09:07:21 2013 -0400
-
-    Finalize new Role structure
-
-commit 120818684ac820f26d03a64a972202bf31a08f51
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Thu Jun 13 21:21:58 2013 -0400
-
-    More yakshaving...
-
-commit eb3454d74de8f9f9e2cb72bec4ef971767561dec
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Thu Jun 13 09:18:00 2013 -0400
-
-    Try to get Darwin working
-    Clean up some 'redefine' lines
-
-v1.00 2013-06-07
-----------------
-
-commit 15f001bd977e8522876ee5ae663f0424de2e1579
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Fri Jun 7 09:23:19 2013 -0400
-
-    Release v0.98_01
-
-commit 1ad0fb2fa15280d01755521494d02d19cb38e042
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Fri Jun 7 09:19:19 2013 -0400
-
-    Fix the magic with ProcessTable.pm's methods by moving them to a
-       ::Base class
-    Move all per-OS modules to a OS/ directory
-    Remove Moo from per-OS modules (since they are never objects)
-
-v0.98 2013-06-04
-----------------
-
-commit cd1cac791fdf9f471c9314ce8ff5fdae73d4be8c
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Tue Jun 4 22:22:35 2013 -0400
-
-    Fix PREREQ_PM insertion to work with quotes
-
-v0.97 2013-05-31
-----------------
-
-commit afb3303c31bc7ecc78d7b87d86ee16fed4fdc88a
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Fri May 31 00:12:37 2013 -0400
-
-    Fix missing @PodWeaver->config_plugin option in dist.ini
-       (which totally frelled the POD last release)
-
-v0.96 2013-05-30
-----------------
-
-commit b5bdcba78b9ce82b59f0f6beb5ed0983e8dc0ca5
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Thu May 30 23:57:31 2013 -0400
-
-    Release v0.96
-
-commit 2588c7bc38e7c13bc0036fc647ab5b634ee57d2e
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Tue May 28 09:07:50 2013 -0400
-
-    Add in Path::Class 0.32 dep for Cygwin issue
-    Fix *.ini for new Author PB
-
-commit 13c4aee47e1515d343980e72c4a6945b5136af2f
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Mon Mar 18 18:49:41 2013 -0400
-
-    Release v0.95_004
-
-commit 5873bc169abf4a379d9cf5acd0da5bcbe4c617f9
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Mon Mar 18 18:41:36 2013 -0400
-
-    Fix methods caught by the "You cannot overwrite a locally defined method" M:G:A error
-
-commit 8f23744a3c78027f11e0d1a085d16a25df296c96
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Wed Feb 27 18:17:09 2013 -0500
-
-    Clean up some of the Win32 work
-    Fix ProcFS to not create hashes for non-existent files
-
-commit 9b51815fafa0eca8dafbf3f1447fc028af3363d7
-Author: Mithun Ayachit <m0t0rbr3th@gmail.com>
-Date:   Sat Feb 2 18:15:54 2013 -0600
-
-    Use the /proc filesystem on cygwin
-    
-    Cygwin provides a working /proc filesystem that is pretty similar to
-    Linux distributions. P9Y::ProcessTable::Win32 is updated to recognize
-    when running on Cygwin and provide the following behavior:
-    
-    - Use the /proc filesystem to provide Cygwin process info
-    - Use Win32::Process::Info to provide Windows process info
-    
-    This provides the user with both Cygwin and Windows processes
-    when on cygwin and only Windows processes when on Win32.
-
-commit 86d543ba14c18f477efef4767adab3183f47aca5
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Wed Feb 13 18:53:00 2013 -0500
-
-    Release v0.95_002
-
-commit 3fe4a4e2de99d808992761c20602696d39f87220
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Wed Feb 13 18:47:50 2013 -0500
-
-    Fix minimum_year to work with 5.8.8
-
-commit 5e42e079342bba332d17d2aadf81d3730744142a
-Author: Mithun Ayachit <mayachit@amfam.com>
-Date:   Thu Feb 7 16:01:41 2013 -0600
-
-    remove utf8 pre-req
-
-commit 61bf3fafc94c5ecf6fcea74d9e1bb5dc78f88363
-Author: Mithun Ayachit <m0t0rbr3th@gmail.com>
-Date:   Sat Feb 2 13:29:20 2013 -0600
-
-    Allow distribution to be used at least perl-5.8.8
-    
-    - Updated P9Y::ProcessTable to use `if/else` instead of `for/when` syntax
-    - Updated OS specific modules to use `my` instead of `state`
-    - Stop using sanity since it requires perl-5.10.1.
-        Rather use the default pragma that sanity loads
-    
-    update minting profile to generate 5.8.1 compatible makefile
-    
-    fix makefil template
-    
-    Removed perltidy closing comments. Updated to require at least perl-5.8.8
-
-v0.95 2012-11-28
-----------------
-
-commit aa2f13811272f6cc616bc65a4dadc40abdc51786
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Wed Nov 28 10:08:53 2012 -0500
-
-    Release v0.95
-
-commit 52837be67bf325a103c18be102733a7cd6afbb41
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Wed Nov 28 10:07:11 2012 -0500
-
-    Change docs for BSD adjustment
-    Use Dragonfly /proc code for all BSD types
-
-commit f22628bb4cbc552a86cf3fc8ff5ffded3bce17c0
-Merge: c8c1a2f 3238f44
-Author: Brendan Byrd <GitHub@ResonatorSoft.org>
-Date:   Wed Nov 28 06:48:29 2012 -0800
-
-    Merge pull request #2 from bingos/master
-    
-    OpenBSD and NetBSD should be the same as DragonflyBSD
-
-commit 3238f44124561706803769b55011dc91c432d025
-Author: Chris 'BinGOs' Williams <chris@bingosnet.co.uk>
-Date:   Wed Nov 28 14:45:02 2012 +0000
-
-    NetBSD and OpenBSD should be the same as DragonflyBSD
-
-v0.94 2012-11-28
-----------------
-
-commit c8c1a2f8cc457f5ec73b27b8d74917da23cb7112
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Wed Nov 28 09:46:28 2012 -0500
-
-    Release v0.94
-
-commit eeb2bd7a5fce3dcfcb92d8c7e1f0b6df47c1a064
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Wed Nov 28 09:43:42 2012 -0500
-
-    Update docs (add Dragonfly to list)
-
-commit 58217c1d20c8c97d9a079960f59fe71dcb54c2ad
-Author: Chris 'BinGOs' Williams <chris@bingosnet.co.uk>
-Date:   Wed Nov 28 14:32:16 2012 +0000
-
-    Make the DragonflyBSD procfs stuff actually work.
-
-commit 8c6ce1f95c23f68d39b2d5bc7704d23bbe4aca3b
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Tue Nov 27 14:01:05 2012 -0500
-
-    Fix ProcFS for Dragonfly and Solaris
-
-v0.93 2012-10-24
-----------------
-
-commit 29e6f98f3d0e884224087eac26a202a08c90b062
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Wed Oct 24 16:07:34 2012 -0400
-
-    Release v0.93
-
-commit 8c9c354c2f596a67926d7e80ef04304ae761674d
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Wed Oct 24 16:01:02 2012 -0400
-
-    Fix Solaris in ProcFS
-    Fix BSD v5.12 %$hash issue
-    Make ppid a non-dependency
-
-v0.92 2012-10-17
-----------------
-
-commit 14ea842b35f9b9e306f87dce9b98479f0965d3a8
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Wed Oct 17 20:25:35 2012 -0400
-
-    Release v0.92
-
-commit 9105e1bf0329867d7cfc0c89ac3f5bd2cb4ada71
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Wed Oct 17 20:20:28 2012 -0400
-
-    Some final test fixes
-
-commit c6c508319355b6be53c65e76663543cb96845711
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Wed Oct 17 18:15:30 2012 -0400
-
-    Fix Prereqs
-    Reject $hash if it doesn't have a pid/ppid
-
-commit 2d39a99dabc4b6b36bc4997c0080f2356cf806f6
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Wed Oct 17 17:40:39 2012 -0400
-
-    Small fixes
-    
-    Remove 'no strict' from SYNOPSIS
-    Fix dist.ini ordering issue with MakeMaker/P9YOSDeps
-    Make sure OS modules produce no PODs
-
-commit 98a22f7a3ae0354c246984bcd4020d0a31581c3f
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Wed Oct 17 15:38:27 2012 -0400
-
-    Fix missing main::dir error in P9YOSDeps.pm
-
-v0.91 2012-10-17
-----------------
-
-commit dc15d06bf82c0afb4afdfff3a4d3b9b9c66a7d44
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Wed Oct 17 14:41:51 2012 -0400
-
-    Release v0.91
-
-commit fc4b511f6b5cf1f1793a3e30cba96f4d83b19864
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Wed Oct 17 14:39:36 2012 -0400
-
-    Fix SYNOPSIS
-
-commit 9da026d73e597eb17ee30370d4a89797a05af3e3
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Wed Oct 17 14:15:55 2012 -0400
-
-    Minor POD/dist.ini changes
-
-commit 35d23f5e229647f1f870ed57c19715af823d292b
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Wed Oct 17 14:04:22 2012 -0400
-
-    README.pod / stuff
-
-commit 6e74234a025500fb435bef1a8df7ba9651b0b4ee
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Wed Oct 17 13:41:07 2012 -0400
-
-    Various fixes
-    
-    Fix P9YOSDeps.pm
-    Add PODs
-    Add fields method
-    Add suid/sgid
-    Normalize fields a bit better
-
-commit f6ea918d7409723371dcdf8a461051c8021d0483
-Author: Brendan Byrd <Perl@ResonatorSoft.org>
-Date:   Tue Oct 16 10:41:52 2012 -0400
-
-    Add inc/ (ignored by mistake)
 
 ===================================
 End of changes in the last 365 days

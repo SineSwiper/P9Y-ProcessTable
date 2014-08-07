@@ -1,6 +1,7 @@
 package P9Y::ProcessTable::Role::Table::ProcFS;
 
-our $VERSION = '1.06'; # VERSION
+our $AUTHORITY = 'cpan:BBYRD'; # AUTHORITY
+our $VERSION = '1.06_01'; # VERSION
 
 #############################################################################
 # Modules
@@ -18,6 +19,7 @@ requires 'process';
 
 use Path::Class;
 use Config;
+use POSIX;
 
 use namespace::clean;
 no warnings 'uninitialized';
@@ -66,7 +68,7 @@ sub _process_hash {
       pid   => $pid,
       uid   => $pdir->stat->uid,
       gid   => $pdir->stat->gid,
-      start => $pdir->stat->mtime,
+      start => $pdir->stat->mtime,  # not reliable
    };
 
    # process links
@@ -95,6 +97,17 @@ sub _process_hash {
       }
    }
 
+   my $clock_ticks = POSIX::sysconf( &POSIX::_SC_CLK_TCK );
+
+   # start time is measured in the number of clock ticks since boot, so we need the boot time
+   my $boot_time;
+   my $uptime_file = file('', 'proc', 'uptime');
+   if ( -f $uptime_file ) {
+      my $time = time;
+      my $uptime = $uptime_file->slurp;
+      $boot_time = $time - $1 if $uptime =~ /^([\d\.]+)/;
+   }
+
    # process main PID stats
    if ( -f $pdir->file('status') and -f $pdir->file('statm') and -f $pdir->file('stat') ) {
       ### Linux ###
@@ -114,8 +127,8 @@ sub _process_hash {
       };
 
       my $stat_loc = [ qw(
-         pid fname state ppid pgrp sess ttynum . flags minflt cminflt majflt cmajflt utime stime cutime cstime priority . threads . .
-         size . rss . . . . . . . . . wchan . . . cpuid . . . . .
+         pid fname state ppid pgrp sess ttynum . flags minflt cminflt majflt cmajflt utime stime cutime cstime priority . threads .
+         starttime size rss . . . . . . . . . . wchan . . . cpuid . . . . .
       ) ];
 
       foreach my $i (0 .. @data - 1) {
@@ -124,6 +137,13 @@ sub _process_hash {
          $hash->{ $stat_loc->[$i] } = $data[$i];
       }
 
+      # normalize clock ticks into seconds
+      if ($clock_ticks) {
+         $hash->{$_} /= $clock_ticks for (qw[ utime stime cutime cstime starttime ]);
+         $hash->{start} = $boot_time + $hash->{starttime} if $boot_time;
+      }
+      delete $hash->{starttime};
+
       $hash->{fname} =~ s/^\((.+)\)$/$1/;
       $hash->{state} = $states->{ $hash->{state} };
       $hash->{ time} = $hash->{ utime} + $hash->{ stime};
@@ -131,6 +151,8 @@ sub _process_hash {
 
       $hash->{ ttlflt} = $hash->{ minflt} + $hash->{ majflt};
       $hash->{cttlflt} = $hash->{cminflt} + $hash->{cmajflt};
+
+      $hash->{rss} *= POSIX::sysconf( &POSIX::_SC_PAGESIZE );
    }
    elsif ($^O =~ /solaris|sunos/i) {
       ### Solaris ###

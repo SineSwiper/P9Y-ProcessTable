@@ -1,6 +1,7 @@
 package P9Y::ProcessTable;
 
-our $VERSION = '1.06'; # VERSION
+our $AUTHORITY = 'cpan:BBYRD'; # AUTHORITY
+our $VERSION = '1.06_01'; # VERSION
 # ABSTRACT: Portably access the process table
 
 use strict;
@@ -24,7 +25,7 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 
@@ -236,7 +237,7 @@ L<VMS::Process>
 
 =head1 AVAILABILITY
 
-The project homepage is L<https://github.com/SineSwiper/P9Y-ProcessTable/wiki>.
+The project homepage is L<https://github.com/SineSwiper/P9Y-ProcessTable>.
 
 The latest version of this module is available from the Comprehensive Perl
 Archive Network (CPAN). Visit L<http://www.perl.com/CPAN/> to find a CPAN
@@ -269,7 +270,7 @@ Please report any bugs or feature requests via L<https://github.com/SineSwiper/P
 
 =head1 AUTHOR
 
-Brendan Byrd <bbyrd@cpan.org>
+Brendan Byrd <BBYRD@CPAN.org>
 
 =head1 CONTRIBUTORS
 
