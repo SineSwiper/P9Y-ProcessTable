@@ -1,5 +1,6 @@
 package P9Y::ProcessTable::Process;
 
+# AUTHORITY
 # VERSION
 # ABSTRACT: Base class for a single process
 

@@ -1,5 +1,6 @@
 package P9Y::ProcessTable::Process::Base;
 
+# AUTHORITY
 # VERSION
 
 #############################################################################

@@ -1,5 +1,6 @@
 package P9Y::ProcessTable::Role::Table::ProcFS;
 
+# AUTHORITY
 # VERSION
 
 #############################################################################

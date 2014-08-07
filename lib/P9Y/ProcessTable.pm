@@ -1,5 +1,6 @@
 package P9Y::ProcessTable;
 
+# AUTHORITY
 # VERSION
 # ABSTRACT: Portably access the process table
 

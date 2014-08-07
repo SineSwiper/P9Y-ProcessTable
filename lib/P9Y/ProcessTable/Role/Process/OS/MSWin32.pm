@@ -1,5 +1,6 @@
 package P9Y::ProcessTable::Role::Process::OS::MSWin32;
 
+# AUTHORITY
 # VERSION
 
 #############################################################################
