@@ -128,7 +128,7 @@ sub _process_hash {
 
       my $stat_loc = [ qw(
          pid fname state ppid pgrp sess ttynum . flags minflt cminflt majflt cmajflt utime stime cutime cstime priority . threads .
-         starttime size . rss . . . . . . . . . wchan . . . cpuid . . . . .
+         starttime size rss . . . . . . . . . . wchan . . . cpuid . . . . .
       ) ];
 
       foreach my $i (0 .. @data - 1) {
@@ -151,6 +151,8 @@ sub _process_hash {
 
       $hash->{ ttlflt} = $hash->{ minflt} + $hash->{ majflt};
       $hash->{cttlflt} = $hash->{cminflt} + $hash->{cmajflt};
+
+      $hash->{rss} *= POSIX::sysconf( &POSIX::_SC_PAGESIZE );
    }
    elsif ($^O =~ /solaris|sunos/i) {
       ### Solaris ###
