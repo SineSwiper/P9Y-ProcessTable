@@ -1,24 +1,30 @@
 Revision History for P9Y-ProcessTable
 =====================================
 
-v1.06_01 2014-08-07
--------------------
+v1.07 2014-08-18
+----------------
+
+[0484817]
+* Author: Brendan Byrd <Perl@ResonatorSoft.org>
+* Date:   2014-08-07 00:31:37 -0400 (12 days ago)
+
+Release v1.06_01
 
 [97335c0]
 * Author: Brendan Byrd <Perl@ResonatorSoft.org>
-* Date:   2014-08-06 23:55:41 -0400 (17 minutes ago)
+* Date:   2014-08-06 23:55:41 -0400 (12 days ago)
 
 Fix RSS for Linux procFS
 
 [83eaf6a]
 * Author: Brendan Byrd <Perl@ResonatorSoft.org>
-* Date:   2014-08-06 23:54:46 -0400 (18 minutes ago)
+* Date:   2014-08-06 23:54:46 -0400 (12 days ago)
 
 Use a better source for start time with Linux procFS
 
 [cd4e10c]
 * Author: Brendan Byrd <Perl@ResonatorSoft.org>
-* Date:   2014-08-06 22:43:53 -0400 (89 minutes ago)
+* Date:   2014-08-06 22:43:53 -0400 (12 days ago)
 
 Add AUTHORITY comment
 

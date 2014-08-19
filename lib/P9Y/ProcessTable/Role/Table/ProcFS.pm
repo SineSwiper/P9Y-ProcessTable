@@ -1,7 +1,7 @@
 package P9Y::ProcessTable::Role::Table::ProcFS;
 
 our $AUTHORITY = 'cpan:BBYRD'; # AUTHORITY
-our $VERSION = '1.06_01'; # VERSION
+our $VERSION = '1.07'; # VERSION
 
 #############################################################################
 # Modules

@@ -27,40 +27,40 @@ no_index:
 provides:
   P9Y::ProcessTable:
     file: lib/P9Y/ProcessTable.pm
-    version: 1.06_01
+    version: 1.07
   P9Y::ProcessTable::Process:
     file: lib/P9Y/ProcessTable/Process.pm
-    version: 1.06_01
+    version: 1.07
   P9Y::ProcessTable::Process::Base:
     file: lib/P9Y/ProcessTable/Process/Base.pm
-    version: 1.06_01
+    version: 1.07
   P9Y::ProcessTable::Role::Process::OS::MSWin32:
     file: lib/P9Y/ProcessTable/Role/Process/OS/MSWin32.pm
-    version: 1.06_01
+    version: 1.07
   P9Y::ProcessTable::Role::Table::OS::MSWin32:
     file: lib/P9Y/ProcessTable/Role/Table/OS/MSWin32.pm
-    version: 1.06_01
+    version: 1.07
   P9Y::ProcessTable::Role::Table::OS::VMS:
     file: lib/P9Y/ProcessTable/Role/Table/OS/VMS.pm
-    version: 1.06_01
+    version: 1.07
   P9Y::ProcessTable::Role::Table::OS::freebsd:
     file: lib/P9Y/ProcessTable/Role/Table/OS/freebsd.pm
-    version: 1.06_01
+    version: 1.07
   P9Y::ProcessTable::Role::Table::OS::os2:
     file: lib/P9Y/ProcessTable/Role/Table/OS/os2.pm
-    version: 1.06_01
+    version: 1.07
   P9Y::ProcessTable::Role::Table::PPT:
     file: lib/P9Y/ProcessTable/Role/Table/PPT.pm
-    version: 1.06_01
+    version: 1.07
   P9Y::ProcessTable::Role::Table::ProcFS:
     file: lib/P9Y/ProcessTable/Role/Table/ProcFS.pm
-    version: 1.06_01
+    version: 1.07
   P9Y::ProcessTable::Table:
     file: lib/P9Y/ProcessTable/Table.pm
-    version: 1.06_01
+    version: 1.07
   P9Y::ProcessTable::Table::Base:
     file: lib/P9Y/ProcessTable/Table/Base.pm
-    version: 1.06_01
+    version: 1.07
 requires:
   List::AllUtils: 0
   Module::Runtime: 0.002
@@ -72,7 +72,7 @@ resources:
   bugtracker: https://github.com/SineSwiper/P9Y-ProcessTable/issues
   homepage: https://github.com/SineSwiper/P9Y-ProcessTable
   repository: https://github.com/SineSwiper/P9Y-ProcessTable.git
-version: 1.06_01
+version: 1.07
 x_Dist_Zilla:
   perl:
     version: 5.014002
@@ -344,7 +344,7 @@ x_Dist_Zilla:
         Dist::Zilla::Plugin::Git::Tag:
           branch: ~
           signed: 0
-          tag: v1.06_01
+          tag: v1.07
           tag_format: v%v
           tag_message: v%v
           time_zone: local

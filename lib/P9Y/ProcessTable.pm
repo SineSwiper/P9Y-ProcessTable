@@ -1,7 +1,7 @@
 package P9Y::ProcessTable;
 
 our $AUTHORITY = 'cpan:BBYRD'; # AUTHORITY
-our $VERSION = '1.06_01'; # VERSION
+our $VERSION = '1.07'; # VERSION
 # ABSTRACT: Portably access the process table
 
 use strict;
