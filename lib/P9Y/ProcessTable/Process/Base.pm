@@ -97,8 +97,9 @@ sub refresh {
 
    # use set methods
    foreach my $meth (keys %$hash) {
-      no strict 'refs';
-      $self->("_set_$meth")($hash->{$meth}) if (exists $hash->{$meth});
+      next if $meth eq 'pid';
+      my $method = "_set_$meth";
+      $self->$method($hash->{$meth});
    }
 
    return $self;

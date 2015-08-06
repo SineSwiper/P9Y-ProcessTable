@@ -1,5 +1,5 @@
 use Devel::SimpleTrace;
-use Test::Most tests => 4;
+use Test::Most tests => 5;
 use P9Y::ProcessTable;
 
 my @tbl;
@@ -16,3 +16,5 @@ if ($p->has_environ) {
 }
 always_explain $p;
 ok($p, 'process exists');
+
+lives_ok { $p->refresh } 'refresh works';
