@@ -83,7 +83,8 @@ sub _process_hash {
       next unless (-f $file);
       $hash->{$fn} = $file->slurp;
       $hash->{$fn} =~ s/\0/ /g;
-      $hash->{$fn} =~ s/^\s+|\s+$//g;
+      $hash->{$fn} =~ s/^\s+//;
+      $hash->{$fn} =~ s/\s+$//;
    }
 
    # process environment
@@ -92,7 +93,8 @@ sub _process_hash {
       my $data;
       eval { $data = $env_file->slurp; };  # skip permission failures
       unless ($@) {
-         $data =~ s/^\0+|\0+$//g;
+         $data =~ s/^\0+//;
+         $data =~ s/\0+$//;
          $hash->{environ} = { map { split /\=/, $_, 2 } grep { /\=/ } split /\0/, $data };
       }
    }
