@@ -63,12 +63,16 @@ sub _process_hash {
    my ($self, $pid) = @_;
 
    my $pdir = dir('', 'proc', $pid);
-   return unless (-d $pdir);
+   return unless -d $pdir;
+
+   my $stat = $pdir->stat;
+   return unless $stat;
+
    my $hash = {
       pid   => $pid,
-      uid   => $pdir->stat->uid,
-      gid   => $pdir->stat->gid,
-      start => $pdir->stat->mtime,  # not reliable
+      uid   => $stat->uid,
+      gid   => $stat->gid,
+      start => $stat->mtime,  # not reliable
    };
 
    # process links
