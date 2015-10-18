@@ -1,3 +1,28 @@
+package P9Y::ProcessTable;
+
+our $AUTHORITY = 'cpan:BBYRD'; # AUTHORITY
+our $VERSION = '1.08'; # VERSION
+# ABSTRACT: Portably access the process table
+
+use strict;
+use warnings;
+
+use P9Y::ProcessTable::Table;
+
+my $pptt = P9Y::ProcessTable::Table->new;
+
+#############################################################################
+# Methods
+
+sub fields  { shift; $pptt->fields;      }
+sub list    { shift; $pptt->list;        }
+sub table   { shift; $pptt->table;       }
+sub process { shift; $pptt->process(@_); }
+
+42;
+
+__END__
+
 =pod
 
 =encoding UTF-8
